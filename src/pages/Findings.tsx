@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, RefreshCw, MoreVertical, ChevronDown, X } from "lucide-react";
+import { Search, RefreshCw, MoreVertical, ChevronDown, X, RotateCw, CheckCircle } from "lucide-react";
 
 const vulnerabilities = [
   { name: "water-plant-01", ip: "192.168...", severity: "High", plugin: "MS16-146: Security U...", vpr: "8.9", cvss: "8.8", state: "Active", aes: "630" },
@@ -62,7 +62,9 @@ export default function Findings() {
                 </DropdownMenu>
                 
                 <div className="flex-1 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Badge variant="secondary" className="bg-green-100 text-green-800">✓</Badge>
+                  <Badge variant="secondary" className="bg-low/20 text-low flex items-center gap-1">
+                    <CheckCircle className="h-3 w-3" />
+                  </Badge>
                   <span className="text-xs">VPR is less than or equal to 8.9 AND VPR is greater than or equal to 7 AND Risk Modified is not equal to Accepted AND Severity is not equal to Info AND State is equal to Active, Resurfaced, New</span>
                   <Button variant="ghost" size="icon" className="h-6 w-6">
                     <X className="h-4 w-4" />
@@ -74,7 +76,7 @@ export default function Findings() {
               
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm">
-                  <span className="mr-2">🔄</span> AI Inventory
+                  <RotateCw className="h-4 w-4 mr-2" /> AI Inventory
                 </Button>
                 <span className="text-sm text-muted-foreground">Group By</span>
                 <Button variant="outline" size="sm">None</Button>
