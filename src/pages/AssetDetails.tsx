@@ -201,11 +201,51 @@ export default function AssetDetails() {
               <AccordionItem value="baseline">
                 <AccordionTrigger>Baseline Policy</AccordionTrigger>
                 <AccordionContent>
-                  <ul>
-                    {policiesByLayer['Baseline']?.map((policy, index) => (
-                      <li key={index}>{policy.name}</li>
-                    ))}
-                  </ul>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Category</TableHead>
+                        <TableHead>Subcategory</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Rollback</TableHead>
+                        <TableHead>Diff</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {policiesByLayer['Baseline']?.map((policy, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{policy.category}</TableCell>
+                          <TableCell>{policy.subcategory}</TableCell>
+                          <TableCell><Badge variant={policy.status === 'successfully applied' ? 'secondary' : 'destructive'}>{policy.status}</Badge></TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline" size="sm">Rollback</Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuItem>Rollback to Snapshot</DropdownMenuItem>
+                                <DropdownMenuItem>Rollback to Baseline</DropdownMenuItem>
+                                <DropdownMenuItem>Rollback to Diff</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                          <TableCell>
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button variant="outline" size="sm">View Diff</Button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-2xl">
+                                <DialogHeader>
+                                  <DialogTitle>Diff for {policy.name}</DialogTitle>
+                                </DialogHeader>
+                                <DiffView oldPolicy={policy.oldConfig} newPolicy={policy.newConfig} />
+                              </DialogContent>
+                            </Dialog>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
