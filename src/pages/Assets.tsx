@@ -1,18 +1,108 @@
+import React, { useState } from "react";
 import { AppLayout } from "@/components/AppLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Search, Server, Monitor, Database, Globe, Shield } from "lucide-react";
 
 const assets = [
-  { hostname: "prod-web-01", ip: "10.0.1.15", os: "Ubuntu 22.04 LTS", type: "Web Server", status: "Compliant", guardian: "Active", lastScan: "2 mins ago", policies: "387/387" },
-  { hostname: "prod-db-01", ip: "10.0.2.20", os: "Windows Server 2022", type: "Database", status: "Non-Compliant", guardian: "Active", lastScan: "5 mins ago", policies: "381/387" },
-  { hostname: "dev-app-03", ip: "10.0.3.42", os: "Ubuntu 20.04 LTS", type: "Application", status: "Compliant", guardian: "Active", lastScan: "10 mins ago", policies: "387/387" },
-  { hostname: "prod-web-02", ip: "10.0.1.16", os: "Ubuntu 22.04 LTS", type: "Web Server", status: "Warning", guardian: "Active", lastScan: "3 mins ago", policies: "385/387" },
-  { hostname: "backup-store-01", ip: "10.0.4.50", os: "CentOS 8", type: "Storage", status: "Compliant", guardian: "Active", lastScan: "8 mins ago", policies: "387/387" },
-  { hostname: "prod-api-01", ip: "10.0.1.25", os: "Ubuntu 22.04 LTS", type: "API Server", status: "Compliant", guardian: "Active", lastScan: "1 min ago", policies: "387/387" },
+  { 
+    hostname: "prod-web-01", 
+    ip: "10.0.1.15", 
+    os: "Ubuntu 22.04 LTS", 
+    type: "Web Server", 
+    status: "Compliant", 
+    guardian: "Active", 
+    lastScan: "2 mins ago", 
+    policies: [
+      { name: 'Custom Security Policy', type: 'Custom', status: 'compliant' },
+      { name: 'Standard Server Policy', type: 'Server', status: 'compliant' },
+      { name: 'CIS Benchmark', type: 'Network', status: 'compliant' },
+      { name: 'PCI DSS', type: 'Custom', status: 'compliant' },
+      { name: 'Internal Audit', type: 'Server', status: 'compliant' },
+      { name: 'Firewall Rules', type: 'Network', status: 'compliant' },
+      { name: 'User Access', type: 'Custom', status: 'compliant' },
+    ], 
+    location: "Mumbai" 
+  },
+  { 
+    hostname: "prod-db-01", 
+    ip: "10.0.2.20", 
+    os: "Windows Server 2022", 
+    type: "Database", 
+    status: "Non-Compliant", 
+    guardian: "Active", 
+    lastScan: "5 mins ago", 
+    policies: [
+      { name: 'Custom DB Policy', type: 'Custom', status: 'non-compliant' },
+      { name: 'CIS Benchmark', type: 'Server', status: 'non-compliant' },
+      { name: 'GDPR', type: 'Custom', status: 'compliant' },
+      { name: 'Database Security', type: 'Server', status: 'non-compliant' },
+      { name: 'Backup Policy', type: 'Network', status: 'compliant' },
+    ], 
+    location: "Delhi" 
+  },
+  { 
+    hostname: "dev-app-03", 
+    ip: "10.0.3.42", 
+    os: "Ubuntu 20.04 LTS", 
+    type: "Application", 
+    status: "Compliant", 
+    guardian: "Active", 
+    lastScan: "10 mins ago", 
+    policies: [
+      { name: 'Dev Standards', type: 'Custom', status: 'compliant' },
+      { name: 'Dependency Check', type: 'Server', status: 'compliant' },
+    ], 
+    location: "Bangalore" 
+  },
+  { 
+    hostname: "prod-web-02", 
+    ip: "10.0.1.16", 
+    os: "Ubuntu 22.04 LTS", 
+    type: "Web Server", 
+    status: "Warning", 
+    guardian: "Active",
+    lastScan: "3 mins ago", 
+    policies: [
+      { name: 'CIS Benchmark', type: 'Network', status: 'compliant' },
+      { name: 'PCI DSS', type: 'Custom', status: 'non-compliant' },
+      { name: 'Internal Audit', type: 'Server', status: 'compliant' },
+    ], 
+    location: "Mumbai" 
+  },
+  { 
+    hostname: "backup-store-01", 
+    ip: "10.0.4.50", 
+    os: "CentOS 8", 
+    type: "Storage", 
+    status: "Compliant", 
+    guardian: "Active", 
+    lastScan: "8 mins ago", 
+    policies: [
+      { name: 'Storage Security', type: 'Server', status: 'compliant' },
+      { name: 'Backup Policy', type: 'Network', status: 'compliant' },
+    ], 
+    location: "Delhi" 
+  },
+  { 
+    hostname: "prod-api-01", 
+    ip: "10.0.1.25", 
+    os: "Ubuntu 22.04 LTS", 
+    type: "API Server", 
+    status: "Compliant", 
+    guardian: "Active", 
+    lastScan: "1 min ago", 
+    policies: [
+      { name: 'API Security', type: 'Custom', status: 'compliant' },
+      { name: 'Server Policy', type: 'Server', status: 'compliant' },
+      { name: 'Rate Limiting', type: 'Network', status: 'compliant' },
+    ], 
+    location: "Bangalore" 
+  },
 ];
 
 const assetTypes = [
@@ -21,6 +111,71 @@ const assetTypes = [
   { name: "Application Servers", count: 31, icon: Server, compliant: 31 },
   { name: "Workstations", count: 156, icon: Monitor, compliant: 148 },
 ];
+
+const getPolicyBadgeColor = (type: string) => {
+  switch (type) {
+    case 'Custom':
+      return 'bg-info/20 text-info';
+    case 'Server':
+      return 'bg-secondary';
+    case 'Network':
+      return 'bg-accent/20 text-accent';
+    default:
+      return 'bg-gray-500';
+  }
+};
+
+const PolicyCell = ({ policies }: { policies: { name: string; type: string; status: string }[] }) => {
+  const [showAll, setShowAll] = useState(false);
+  const compliantCount = policies.filter(p => p.status === 'compliant').length;
+  const totalPolicies = policies.length;
+
+  const sortedPolicies = [...policies].sort((a, b) => {
+    if (a.type === 'Custom' && b.type !== 'Custom') return -1;
+    if (a.type !== 'Custom' && b.type === 'Custom') return 1;
+    return 0;
+  });
+
+  const visiblePolicies = showAll ? sortedPolicies : sortedPolicies.slice(0, 5);
+
+  return (
+    <DropdownMenu onOpenChange={() => setShowAll(false)}>
+      <DropdownMenuTrigger asChild>
+        <div className="flex items-center -space-x-2 cursor-pointer">
+          {sortedPolicies.slice(0, 3).map((policy, index) => (
+            <Badge
+              key={index}
+              className={`${getPolicyBadgeColor(policy.type)} border-2 border-background rounded-full p-2`}
+              style={{ zIndex: sortedPolicies.length - index }}
+            />
+          ))}
+          {sortedPolicies.length > 3 && (
+            <span className="pl-3 text-xs text-muted-foreground">+{sortedPolicies.length - 3}</span>
+          )}
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-64">
+        <div className="p-2 text-sm font-medium text-muted-foreground border-b">
+          {compliantCount}/{totalPolicies} Compliant
+        </div>
+        {visiblePolicies.map((policy, index) => (
+          <DropdownMenuItem key={index} className="flex justify-between">
+            <span>{policy.name}</span>
+            <Badge className={`${getPolicyBadgeColor(policy.type)}`}>{policy.type}</Badge>
+          </DropdownMenuItem>
+        ))}
+        {!showAll && sortedPolicies.length > 5 && (
+          <>
+            <DropdownMenuItem onSelect={(e) => { e.preventDefault(); setShowAll(true); }}>
+              Show More
+            </DropdownMenuItem>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 
 export default function Assets() {
   return (
@@ -82,6 +237,7 @@ export default function Assets() {
                   <TableHead>IP Address</TableHead>
                   <TableHead>Operating System</TableHead>
                   <TableHead>Asset Type</TableHead>
+                  <TableHead>Location</TableHead>
                   <TableHead>Compliance Status</TableHead>
                   <TableHead>Guardian Agent</TableHead>
                   <TableHead>Policies Applied</TableHead>
@@ -97,6 +253,7 @@ export default function Assets() {
                     <TableCell>
                       <Badge variant="outline">{asset.type}</Badge>
                     </TableCell>
+                    <TableCell>{asset.location}</TableCell>
                     <TableCell>
                       <Badge 
                         variant={
@@ -105,20 +262,22 @@ export default function Assets() {
                           "destructive"
                         }
                         className={
-                          asset.status === "Compliant" ? "bg-low/20 text-low" :
-                          asset.status === "Warning" ? "bg-medium/20 text-medium" :
-                          "bg-critical/20 text-critical"
+                          asset.status === "Compliant" ? "bg-green-100 text-green-800" :
+                          asset.status === "Warning" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-red-100 text-red-800"
                         }
                       >
                         {asset.status}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="secondary" className="bg-info/20 text-info">
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
                         {asset.guardian}
                       </Badge>
                     </TableCell>
-                    <TableCell className="font-mono text-sm">{asset.policies}</TableCell>
+                    <TableCell>
+                      <PolicyCell policies={asset.policies} />
+                    </TableCell>
                     <TableCell className="text-sm text-muted-foreground">{asset.lastScan}</TableCell>
                   </TableRow>
                 ))}
@@ -144,7 +303,7 @@ export default function Assets() {
               </div>
               <div className="space-y-2">
                 <div className="text-sm text-muted-foreground">Sync Status</div>
-                <Badge variant="secondary" className="bg-low/20 text-low">Connected</Badge>
+                <Badge variant="secondary" className="bg-green-100 text-green-800">Connected</Badge>
               </div>
             </div>
           </CardContent>
