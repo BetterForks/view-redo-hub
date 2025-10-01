@@ -84,7 +84,7 @@ export default function Overview() {
                 </div>
                 
                 <div className="space-y-2 text-center">
-                  <p className="text-sm text-muted-foreground">Discovered by Tenable Agent</p>
+                  <p className="text-sm text-muted-foreground">Discovered by Guardian Agent</p>
                   <p className="text-sm font-medium">Severity</p>
                   <p className="text-5xl font-light text-muted-foreground mt-4">677</p>
                   <p className="text-sm text-critical">117 Critical</p>
@@ -105,7 +105,7 @@ export default function Overview() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-2">
-                <CardTitle className="text-lg">Tenable Research Advisory</CardTitle>
+                <CardTitle className="text-lg">Guardian Research Advisory</CardTitle>
                 <Info className="h-4 w-4 text-muted-foreground" />
               </div>
               <Button variant="ghost" size="icon">

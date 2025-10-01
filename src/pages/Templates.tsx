@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const templates = [
   {
-    title: "Tenable Research Advisories: Urgent Action (Explore)",
+    title: "Guardian Research Advisories: Urgent Action (Explore)",
     updated: "3/25/2025",
     tag: "NEW",
     preview: "Research advisory dashboard with missing and applied patches tracking"
@@ -43,7 +43,7 @@ const groups = [
   { name: "Compliance Framework", count: null },
   { name: "DISA STIG", count: null },
   { name: "Host Audit Plugin Type", count: null },
-  { name: "Tenable Best Practice Audits", count: null },
+  { name: "Guardian Best Practice Audits", count: null },
   { name: "Vendor Based Audits", count: null },
 ];
 

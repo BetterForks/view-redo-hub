@@ -35,9 +35,9 @@ export function AppLayout({ children, title, breadcrumbs = [] }: AppLayoutProps)
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                    <span className="text-primary-foreground font-bold text-sm">T</span>
+                    <span className="text-primary-foreground font-bold text-sm">G</span>
                   </div>
-                  <span className="font-semibold text-foreground">tenable</span>
+                  <span className="font-semibold text-foreground">Guardian</span>
                 </div>
                 
                 <span className="text-muted-foreground ml-2">Vulnerability Management</span>

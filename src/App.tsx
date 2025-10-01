@@ -12,6 +12,7 @@ import Vulnerabilities from "./pages/Vulnerabilities";
 import Policies from "./pages/Policies";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
+import Visualize from "./pages/Visualize";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/scans" element={<Scans />} />
           <Route path="/assets" element={<Assets />} />
           <Route path="/vulnerabilities" element={<Vulnerabilities />} />
+          <Route path="/visualize" element={<Visualize />} />
           <Route path="/policies" element={<Policies />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/settings" element={<Settings />} />

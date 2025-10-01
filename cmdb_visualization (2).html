@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise CMDB Security Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 4px;
+        }
+
+        .header-left p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-online {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .sidebar-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .system-list {
+            list-style: none;
+        }
+
+        .system-item {
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .system-item:hover {
+            background: #f7fafc;
+            border-color: #e2e8f0;
+        }
+
+        .system-item.active {
+            background: #ebf8ff;
+            border-color: #3182ce;
+            color: #2b6cb0;
+        }
+
+        .system-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .system-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+
+        .status-compliant { background: #38a169; }
+        .status-warning { background: #d69e2e; }
+        .status-critical { background: #e53e3e; }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .metric-card {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #718096;
+            text-transform: uppercase;
+        }
+
+        .metric-compliant { color: #38a169; }
+        .metric-warning { color: #d69e2e; }
+        .metric-critical { color: #e53e3e; }
+
+        .graph-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .graph-controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            backdrop-filter: blur(5px);
+        }
+
+        .zoom-btn {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .zoom-btn:hover {
+            background: #f7fafc;
+            border-color: #cbd5e0;
+        }
+
+        .zoom-level {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #4a5568;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .control-btn:hover {
+            background: #f7fafc;
+            border-color: #cbd5e0;
+        }
+
+        .control-btn.active {
+            background: #3182ce;
+            color: white;
+            border-color: #3182ce;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            pointer-events: none;
+            z-index: 2000;
+            max-width: 300px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .tooltip h4 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #60a5fa;
+        }
+
+        .tooltip p {
+            margin: 4px 0;
+            line-height: 1.4;
+        }
+
+        .tooltip .feature-id {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            backdrop-filter: blur(5px);
+        }
+
+        .legend h4 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .legend-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+
+        .legend-text {
+            font-size: 12px;
+            color: #2d3748;
+        }
+
+        .node-system-system {
+            fill: #4299e1;
+            stroke: #2b77ad;
+            stroke-width: 2;
+        }
+
+        .node-category-category {
+            fill: #805ad5;
+            stroke: #553c9a;
+            stroke-width: 2;
+        }
+
+        .node-subcategory-subcategory {
+            fill: #38b2ac;
+            stroke: #2c7a7b;
+            stroke-width: 2;
+        }
+
+        .node-feature-compliant {
+            fill: #48bb78;
+            stroke: #38a169;
+            stroke-width: 2;
+        }
+
+        .node-feature-warning {
+            fill: #ed8936;
+            stroke: #dd6b20;
+            stroke-width: 2;
+        }
+
+        .node-feature-critical {
+            fill: #f56565;
+            stroke: #e53e3e;
+            stroke-width: 2;
+        }
+
+        .node {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover {
+            stroke-width: 3;
+            filter: brightness(1.1);
+        }
+
+        .node.highlighted {
+            stroke-width: 4;
+            filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+        }
+
+        .node.faded {
+            opacity: 0.3;
+        }
+
+        .link {
+            stroke: #a0aec0;
+            stroke-width: 1.5;
+            opacity: 0.6;
+        }
+
+        .link.highlighted {
+            stroke: #3182ce;
+            stroke-width: 2.5;
+            opacity: 1;
+        }
+
+        .link.faded {
+            opacity: 0.1;
+        }
+
+        .node-label {
+            fill: #2d3748;
+            font-size: 11px;
+            font-weight: 500;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+
+        .node-label.system {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .node-label.category {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .breadcrumb {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 13px;
+            color: #4a5568;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <div class="header-left">
+            <h1>Guardian CMDB Security Dashboard</h1>
+            <p>Configuration Management Database - Security Compliance Overview</p>
+        </div>
+        <div class="header-right">
+            <div class="status-badge status-online">System Online</div>
+            <div style="font-size: 14px; color: #718096;">Last Updated: 2 minutes ago</div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>Systems</h3>
+                <ul class="system-list" id="systemList">
+                    <li class="system-item active" data-system="centos-web-01">
+                        <span class="system-name">CentOS-WEB-01</span>
+                        <div class="system-status status-warning"></div>
+                    </li>
+                    <li class="system-item" data-system="centos-db-02">
+                        <span class="system-name">CentOS-DB-02</span>
+                        <div class="system-status status-critical"></div>
+                    </li>
+                    <li class="system-item" data-system="centos-app-03">
+                        <span class="system-name">CentOS-APP-03</span>
+                        <div class="system-status status-compliant"></div>
+                    </li>
+                    <li class="system-item" data-system="centos-proxy-04">
+                        <span class="system-name">CentOS-PROXY-04</span>
+                        <div class="system-status status-warning"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Compliance Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-number metric-compliant" id="compliantCount">67</div>
+                        <div class="metric-label">Compliant</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number metric-warning" id="warningCount">12</div>
+                        <div class="metric-label">Warning</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number metric-critical" id="criticalCount">8</div>
+                        <div class="metric-label">Critical</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number" id="totalCount" style="color: #4a5568;">87</div>
+                        <div class="metric-label">Total Features</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="graph-container">
+            <svg id="graph"></svg>
+            
+            <div class="graph-controls">
+                <div class="control-row">
+                    <button class="control-btn active" onclick="showAll()">All Features</button>
+                    <button class="control-btn" onclick="showCompliant()">Compliant Only</button>
+                    <button class="control-btn" onclick="showNonCompliant()">Issues Only</button>
+                    <button class="control-btn" onclick="resetView()">Reset View</button>
+                </div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+                    <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+                    <button class="zoom-btn" onclick="fitToScreen()" title="Fit to Screen">⌂</button>
+                    <div class="zoom-level" id="zoomLevel">100%</div>
+                </div>
+            </div>
+
+            <div class="breadcrumb" id="breadcrumb">
+                CentOS-WEB-01 → Security Features Overview
+            </div>
+
+            <div class="legend">
+                <h4>Node Types</h4>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: #4299e1; border-radius: 50%;"></div>
+                    <span class="legend-text">System</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: #805ad5; border-radius: 50%;"></div>
+                    <span class="legend-text">Category</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: #38b2ac; border-radius: 50%;"></div>
+                    <span class="legend-text">Sub-Category</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: #48bb78;"></div>
+                    <span class="legend-text">Compliant</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: #ed8936;"></div>
+                    <span class="legend-text">Warning</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon" style="background: #f56565;"></div>
+                    <span class="legend-text">Critical</span>
+                </div>
+            </div>
+
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+    </div>
+
+    <script>
+        // Enterprise CMDB data with proper hierarchy: System → Category → Sub-Category → Features
+        const systemsData = {
+            "centos-web-01": {
+                name: "CentOS-WEB-01",
+                ip: "192.168.1.10",
+                role: "Web Server",
+                status: "warning",
+                nodes: [
+                    // System node
+                    { id: "centos-web-01", type: "system", name: "CentOS-WEB-01", status: "system", level: 0 },
+                    
+                    // Main Categories
+                    { id: "filesystem", type: "category", name: "Filesystem", status: "category", level: 1 },
+                    { id: "services", type: "category", name: "Services", status: "category", level: 1 },
+                    { id: "network", type: "category", name: "Network", status: "category", level: 1 },
+                    { id: "access-control", type: "category", name: "Access Control", status: "category", level: 1 },
+                    { id: "logging", type: "category", name: "Logging & Auditing", status: "category", level: 1 },
+                    
+                    // Sub-Categories
+                    { id: "fs-kernel", type: "subcategory", name: "Filesystem Kernel Modules", status: "subcategory", level: 2, parent: "filesystem" },
+                    { id: "fs-partitions", type: "subcategory", name: "Configure Partitions", status: "subcategory", level: 2, parent: "filesystem" },
+                    { id: "svc-server", type: "subcategory", name: "Server Services", status: "subcategory", level: 2, parent: "services" },
+                    { id: "svc-time", type: "subcategory", name: "Time Synchronization", status: "subcategory", level: 2, parent: "services" },
+                    { id: "net-devices", type: "subcategory", name: "Network Devices", status: "subcategory", level: 2, parent: "network" },
+                    { id: "net-firewall", type: "subcategory", name: "Host Based Firewall", status: "subcategory", level: 2, parent: "network" },
+                    { id: "ac-ssh", type: "subcategory", name: "SSH Server", status: "subcategory", level: 2, parent: "access-control" },
+                    { id: "ac-sudo", type: "subcategory", name: "Privilege Escalation", status: "subcategory", level: 2, parent: "access-control" },
+                    { id: "log-journald", type: "subcategory", name: "systemd-journald", status: "subcategory", level: 2, parent: "logging" },
+                    { id: "log-auditd", type: "subcategory", name: "auditd Service", status: "subcategory", level: 2, parent: "logging" },
+                    
+                    // Individual Features
+                    { id: "F-LNX-101", type: "feature", name: "cramfs module disabled", status: "compliant", level: 3, parent: "fs-kernel", description: "Ensure cramfs kernel module is not available", annexure: "1.a.i" },
+                    { id: "F-LNX-105", type: "feature", name: "jffs2 module disabled", status: "compliant", level: 3, parent: "fs-kernel", description: "Ensure jffs2 kernel module is not available", annexure: "1.a.v" },
+                    { id: "F-LNX-111", type: "feature", name: "/tmp separate partition", status: "warning", level: 3, parent: "fs-partitions", description: "Ensure /tmp is a separate partition", annexure: "1.b.i" },
+                    { id: "F-LNX-119", type: "feature", name: "/home separate partition", status: "critical", level: 3, parent: "fs-partitions", description: "Ensure separate partition exists for /home", annexure: "1.d.i" },
+                    
+                    { id: "F-LNX-301", type: "feature", name: "autofs disabled", status: "compliant", level: 3, parent: "svc-server", description: "Ensure autofs services are not in use", annexure: "3.a.i" },
+                    { id: "F-LNX-304", type: "feature", name: "DNS server disabled", status: "critical", level: 3, parent: "svc-server", description: "Ensure dns server services are not in use", annexure: "3.a.iv" },
+                    { id: "F-LNX-329", type: "feature", name: "Time sync enabled", status: "compliant", level: 3, parent: "svc-time", description: "Ensure time synchronization is in use", annexure: "3.c.i" },
+                    
+                    { id: "F-LNX-408", type: "feature", name: "IP forwarding disabled", status: "compliant", level: 3, parent: "net-devices", description: "Ensure ip forwarding is disabled", annexure: "4.c.i" },
+                    { id: "F-LNX-501", type: "feature", name: "UFW installed", status: "critical", level: 3, parent: "net-firewall", description: "Ensure ufw is installed", annexure: "5.a.i" },
+                    { id: "F-LNX-504", type: "feature", name: "UFW loopback configured", status: "warning", level: 3, parent: "net-firewall", description: "Ensure ufw loopback traffic is configured", annexure: "5.a.iv" },
+                    
+                    { id: "F-LNX-620", type: "feature", name: "SSH root login disabled", status: "compliant", level: 3, parent: "ac-ssh", description: "Ensure sshd PermitRootLogin is disabled", annexure: "6.a.xx" },
+                    { id: "F-LNX-623", type: "feature", name: "sudo installed", status: "compliant", level: 3, parent: "ac-sudo", description: "Ensure sudo is installed", annexure: "6.b.i" },
+                    { id: "F-LNX-627", type: "feature", name: "sudo re-auth configured", status: "warning", level: 3, parent: "ac-sudo", description: "Ensure re-authentication for privilege escalation is not disabled globally", annexure: "6.b.v" },
+                    
+                    { id: "F-LNX-801", type: "feature", name: "journald enabled", status: "compliant", level: 3, parent: "log-journald", description: "Ensure journald service is enabled and active", annexure: "8.a.i.1" },
+                    { id: "F-LNX-814", type: "feature", name: "auditd installed", status: "compliant", level: 3, parent: "log-auditd", description: "Ensure auditd packages are installed", annexure: "8.b.i.1" },
+                    { id: "F-LNX-822", type: "feature", name: "sudo changes logged", status: "warning", level: 3, parent: "log-auditd", description: "Ensure changes to system administration scope (sudoers) is collected", annexure: "8.d.i" }
+                ],
+                links: [
+                    // System to Categories
+                    { source: "centos-web-01", target: "filesystem", relationship: "contains" },
+                    { source: "centos-web-01", target: "services", relationship: "contains" },
+                    { source: "centos-web-01", target: "network", relationship: "contains" },
+                    { source: "centos-web-01", target: "access-control", relationship: "contains" },
+                    { source: "centos-web-01", target: "logging", relationship: "contains" },
+                    
+                    // Categories to Sub-Categories
+                    { source: "filesystem", target: "fs-kernel", relationship: "contains" },
+                    { source: "filesystem", target: "fs-partitions", relationship: "contains" },
+                    { source: "services", target: "svc-server", relationship: "contains" },
+                    { source: "services", target: "svc-time", relationship: "contains" },
+                    { source: "network", target: "net-devices", relationship: "contains" },
+                    { source: "network", target: "net-firewall", relationship: "contains" },
+                    { source: "access-control", target: "ac-ssh", relationship: "contains" },
+                    { source: "access-control", target: "ac-sudo", relationship: "contains" },
+                    { source: "logging", target: "log-journald", relationship: "contains" },
+                    { source: "logging", target: "log-auditd", relationship: "contains" },
+                    
+                    // Sub-Categories to Features
+                    { source: "fs-kernel", target: "F-LNX-101", relationship: "contains" },
+                    { source: "fs-kernel", target: "F-LNX-105", relationship: "contains" },
+                    { source: "fs-partitions", target: "F-LNX-111", relationship: "contains" },
+                    { source: "fs-partitions", target: "F-LNX-119", relationship: "contains" },
+                    { source: "svc-server", target: "F-LNX-301", relationship: "contains" },
+                    { source: "svc-server", target: "F-LNX-304", relationship: "contains" },
+                    { source: "svc-time", target: "F-LNX-329", relationship: "contains" },
+                    { source: "net-devices", target: "F-LNX-408", relationship: "contains" },
+                    { source: "net-firewall", target: "F-LNX-501", relationship: "contains" },
+                    { source: "net-firewall", target: "F-LNX-504", relationship: "contains" },
+                    { source: "ac-ssh", target: "F-LNX-620", relationship: "contains" },
+                    { source: "ac-sudo", target: "F-LNX-623", relationship: "contains" },
+                    { source: "ac-sudo", target: "F-LNX-627", relationship: "contains" },
+                    { source: "log-journald", target: "F-LNX-801", relationship: "contains" },
+                    { source: "log-auditd", target: "F-LNX-814", relationship: "contains" },
+                    { source: "log-auditd", target: "F-LNX-822", relationship: "contains" },
+                    
+                    // Feature Dependencies
+                    { source: "F-LNX-501", target: "F-LNX-504", relationship: "prerequisite" },
+                    { source: "F-LNX-623", target: "F-LNX-627", relationship: "related" },
+                    { source: "F-LNX-814", target: "F-LNX-822", relationship: "prerequisite" }
+                ]
+            }
+        };
+
+        let currentSystem = "centos-web-01";
+        let currentData = systemsData[currentSystem];
+        
+        const width = window.innerWidth - 300;
+        const height = window.innerHeight - 80;
+
+        const svg = d3.select("#graph")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Add zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 4])
+            .on("zoom", handleZoom);
+
+        svg.call(zoom);
+
+        // Create a group for all graph elements
+        const g = svg.append("g");
+
+        const tooltip = d3.select("#tooltip");
+        let selectedNode = null;
+        let currentTransform = d3.zoomIdentity;
+
+        function handleZoom(event) {
+            currentTransform = event.transform;
+            g.attr("transform", currentTransform);
+            updateZoomLevel();
+        }
+
+        function updateZoomLevel() {
+            const zoomPercent = Math.round(currentTransform.k * 100);
+            d3.select("#zoomLevel").text(zoomPercent + "%");
+        }
+
+        function zoomIn() {
+            svg.transition().duration(300).call(
+                zoom.scaleBy, 1.5
+            );
+        }
+
+        function zoomOut() {
+            svg.transition().duration(300).call(
+                zoom.scaleBy, 1 / 1.5
+            );
+        }
+
+        function fitToScreen() {
+            const bounds = g.node().getBBox();
+            const fullWidth = width;
+            const fullHeight = height;
+            const widthScale = fullWidth / bounds.width;
+            const heightScale = fullHeight / bounds.height;
+            const scale = 0.85 * Math.min(widthScale, heightScale);
+            const translate = [
+                fullWidth / 2 - scale * (bounds.x + bounds.width / 2),
+                fullHeight / 2 - scale * (bounds.y + bounds.height / 2)
+            ];
+
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
+            );
+        }
+
+        // Initialize dashboard
+        function initDashboard() {
+            setupSystemSelection();
+            renderGraph(currentData);
+            updateMetrics();
+        }
+
+        function setupSystemSelection() {
+            d3.selectAll(".system-item").on("click", function() {
+                d3.selectAll(".system-item").classed("active", false);
+                d3.select(this).classed("active", true);
+                
+                const systemId = this.dataset.system;
+                if (systemsData[systemId]) {
+                    currentSystem = systemId;
+                    currentData = systemsData[systemId];
+                    renderGraph(currentData);
+                    updateBreadcrumb();
+                    updateMetrics();
+                }
+            });
+        }
+
+        function renderGraph(data) {
+            g.selectAll("*").remove();
+
+            const simulation = d3.forceSimulation(data.nodes)
+                .force("link", d3.forceLink(data.links).id(d => d.id).distance(d => {
+                    // Adjust distance based on hierarchy level
+                    return d.source.level === 0 ? 150 : d.source.level === 1 ? 120 : 80;
+                }))
+                .force("charge", d3.forceManyBody().strength(d => {
+                    // System node has stronger repulsion
+                    return d.type === "system" ? -800 : d.type === "category" ? -400 : -200;
+                }))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(d => d.type === "system" ? 35 : d.type === "category" ? 25 : 20));
+
+            // Create links
+            const link = g.append("g")
+                .selectAll("line")
+                .data(data.links)
+                .enter().append("line")
+                .attr("class", "link");
+
+            // Create nodes
+            const node = g.append("g")
+                .selectAll("circle")
+                .data(data.nodes)
+                .enter().append("circle")
+                .attr("class", d => `node node-${d.type}-${d.status}`)
+                .attr("r", d => {
+                    if (d.type === "system") return 30;
+                    if (d.type === "category") return 20;
+                    if (d.type === "subcategory") return 15;
+                    return 10;
+                })
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended))
+                .on("mouseover", showTooltip)
+                .on("mouseout", hideTooltip)
+                .on("click", highlightConnections)
+                .on("dblclick", focusOnNode); // Double-click to focus on a node
+
+            // Add labels
+            const labels = g.append("g")
+                .selectAll("text")
+                .data(data.nodes)
+                .enter().append("text")
+                .attr("class", d => `node-label ${d.type}`)
+                .text(d => d.name)
+                .attr("dy", d => {
+                    if (d.type === "system") return 45;
+                    if (d.type === "category") return 30;
+                    if (d.type === "subcategory") return 25;
+                    return 20;
+                });
+
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+
+                labels
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y);
+            });
+
+            // Store references for filtering
+            window.currentGraph = { node, link, labels, simulation };
+
+            // Auto-fit to screen after initial positioning
+            setTimeout(() => {
+                fitToScreen();
+            }, 1000);
+        }
+
+        function focusOnNode(event, d) {
+            // Center the view on the clicked node
+            const transform = d3.zoomIdentity
+                .translate(width / 2, height / 2)
+                .scale(1.5)
+                .translate(-d.x, -d.y);
+
+            svg.transition().duration(500).call(
+                zoom.transform,
+                transform
+            );
+        }
+
+        function dragstarted(event, d) {
+            if (!event.active) window.currentGraph.simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) window.currentGraph.simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        function showTooltip(event, d) {
+            let content = '';
+            
+            if (d.type === "system") {
+                const systemData = systemsData[d.id];
+                content = `<h4>${d.name}</h4>
+                          <p><strong>Role:</strong> ${systemData.role}</p>
+                          <p><strong>IP:</strong> ${systemData.ip}</p>
+                          <p><strong>Type:</strong> System Node</p>`;
+            } else if (d.type === "category") {
+                content = `<h4>${d.name}</h4>
+                          <p><strong>Type:</strong> Security Category</p>
+                          <p>Contains multiple sub-categories of security controls</p>`;
+            } else if (d.type === "subcategory") {
+                content = `<h4>${d.name}</h4>
+                          <p><strong>Type:</strong> Sub-Category</p>
+                          <p>Groups related security features</p>`;
+            } else if (d.type === "feature") {
+                content = `<h4>${d.name}</h4>
+                          <p class="feature-id"><strong>ID:</strong> ${d.id}</p>
+                          <p><strong>Status:</strong> ${d.status.toUpperCase()}</p>
+                          <p><strong>Annexure:</strong> ${d.annexure}</p>
+                          <p>${d.description}</p>`;
+            }
+            
+            tooltip
+                .style("opacity", 1)
+                .html(content)
+                .style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY - 10) + "px");
+        }
+
+        function hideTooltip() {
+            tooltip.style("opacity", 0);
+        }
+
+        function highlightConnections(event, d) {
+            if (selectedNode === d) {
+                resetView();
+                selectedNode = null;
+                return;
+            }
+            
+            selectedNode = d;
+            
+            // Get connected nodes
+            const connectedNodes = new Set([d.id]);
+            currentData.links.forEach(link => {
+                if (link.source.id === d.id) connectedNodes.add(link.target.id);
+                if (link.target.id === d.id) connectedNodes.add(link.source.id);
+            });
+            
+            // Update node styles
+            window.currentGraph.node
+                .classed("highlighted", n => n.id === d.id)
+                .classed("faded", n => !connectedNodes.has(n.id));
+            
+            window.currentGraph.labels.classed("faded", n => !connectedNodes.has(n.id));
+            
+            // Update link styles
+            window.currentGraph.link
+                .classed("highlighted", l => l.source.id === d.id || l.target.id === d.id)
+                .classed("faded", l => l.source.id !== d.id && l.target.id !== d.id);
+
+            updateBreadcrumb(d);
+        }
+
+        function resetView() {
+            if (window.currentGraph) {
+                window.currentGraph.node.classed("highlighted faded", false);
+                window.currentGraph.labels.classed("faded", false);
+                window.currentGraph.link.classed("highlighted faded", false);
+            }
+            selectedNode = null;
+            updateBreadcrumb();
+            
+            // Reset control buttons
+            d3.selectAll(".control-btn").classed("active", false);
+            d3.select(".control-btn").classed("active", true); // First button (All Features)
+        }
+
+        function showAll() {
+            if (window.currentGraph) {
+                window.currentGraph.node.style("display", null);
+                window.currentGraph.labels.style("display", null);
+                window.currentGraph.link.style("display", null);
+            }
+            
+            d3.selectAll(".control-btn").classed("active", false);
+            d3.selectAll(".control-btn").filter(function() {
+                return this.textContent === "All Features";
+            }).classed("active", true);
+        }
+
+        function showCompliant() {
+            if (window.currentGraph) {
+                window.currentGraph.node.style("display", d => 
+                    d.status === "compliant" || d.type !== "feature" ? null : "none"
+                );
+                window.currentGraph.labels.style("display", d => 
+                    d.status === "compliant" || d.type !== "feature" ? null : "none"
+                );
+                window.currentGraph.link.style("display", l => {
+                    const sourceVisible = l.source.status === "compliant" || l.source.type !== "feature";
+                    const targetVisible = l.target.status === "compliant" || l.target.type !== "feature";
+                    return sourceVisible && targetVisible ? null : "none";
+                });
+            }
+            
+            d3.selectAll(".control-btn").classed("active", false);
+            d3.selectAll(".control-btn").filter(function() {
+                return this.textContent === "Compliant Only";
+            }).classed("active", true);
+        }
+
+        function showNonCompliant() {
+            if (window.currentGraph) {
+                window.currentGraph.node.style("display", d => 
+                    (d.status === "warning" || d.status === "critical") || d.type !== "feature" ? null : "none"
+                );
+                window.currentGraph.labels.style("display", d => 
+                    (d.status === "warning" || d.status === "critical") || d.type !== "feature" ? null : "none"
+                );
+                window.currentGraph.link.style("display", l => {
+                    const sourceVisible = (l.source.status === "warning" || l.source.status === "critical") || l.source.type !== "feature";
+                    const targetVisible = (l.target.status === "warning" || l.target.status === "critical") || l.target.type !== "feature";
+                    return sourceVisible && targetVisible ? null : "none";
+                });
+            }
+            
+            d3.selectAll(".control-btn").classed("active", false);
+            d3.selectAll(".control-btn").filter(function() {
+                return this.textContent === "Issues Only";
+            }).classed("active", true);
+        }
+
+        function updateBreadcrumb(selectedNode = null) {
+            const breadcrumb = d3.select("#breadcrumb");
+            let breadcrumbText = `${systemsData[currentSystem].name} → Security Features Overview`;
+            
+            if (selectedNode) {
+                if (selectedNode.type === "feature") {
+                    const parent = currentData.nodes.find(n => n.id === selectedNode.parent);
+                    const grandparent = parent ? currentData.nodes.find(n => n.id === parent.parent) : null;
+                    
+                    breadcrumbText = `${systemsData[currentSystem].name} → ${grandparent ? grandparent.name + ' → ' : ''}${parent ? parent.name + ' → ' : ''}${selectedNode.name}`;
+                } else if (selectedNode.type === "subcategory") {
+                    const parent = currentData.nodes.find(n => n.id === selectedNode.parent);
+                    breadcrumbText = `${systemsData[currentSystem].name} → ${parent ? parent.name + ' → ' : ''}${selectedNode.name}`;
+                } else if (selectedNode.type === "category") {
+                    breadcrumbText = `${systemsData[currentSystem].name} → ${selectedNode.name}`;
+                }
+            }
+            
+            breadcrumb.text(breadcrumbText);
+        }
+
+        function updateMetrics() {
+            const features = currentData.nodes.filter(n => n.type === "feature");
+            const compliant = features.filter(f => f.status === "compliant").length;
+            const warning = features.filter(f => f.status === "warning").length;
+            const critical = features.filter(f => f.status === "critical").length;
+            const total = features.length;
+            
+            d3.select("#compliantCount").text(compliant);
+            d3.select("#warningCount").text(warning);
+            d3.select("#criticalCount").text(critical);
+            d3.select("#totalCount").text(total);
+        }
+
+        // Initialize the dashboard when page loads
+        document.addEventListener("DOMContentLoaded", initDashboard);
+
+        // Add keyboard shortcuts
+        document.addEventListener("keydown", (event) => {
+            switch(event.key) {
+                case '+':
+                case '=':
+                    event.preventDefault();
+                    zoomIn();
+                    break;
+                case '-':
+                case '_':
+                    event.preventDefault();
+                    zoomOut();
+                    break;
+                case 'f':
+                case 'F':
+                    event.preventDefault();
+                    fitToScreen();
+                    break;
+                case 'r':
+                case 'R':
+                    event.preventDefault();
+                    resetView();
+                    break;
+                case 'Escape':
+                    resetView();
+                    break;
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", () => {
+            const newWidth = window.innerWidth - 300;
+            const newHeight = window.innerHeight - 80;
+            
+            d3.select("#graph")
+                .attr("width", newWidth)
+                .attr("height", newHeight);
+                
+            if (window.currentGraph && window.currentGraph.simulation) {
+                window.currentGraph.simulation
+                    .force("center", d3.forceCenter(newWidth / 2, newHeight / 2))
+                    .restart();
+            }
+        });
+    </script>
+</body>
+</html>
