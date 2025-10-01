@@ -3,6 +3,11 @@ import { useParams } from 'react-router-dom';
 import { AppLayout } from '@/components/AppLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { assets } from '../data/assets';
 
 const DiffView = ({ oldPolicy, newPolicy }: { oldPolicy: string, newPolicy: string }) => {
@@ -50,7 +55,6 @@ const DiffView = ({ oldPolicy, newPolicy }: { oldPolicy: string, newPolicy: stri
 export default function AssetDetails() {
   const { hostname } = useParams<{ hostname: string }>();
   const asset = assets.find(a => a.hostname === hostname);
-  const [selectedChange, setSelectedChange] = useState<any>(null);
 
   if (!asset) {
     return (
@@ -60,11 +64,14 @@ export default function AssetDetails() {
     );
   }
 
-  const sortedChanges = [...asset.policyChanges].sort((a, b) => {
-    if (!a.authorized && b.authorized) return -1;
-    if (a.authorized && !b.authorized) return 1;
-    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-  });
+  const policiesByLayer = asset.policies.reduce((acc, policy) => {
+    const { layer } = policy;
+    if (!acc[layer]) {
+      acc[layer] = [];
+    }
+    acc[layer].push(policy);
+    return acc;
+  }, {} as Record<string, any[]>);
 
   return (
     <AppLayout title={`Asset: ${asset.hostname}`} breadcrumbs={["Aegis Guardian", "Assets", asset.hostname]}>
@@ -85,58 +92,85 @@ export default function AssetDetails() {
           </CardContent>
         </Card>
 
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-1">
-            <Card>
-              <CardHeader>
-                <CardTitle>Applied Policies</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {asset.policies.map((policy, index) => (
-                    <li key={index} className="flex justify-between items-center">
-                      <span>{policy.name}</span>
-                      <Badge>{policy.type}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Policy Change History</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="col-span-1 border-r pr-4">
-                    <ul className="space-y-2">
-                      {sortedChanges.map((change) => (
-                        <li
-                          key={change.id}
-                          onClick={() => setSelectedChange(change)}
-                          className={`p-2 rounded-md cursor-pointer ${!change.authorized ? 'border-l-4 border-red-500' : ''} ${selectedChange?.id === change.id ? 'bg-muted' : 'hover:bg-muted/50'}`}>
-                          <div className="font-semibold">{change.policyName}</div>
-                          <div className="text-xs text-muted-foreground">{change.timestamp} by {change.changedBy}</div>
-                        </li>
+        <Card>
+          <CardHeader>
+            <CardTitle>Applied Policies</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="external">
+                <AccordionTrigger>External Changes</AccordionTrigger>
+                <AccordionContent>
+                  <ul>
+                    {policiesByLayer['External']?.map((policy, index) => (
+                      <li key={index}>{policy.name}</li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="custom">
+                <AccordionTrigger>Custom Policies</AccordionTrigger>
+                <AccordionContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Category</TableHead>
+                        <TableHead>Subcategory</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Rollback</TableHead>
+                        <TableHead>Diff</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {policiesByLayer['Custom']?.map((policy, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{policy.category}</TableCell>
+                          <TableCell>{policy.subcategory}</TableCell>
+                          <TableCell><Badge variant={policy.status === 'compliant' ? 'secondary' : 'destructive'}>{policy.status}</Badge></TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline" size="sm">Rollback</Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuItem>Rollback to Snapshot</DropdownMenuItem>
+                                <DropdownMenuItem>Rollback to Baseline</DropdownMenuItem>
+                                <DropdownMenuItem>Rollback to Diff</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                          <TableCell>
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button variant="outline" size="sm">View Diff</Button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-2xl">
+                                <DialogHeader>
+                                  <DialogTitle>Diff for {policy.name}</DialogTitle>
+                                </DialogHeader>
+                                <DiffView oldPolicy={policy.oldConfig} newPolicy={policy.newConfig} />
+                              </DialogContent>
+                            </Dialog>
+                          </TableCell>
+                        </TableRow>
                       ))}
-                    </ul>
-                  </div>
-                  <div className="col-span-2">
-                    {selectedChange ? (
-                      <DiffView oldPolicy={selectedChange.oldPolicy} newPolicy={selectedChange.newPolicy} />
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-muted-foreground">
-                        Select a change to see the diff.
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+                    </TableBody>
+                  </Table>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="baseline">
+                <AccordionTrigger>Baseline Policy</AccordionTrigger>
+                <AccordionContent>
+                  <ul>
+                    {policiesByLayer['Baseline']?.map((policy, index) => (
+                      <li key={index}>{policy.name}</li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardContent>
+        </Card>
       </div>
     </AppLayout>
   );
