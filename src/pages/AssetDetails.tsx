@@ -97,7 +97,7 @@ export default function AssetDetails() {
             <CardTitle>Applied Policies</CardTitle>
           </CardHeader>
           <CardContent>
-            <Accordion type="single" collapsible defaultValue="custom">
+            <Accordion type="single" collapsible>
               <AccordionItem value="external">
                 <AccordionTrigger>External Changes</AccordionTrigger>
                 <AccordionContent>
