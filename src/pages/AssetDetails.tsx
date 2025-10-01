@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { AppLayout } from '@/components/AppLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -97,15 +97,55 @@ export default function AssetDetails() {
             <CardTitle>Applied Policies</CardTitle>
           </CardHeader>
           <CardContent>
-            <Accordion type="single" collapsible>
+            <Accordion type="single" collapsible defaultValue="custom">
               <AccordionItem value="external">
                 <AccordionTrigger>External Changes</AccordionTrigger>
                 <AccordionContent>
-                  <ul>
-                    {policiesByLayer['External']?.map((policy, index) => (
-                      <li key={index}>{policy.name}</li>
-                    ))}
-                  </ul>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Category</TableHead>
+                        <TableHead>Subcategory</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Rollback</TableHead>
+                        <TableHead>Diff</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {policiesByLayer['External']?.map((policy, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{policy.category}</TableCell>
+                          <TableCell>{policy.subcategory}</TableCell>
+                          <TableCell><Badge variant={policy.status === 'successfully applied' ? 'secondary' : 'destructive'}>{policy.status}</Badge></TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline" size="sm">Rollback</Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuItem>Rollback to Snapshot</DropdownMenuItem>
+                                <DropdownMenuItem>Rollback to Baseline</DropdownMenuItem>
+                                <DropdownMenuItem>Rollback to Diff</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                          <TableCell>
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button variant="outline" size="sm">View Diff</Button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-2xl">
+                                <DialogHeader>
+                                  <DialogTitle>Diff for {policy.name}</DialogTitle>
+                                </DialogHeader>
+                                <DiffView oldPolicy={policy.oldConfig} newPolicy={policy.newConfig} />
+                              </DialogContent>
+                            </Dialog>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="custom">
@@ -126,7 +166,7 @@ export default function AssetDetails() {
                         <TableRow key={index}>
                           <TableCell>{policy.category}</TableCell>
                           <TableCell>{policy.subcategory}</TableCell>
-                          <TableCell><Badge variant={policy.status === 'compliant' ? 'secondary' : 'destructive'}>{policy.status}</Badge></TableCell>
+                          <TableCell><Badge variant={policy.status === 'successfully applied' ? 'secondary' : 'destructive'}>{policy.status}</Badge></TableCell>
                           <TableCell>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
