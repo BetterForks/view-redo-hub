@@ -111,6 +111,61 @@ export default function Visualize() {
             services: ["haproxy", "keepalived", "rsyslog"],
             owner: "Network Team",
             environment: "production"
+          },
+          // Employee Workstations - Mumbai Office
+          { 
+            id: "mumbai-ws-01", 
+            name: "MUM-WS-01", 
+            type: "workstation", 
+            status: "warning", 
+            ip: "192.168.1.101",
+            os: "Windows 11 Pro 22H2",
+            cpu: "Intel Core i7-12700 (12 cores)",
+            memory: "32GB DDR4",
+            storage: "1TB NVMe SSD",
+            uptime: "99.1%",
+            lastScan: "2024-01-15 09:15:00",
+            vulnerabilities: { critical: 8, high: 12, medium: 25, low: 18 },
+            services: ["Windows Update", "Defender", "BitLocker"],
+            owner: "Finance Team",
+            environment: "production",
+            user: "john.smith@guardian.com"
+          },
+          { 
+            id: "mumbai-ws-02", 
+            name: "MUM-WS-02", 
+            type: "workstation", 
+            status: "critical", 
+            ip: "192.168.1.102",
+            os: "Windows 10 Pro 21H2",
+            cpu: "Intel Core i5-10400 (6 cores)",
+            memory: "16GB DDR4",
+            storage: "512GB SSD",
+            uptime: "97.8%",
+            lastScan: "2024-01-15 09:20:00",
+            vulnerabilities: { critical: 15, high: 8, medium: 12, low: 6 },
+            services: ["Windows Update", "Defender", "Office 365"],
+            owner: "HR Team",
+            environment: "production",
+            user: "sarah.jones@guardian.com"
+          },
+          { 
+            id: "mumbai-ws-03", 
+            name: "MUM-WS-03", 
+            type: "workstation", 
+            status: "compliant", 
+            ip: "192.168.1.103",
+            os: "Windows 11 Pro 23H2",
+            cpu: "Intel Core i7-13700 (16 cores)",
+            memory: "32GB DDR5",
+            storage: "1TB NVMe SSD",
+            uptime: "99.8%",
+            lastScan: "2024-01-15 09:25:00",
+            vulnerabilities: { critical: 0, high: 2, medium: 5, low: 8 },
+            services: ["Windows Update", "Defender", "BitLocker", "LAPS"],
+            owner: "IT Security Team",
+            environment: "production",
+            user: "mike.wilson@guardian.com"
           }
         ]
       },
@@ -172,6 +227,61 @@ export default function Visualize() {
             services: ["tomcat", "elasticsearch", "logstash"],
             owner: "Application Team",
             environment: "production"
+          },
+          // Employee Workstations - Delhi Office
+          { 
+            id: "delhi-ws-01", 
+            name: "DEL-WS-01", 
+            type: "workstation", 
+            status: "critical", 
+            ip: "192.168.2.101",
+            os: "Windows 10 Pro 20H2",
+            cpu: "Intel Core i5-9400 (6 cores)",
+            memory: "16GB DDR4",
+            storage: "256GB SSD",
+            uptime: "96.2%",
+            lastScan: "2024-01-15 10:30:00",
+            vulnerabilities: { critical: 22, high: 15, medium: 18, low: 12 },
+            services: ["Windows Update", "Defender"],
+            owner: "Marketing Team",
+            environment: "production",
+            user: "priya.sharma@guardian.com"
+          },
+          { 
+            id: "delhi-ws-02", 
+            name: "DEL-WS-02", 
+            type: "workstation", 
+            status: "warning", 
+            ip: "192.168.2.102",
+            os: "Windows 11 Pro 22H2",
+            cpu: "Intel Core i7-11700 (8 cores)",
+            memory: "32GB DDR4",
+            storage: "512GB NVMe SSD",
+            uptime: "98.5%",
+            lastScan: "2024-01-15 10:35:00",
+            vulnerabilities: { critical: 6, high: 9, medium: 14, low: 11 },
+            services: ["Windows Update", "Defender", "Office 365"],
+            owner: "Sales Team",
+            environment: "production",
+            user: "raj.kumar@guardian.com"
+          },
+          { 
+            id: "delhi-ws-03", 
+            name: "DEL-WS-03", 
+            type: "workstation", 
+            status: "warning", 
+            ip: "192.168.2.103",
+            os: "Windows 10 Pro 22H2",
+            cpu: "Intel Core i5-10400 (6 cores)",
+            memory: "16GB DDR4",
+            storage: "512GB SSD",
+            uptime: "97.1%",
+            lastScan: "2024-01-15 10:40:00",
+            vulnerabilities: { critical: 4, high: 12, medium: 20, low: 15 },
+            services: ["Windows Update", "Defender", "BitLocker"],
+            owner: "Operations Team",
+            environment: "production",
+            user: "neha.gupta@guardian.com"
           }
         ]
       },
@@ -233,6 +343,79 @@ export default function Visualize() {
             services: ["redis", "redis-sentinel", "stunnel"],
             owner: "Platform Team",
             environment: "production"
+          },
+          // Employee Workstations - Bangalore Office
+          { 
+            id: "blr-ws-01", 
+            name: "BLR-WS-01", 
+            type: "workstation", 
+            status: "compliant", 
+            ip: "192.168.3.101",
+            os: "Windows 11 Pro 23H2",
+            cpu: "Intel Core i7-12700K (12 cores)",
+            memory: "32GB DDR4",
+            storage: "1TB NVMe SSD",
+            uptime: "99.5%",
+            lastScan: "2024-01-15 11:45:00",
+            vulnerabilities: { critical: 0, high: 1, medium: 3, low: 5 },
+            services: ["Windows Update", "Defender", "BitLocker", "LAPS"],
+            owner: "IT Team",
+            environment: "production",
+            user: "david.chen@guardian.com"
+          },
+          { 
+            id: "blr-ws-02", 
+            name: "BLR-WS-02", 
+            type: "workstation", 
+            status: "warning", 
+            ip: "192.168.3.102",
+            os: "Windows 10 Pro 21H2",
+            cpu: "AMD Ryzen 7 5700X (8 cores)",
+            memory: "32GB DDR4",
+            storage: "512GB SSD",
+            uptime: "98.2%",
+            lastScan: "2024-01-15 11:50:00",
+            vulnerabilities: { critical: 3, high: 8, medium: 16, low: 12 },
+            services: ["Windows Update", "Defender", "Office 365"],
+            owner: "Development Team",
+            environment: "production",
+            user: "anita.patel@guardian.com"
+          },
+          { 
+            id: "blr-ws-03", 
+            name: "BLR-WS-03", 
+            type: "workstation", 
+            status: "critical", 
+            ip: "192.168.3.103",
+            os: "Windows 10 Pro 19H2",
+            cpu: "Intel Core i5-8400 (6 cores)",
+            memory: "16GB DDR4",
+            storage: "256GB SSD",
+            uptime: "95.8%",
+            lastScan: "2024-01-15 11:55:00",
+            vulnerabilities: { critical: 28, high: 16, medium: 22, low: 8 },
+            services: ["Windows Update", "Defender"],
+            owner: "Support Team",
+            environment: "production",
+            user: "kumar.reddy@guardian.com"
+          },
+          { 
+            id: "blr-ws-04", 
+            name: "BLR-WS-04", 
+            type: "workstation", 
+            status: "warning", 
+            ip: "192.168.3.104",
+            os: "Windows 11 Pro 22H2",
+            cpu: "Intel Core i7-11800H (8 cores)",
+            memory: "32GB DDR4",
+            storage: "1TB SSD",
+            uptime: "97.9%",
+            lastScan: "2024-01-15 12:00:00",
+            vulnerabilities: { critical: 2, high: 6, medium: 18, low: 14 },
+            services: ["Windows Update", "Defender", "BitLocker", "VPN"],
+            owner: "Security Team",
+            environment: "production",
+            user: "lisa.fernandez@guardian.com"
           }
         ]
       }
@@ -2895,6 +3078,699 @@ export default function Visualize() {
           { source: "F-LNX-814", target: "F-LNX-820", relationship: "prerequisite" },
           { source: "F-LNX-820", target: "F-LNX-822", relationship: "prerequisite" },
           { source: "F-LNX-822", target: "F-LNX-825", relationship: "related" }
+        ]
+      },
+      
+      // WINDOWS WORKSTATION SECURITY DATA - Mumbai WS-01
+      "mumbai-ws-01": {
+        name: "MUM-WS-01",
+        ip: "192.168.1.101",
+        role: "Finance Team Workstation",
+        status: "warning",
+        location: "Mumbai Office",
+        desk: "Finance-Floor-2-Desk-15",
+        serialNumber: "WS-FIN-2023-001",
+        purchaseDate: "2023-05-20",
+        warranty: "3 years",
+        vendor: "Dell Technologies",
+        model: "OptiPlex 7090",
+        user: "john.smith@guardian.com",
+        nodes: [
+          { 
+            id: "mumbai-ws-01", 
+            type: "system", 
+            name: "MUM-WS-01", 
+            status: "system", 
+            level: 0,
+            details: {
+              description: "Finance team workstation for accounting operations",
+              criticality: "Medium",
+              businessImpact: "Financial data processing",
+              maintenanceWindow: "Weekends 8:00 PM - 6:00 AM IST"
+            }
+          },
+          
+          // Windows Security Categories
+          { 
+            id: "win-accounts", 
+            type: "category", 
+            name: "Account Policies", 
+            status: "category", 
+            level: 1,
+            details: {
+              description: "Windows account and password policies",
+              totalChecks: 18,
+              passedChecks: 8,
+              failedChecks: 10,
+              lastAudit: "2024-01-12"
+            }
+          },
+          { 
+            id: "win-local", 
+            type: "category", 
+            name: "Local Policies", 
+            status: "category", 
+            level: 1,
+            details: {
+              description: "Windows local security policies and user rights",
+              totalChecks: 35,
+              passedChecks: 12,
+              failedChecks: 23,
+              lastAudit: "2024-01-11"
+            }
+          },
+          { 
+            id: "win-security", 
+            type: "category", 
+            name: "Security Options", 
+            status: "category", 
+            level: 1,
+            details: {
+              description: "Windows security configuration options",
+              totalChecks: 42,
+              passedChecks: 18,
+              failedChecks: 24,
+              lastAudit: "2024-01-10"
+            }
+          },
+          { 
+            id: "win-system", 
+            type: "category", 
+            name: "System Settings", 
+            status: "category", 
+            level: 1,
+            details: {
+              description: "Windows system configuration and services",
+              totalChecks: 28,
+              passedChecks: 15,
+              failedChecks: 13,
+              lastAudit: "2024-01-09"
+            }
+          },
+          
+          // Account Policy Subcategories
+          { 
+            id: "win-pwd-policy", 
+            type: "subcategory", 
+            name: "Password Policy", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-accounts",
+            details: {
+              description: "Windows password complexity and aging policies",
+              passwordLength: "8 characters",
+              complexityRequired: false,
+              maxAge: "never expires",
+              historyCount: "0"
+            }
+          },
+          { 
+            id: "win-lockout", 
+            type: "subcategory", 
+            name: "Account Lockout Policy", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-accounts",
+            details: {
+              description: "Account lockout configuration",
+              lockoutThreshold: "never",
+              lockoutDuration: "not configured",
+              resetCounter: "not configured",
+              adminLockout: false
+            }
+          },
+          
+          // Local Policy Subcategories
+          { 
+            id: "win-user-rights", 
+            type: "subcategory", 
+            name: "User Rights Assignment", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-local",
+            details: {
+              description: "User rights and privileges assignment",
+              localLogon: "Everyone",
+              networkAccess: "Everyone",
+              backupPrivilege: "Everyone",
+              shutdownPrivilege: "Everyone"
+            }
+          },
+          
+          // Security Options Subcategories
+          { 
+            id: "win-accounts-sec", 
+            type: "subcategory", 
+            name: "Account Security", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-security",
+            details: {
+              description: "Account security configuration options",
+              guestAccountEnabled: true,
+              adminAccountRenamed: false,
+              microsoftAccountsBlocked: false,
+              blankPasswordsAllowed: true
+            }
+          },
+          { 
+            id: "win-interactive", 
+            type: "subcategory", 
+            name: "Interactive Logon", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-security",
+            details: {
+              description: "Interactive logon security settings",
+              ctrlAltDelRequired: false,
+              lastUserDisplayed: true,
+              inactivityLimit: "never",
+              loginBanner: false
+            }
+          },
+          { 
+            id: "win-network-sec", 
+            type: "subcategory", 
+            name: "Network Security", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-security",
+            details: {
+              description: "Network security configuration",
+              lanManagerHash: true,
+              ntlmSecurity: "weak",
+              kerberosEncryption: "weak",
+              anonymousAccess: true
+            }
+          },
+          
+          // System Settings Subcategories
+          { 
+            id: "win-uac", 
+            type: "subcategory", 
+            name: "User Account Control", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-system",
+            details: {
+              description: "UAC configuration settings",
+              adminApprovalMode: false,
+              elevationPrompt: "no prompting",
+              secureDesktop: false,
+              applicationDetection: false
+            }
+          },
+          { 
+            id: "win-services", 
+            type: "subcategory", 
+            name: "System Services", 
+            status: "subcategory", 
+            level: 2, 
+            parent: "win-system",
+            details: {
+              description: "Windows system services configuration",
+              bluetoothEnabled: true,
+              telnetEnabled: true,
+              remoteRegistryEnabled: true,
+              unnecessaryServices: 12
+            }
+          },
+          
+          // CRITICAL WINDOWS SECURITY FEATURES - NON-COMPLIANT
+          
+          // Password Policy Features (F-WIN-101 to F-WIN-106)
+          { 
+            id: "F-WIN-101", 
+            type: "feature", 
+            name: "password history enforced", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-pwd-policy", 
+            description: "Ensure 'Enforce password history' is set to '24 or more password(s)'", 
+            annexure: "1.a.i",
+            details: {
+              checkType: "Password Policy",
+              expectedValue: "24 or more passwords",
+              actualValue: "0 passwords remembered",
+              riskLevel: "High",
+              remediation: "URGENT: Configure password history to prevent password reuse",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-102", 
+            type: "feature", 
+            name: "maximum password age", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-pwd-policy", 
+            description: "Ensure 'Maximum password age' is set to '90 days, but not 0'", 
+            annexure: "1.a.ii",
+            details: {
+              checkType: "Password Policy",
+              expectedValue: "90 days",
+              actualValue: "never expires",
+              riskLevel: "Critical",
+              remediation: "URGENT: Set password expiration to 90 days maximum",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-104", 
+            type: "feature", 
+            name: "minimum password length", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-pwd-policy", 
+            description: "Ensure 'Minimum password length' is set to '12 or more character(s)'", 
+            annexure: "1.a.iv",
+            details: {
+              checkType: "Password Policy",
+              expectedValue: "12 or more characters",
+              actualValue: "8 characters",
+              riskLevel: "High",
+              remediation: "URGENT: Increase minimum password length to 12 characters",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-105", 
+            type: "feature", 
+            name: "password complexity required", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-pwd-policy", 
+            description: "Ensure 'Password must meet complexity requirements' is set to 'Enabled'", 
+            annexure: "1.a.v",
+            details: {
+              checkType: "Password Policy",
+              expectedValue: "Enabled",
+              actualValue: "Disabled",
+              riskLevel: "Critical",
+              remediation: "URGENT: Enable password complexity requirements",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          
+          // Account Lockout Features (F-WIN-107 to F-WIN-109)
+          { 
+            id: "F-WIN-107", 
+            type: "feature", 
+            name: "account lockout duration", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-lockout", 
+            description: "Ensure 'Account lockout duration' is set to '15 or more minute(s)'", 
+            annexure: "1.b.i",
+            details: {
+              checkType: "Account Lockout Policy",
+              expectedValue: "15 or more minutes",
+              actualValue: "not configured",
+              riskLevel: "High",
+              remediation: "URGENT: Configure account lockout duration to 15 minutes",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-108", 
+            type: "feature", 
+            name: "account lockout threshold", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-lockout", 
+            description: "Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'", 
+            annexure: "1.b.ii",
+            details: {
+              checkType: "Account Lockout Policy",
+              expectedValue: "5 or fewer attempts",
+              actualValue: "never locks out",
+              riskLevel: "Critical",
+              remediation: "URGENT: Set account lockout threshold to 5 attempts",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          
+          // User Rights Assignment Features (F-WIN-201 to F-WIN-207)
+          { 
+            id: "F-WIN-202", 
+            type: "feature", 
+            name: "network access restricted", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-user-rights", 
+            description: "Ensure 'Access this computer from the network' is set to 'Administrators, Remote Desktop Users'", 
+            annexure: "2.a.ii",
+            details: {
+              checkType: "User Rights Assignment",
+              expectedValue: "Administrators, Remote Desktop Users only",
+              actualValue: "Everyone",
+              riskLevel: "Critical",
+              remediation: "URGENT: Restrict network access to authorized users only",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-204", 
+            type: "feature", 
+            name: "local logon restricted", 
+            status: "warning", 
+            level: 3, 
+            parent: "win-user-rights", 
+            description: "Ensure 'Allow log on locally' is set to 'Administrators, Users'", 
+            annexure: "2.a.iv",
+            details: {
+              checkType: "User Rights Assignment",
+              expectedValue: "Administrators, Users only",
+              actualValue: "Everyone",
+              riskLevel: "Medium",
+              remediation: "Restrict local logon rights to authorized users",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          
+          // Account Security Features (F-WIN-301 to F-WIN-305)
+          { 
+            id: "F-WIN-301", 
+            type: "feature", 
+            name: "Microsoft accounts blocked", 
+            status: "warning", 
+            level: 3, 
+            parent: "win-accounts-sec", 
+            description: "Ensure 'Accounts: Block Microsoft accounts' is set to 'Users can't add or log on with Microsoft accounts'", 
+            annexure: "3.a.i",
+            details: {
+              checkType: "Account Security",
+              expectedValue: "Block Microsoft accounts",
+              actualValue: "Microsoft accounts allowed",
+              riskLevel: "Medium",
+              remediation: "Block Microsoft accounts for corporate security",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-302", 
+            type: "feature", 
+            name: "guest account disabled", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-accounts-sec", 
+            description: "Ensure 'Accounts: Guest account status' is set to 'Disabled'", 
+            annexure: "3.a.ii",
+            details: {
+              checkType: "Account Security",
+              expectedValue: "Disabled",
+              actualValue: "Enabled",
+              riskLevel: "High",
+              remediation: "URGENT: Disable guest account - major security risk",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-303", 
+            type: "feature", 
+            name: "blank passwords restricted", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-accounts-sec", 
+            description: "Ensure 'Accounts: Limit local account use of blank passwords to console logon only' is set to 'Enabled'", 
+            annexure: "3.a.iii",
+            details: {
+              checkType: "Account Security",
+              expectedValue: "Enabled",
+              actualValue: "Disabled",
+              riskLevel: "Critical",
+              remediation: "URGENT: Restrict blank password usage - security vulnerability",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          
+          // Interactive Logon Features (F-WIN-306 to F-WIN-312)
+          { 
+            id: "F-WIN-306", 
+            type: "feature", 
+            name: "CTRL+ALT+DEL required", 
+            status: "warning", 
+            level: 3, 
+            parent: "win-interactive", 
+            description: "Ensure 'Interactive logon: Do not require CTRL+ALT+DEL' is set to 'Disabled'", 
+            annexure: "3.b.i",
+            details: {
+              checkType: "Interactive Logon",
+              expectedValue: "CTRL+ALT+DEL required",
+              actualValue: "not required",
+              riskLevel: "Medium",
+              remediation: "Require CTRL+ALT+DEL for secure logon",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-307", 
+            type: "feature", 
+            name: "last user not displayed", 
+            status: "warning", 
+            level: 3, 
+            parent: "win-interactive", 
+            description: "Ensure 'Interactive logon: Don't display last signed in' is set to 'Enabled'", 
+            annexure: "3.b.ii",
+            details: {
+              checkType: "Interactive Logon",
+              expectedValue: "Don't display last user",
+              actualValue: "last user displayed",
+              riskLevel: "Low",
+              remediation: "Hide last signed-in user for privacy",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-309", 
+            type: "feature", 
+            name: "machine inactivity limit", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-interactive", 
+            description: "Ensure 'Interactive logon: Machine inactivity limit' is set to '900 or fewer second(s), but not 0'", 
+            annexure: "3.b.iv",
+            details: {
+              checkType: "Interactive Logon",
+              expectedValue: "900 seconds or less",
+              actualValue: "never times out",
+              riskLevel: "Medium",
+              remediation: "URGENT: Set screen lock timeout to 15 minutes maximum",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          
+          // Network Security Features (F-WIN-320 to F-WIN-324)
+          { 
+            id: "F-WIN-321", 
+            type: "feature", 
+            name: "LAN Manager hash disabled", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-network-sec", 
+            description: "Ensure 'Network security: Do not store LAN Manager hash value on next password change' is set to 'Enabled'", 
+            annexure: "3.d.ii",
+            details: {
+              checkType: "Network Security",
+              expectedValue: "Enabled",
+              actualValue: "Disabled",
+              riskLevel: "High",
+              remediation: "URGENT: Disable LAN Manager hash storage - weak encryption",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-324", 
+            type: "feature", 
+            name: "NTLM session security", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-network-sec", 
+            description: "Ensure 'Network security: Minimum session security for NTLM SSP based servers' is set to 'Require NTLMv2 session security, Require 128-bit encryption'", 
+            annexure: "3.d.v",
+            details: {
+              checkType: "Network Security",
+              expectedValue: "NTLMv2 + 128-bit encryption",
+              actualValue: "weak NTLM security",
+              riskLevel: "High",
+              remediation: "URGENT: Enable strong NTLM session security",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          
+          // UAC Features (F-WIN-401 to F-WIN-406)
+          { 
+            id: "F-WIN-401", 
+            type: "feature", 
+            name: "UAC admin approval mode", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-uac", 
+            description: "Ensure 'User Account Control: Admin Approval Mode for the Built-in Administrator account' is set to 'Enabled'", 
+            annexure: "4.a.i",
+            details: {
+              checkType: "User Account Control",
+              expectedValue: "Enabled",
+              actualValue: "Disabled",
+              riskLevel: "High",
+              remediation: "URGENT: Enable UAC for built-in administrator account",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-403", 
+            type: "feature", 
+            name: "UAC standard user elevation", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-uac", 
+            description: "Ensure 'User Account Control: Behaviour of the elevation prompt for standard users' is set to 'Automatically deny elevation requests'", 
+            annexure: "4.a.iii",
+            details: {
+              checkType: "User Account Control",
+              expectedValue: "Automatically deny elevation",
+              actualValue: "prompt for credentials",
+              riskLevel: "Medium",
+              remediation: "URGENT: Deny elevation requests for standard users",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-405", 
+            type: "feature", 
+            name: "UAC admin approval mode enabled", 
+            status: "critical", 
+            level: 3, 
+            parent: "win-uac", 
+            description: "Ensure 'User Account Control: Run all administrators in Admin Approval Mode' is set to 'Enabled'", 
+            annexure: "4.a.v",
+            details: {
+              checkType: "User Account Control",
+              expectedValue: "Enabled",
+              actualValue: "Disabled",
+              riskLevel: "High",
+              remediation: "URGENT: Enable UAC Admin Approval Mode for all administrators",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          
+          // System Services Features (F-WIN-407 to F-WIN-409)
+          { 
+            id: "F-WIN-407", 
+            type: "feature", 
+            name: "Bluetooth Audio Gateway disabled", 
+            status: "warning", 
+            level: 3, 
+            parent: "win-services", 
+            description: "Ensure 'Bluetooth Audio Gateway Service (BTAGService)' is set to 'Disabled'", 
+            annexure: "4.b.i",
+            details: {
+              checkType: "System Services",
+              expectedValue: "Disabled",
+              actualValue: "Automatic",
+              riskLevel: "Medium",
+              remediation: "Disable Bluetooth Audio Gateway service on workstation",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          },
+          { 
+            id: "F-WIN-408", 
+            type: "feature", 
+            name: "Bluetooth Support disabled", 
+            status: "warning", 
+            level: 3, 
+            parent: "win-services", 
+            description: "Ensure 'Bluetooth Support Service (bthserv)' is set to 'Disabled'", 
+            annexure: "4.b.ii",
+            details: {
+              checkType: "System Services",
+              expectedValue: "Disabled",
+              actualValue: "Automatic",
+              riskLevel: "Medium",
+              remediation: "Disable Bluetooth support service on workstation",
+              lastChecked: "2024-01-15 09:15:00",
+              autoRemediation: false
+            }
+          }
+        ],
+        links: [
+          { source: "mumbai-ws-01", target: "win-accounts", relationship: "contains" },
+          { source: "mumbai-ws-01", target: "win-local", relationship: "contains" },
+          { source: "mumbai-ws-01", target: "win-security", relationship: "contains" },
+          { source: "mumbai-ws-01", target: "win-system", relationship: "contains" },
+          
+          // Account Policies
+          { source: "win-accounts", target: "win-pwd-policy", relationship: "contains" },
+          { source: "win-accounts", target: "win-lockout", relationship: "contains" },
+          
+          // Local Policies
+          { source: "win-local", target: "win-user-rights", relationship: "contains" },
+          
+          // Security Options
+          { source: "win-security", target: "win-accounts-sec", relationship: "contains" },
+          { source: "win-security", target: "win-interactive", relationship: "contains" },
+          { source: "win-security", target: "win-network-sec", relationship: "contains" },
+          
+          // System Settings
+          { source: "win-system", target: "win-uac", relationship: "contains" },
+          { source: "win-system", target: "win-services", relationship: "contains" },
+          
+          // Password Policy Features
+          { source: "win-pwd-policy", target: "F-WIN-101", relationship: "contains" },
+          { source: "win-pwd-policy", target: "F-WIN-102", relationship: "contains" },
+          { source: "win-pwd-policy", target: "F-WIN-104", relationship: "contains" },
+          { source: "win-pwd-policy", target: "F-WIN-105", relationship: "contains" },
+          
+          // Account Lockout Features
+          { source: "win-lockout", target: "F-WIN-107", relationship: "contains" },
+          { source: "win-lockout", target: "F-WIN-108", relationship: "contains" },
+          
+          // User Rights Features
+          { source: "win-user-rights", target: "F-WIN-202", relationship: "contains" },
+          { source: "win-user-rights", target: "F-WIN-204", relationship: "contains" },
+          
+          // Account Security Features
+          { source: "win-accounts-sec", target: "F-WIN-301", relationship: "contains" },
+          { source: "win-accounts-sec", target: "F-WIN-302", relationship: "contains" },
+          { source: "win-accounts-sec", target: "F-WIN-303", relationship: "contains" },
+          
+          // Interactive Logon Features
+          { source: "win-interactive", target: "F-WIN-306", relationship: "contains" },
+          { source: "win-interactive", target: "F-WIN-307", relationship: "contains" },
+          { source: "win-interactive", target: "F-WIN-309", relationship: "contains" },
+          
+          // Network Security Features
+          { source: "win-network-sec", target: "F-WIN-321", relationship: "contains" },
+          { source: "win-network-sec", target: "F-WIN-324", relationship: "contains" },
+          
+          // UAC Features
+          { source: "win-uac", target: "F-WIN-401", relationship: "contains" },
+          { source: "win-uac", target: "F-WIN-403", relationship: "contains" },
+          { source: "win-uac", target: "F-WIN-405", relationship: "contains" },
+          
+          // System Services Features
+          { source: "win-services", target: "F-WIN-407", relationship: "contains" },
+          { source: "win-services", target: "F-WIN-408", relationship: "contains" }
         ]
       },
       "mumbai-db-01": {
