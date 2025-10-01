@@ -13,6 +13,7 @@ import Policies from "./pages/Policies";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import Visualize from "./pages/Visualize";
+import AssetDetails from "./pages/AssetDetails";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/" element={<Findings />} />
           <Route path="/scans" element={<Scans />} />
           <Route path="/assets" element={<Assets />} />
+          <Route path="/assets/:hostname" element={<AssetDetails />} />
           <Route path="/vulnerabilities" element={<Vulnerabilities />} />
           <Route path="/visualize" element={<Visualize />} />
           <Route path="/policies" element={<Policies />} />
