@@ -1,0 +1,1766 @@
+[
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-418",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ipv6 router advertisements are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xvi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ipv6 router advertisements are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-417",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure tcp syn cookies is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tcp syn cookies is enabled"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-416",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure suspicious packets are logged",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure suspicious packets are logged"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-415",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure source routed packets are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure source routed packets are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-414",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure reverse path filtering is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure reverse path filtering is enabled"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-413",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure secure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure secure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-412",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-411",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure broadcast icmp requests are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure broadcast icmp requests are ignored"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-410",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure bogus icmp responses are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bogus icmp responses are ignored"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-409",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure packet redirect sending is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure packet redirect sending is disabled"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-408",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ip forwarding is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ip forwarding is disabled"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-407",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure sctp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure sctp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-406",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure rds kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure rds kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-405",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure tipc kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tipc kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-404",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure dccp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure dccp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-403",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure bluetooth services are not in use",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bluetooth services are not in use"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-402",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure wireless interfaces are disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure wireless interfaces are disabled"
+        ]
+    },
+    {
+        "commit_hash": "1e6cea5f",
+        "policy_name": {
+            "Feature ID": "F-LNX-401",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure IPv6 status is identified",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure IPv6 status is identified"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-418",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ipv6 router advertisements are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xvi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ipv6 router advertisements are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-417",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure tcp syn cookies is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tcp syn cookies is enabled"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-416",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure suspicious packets are logged",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure suspicious packets are logged"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-415",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure source routed packets are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure source routed packets are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-414",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure reverse path filtering is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure reverse path filtering is enabled"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-413",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure secure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure secure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-412",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-411",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure broadcast icmp requests are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure broadcast icmp requests are ignored"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-410",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure bogus icmp responses are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bogus icmp responses are ignored"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-409",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure packet redirect sending is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure packet redirect sending is disabled"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-408",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ip forwarding is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ip forwarding is disabled"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-407",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure sctp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure sctp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-406",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure rds kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure rds kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-405",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure tipc kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tipc kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-404",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure dccp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure dccp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-403",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure bluetooth services are not in use",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bluetooth services are not in use"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-402",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure wireless interfaces are disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure wireless interfaces are disabled"
+        ]
+    },
+    {
+        "commit_hash": "35ebfebf",
+        "policy_name": {
+            "Feature ID": "F-LNX-401",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure IPv6 status is identified",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure IPv6 status is identified"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-418",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ipv6 router advertisements are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xvi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ipv6 router advertisements are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-417",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure tcp syn cookies is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tcp syn cookies is enabled"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-416",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure suspicious packets are logged",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure suspicious packets are logged"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-415",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure source routed packets are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure source routed packets are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-414",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure reverse path filtering is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure reverse path filtering is enabled"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-413",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure secure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure secure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-412",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-411",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure broadcast icmp requests are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure broadcast icmp requests are ignored"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-410",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure bogus icmp responses are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bogus icmp responses are ignored"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-409",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure packet redirect sending is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure packet redirect sending is disabled"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-408",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ip forwarding is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ip forwarding is disabled"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-407",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure sctp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure sctp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-406",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure rds kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure rds kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-405",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure tipc kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tipc kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-404",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure dccp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure dccp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-403",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure bluetooth services are not in use",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bluetooth services are not in use"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-402",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure wireless interfaces are disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure wireless interfaces are disabled"
+        ]
+    },
+    {
+        "commit_hash": "f7f4caff",
+        "policy_name": {
+            "Feature ID": "F-LNX-401",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure IPv6 status is identified",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure IPv6 status is identified"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-136",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure noexec option set on /var/log/audit partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /var/log/audit partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-135",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure nosuid option set on /var/log/audit partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var/log/audit partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-134",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure nodev option set on /var/log/audit partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var/log/audit partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-133",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure separate partition exists for /var/log/audit",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var/log/audit"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-132",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure noexec option set on /var/log partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /var/log partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-131",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure nosuid option set on /var/log partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var/log partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-130",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure nodev option set on /var/log partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var/log partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-129",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure separate partition exists for /var/log",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var/log"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-128",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure noexec option set on /var/tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /var/tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-127",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure nosuid option set on /var/tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var/tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-126",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure nodev option set on /var/tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var/tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-125",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure separate partition exists for /var/tmp",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var/tmp"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-124",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var",
+            "Parameter/Rule": "Ensure nosuid option set on /var partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.e.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-123",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var",
+            "Parameter/Rule": "Ensure nodev option set on /var partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.e.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-122",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var",
+            "Parameter/Rule": "Ensure separate partition exists for /var",
+            "OS": "Linux",
+            "Annexure Reference": "1.e.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-121",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /home",
+            "Parameter/Rule": "Ensure nosuid option set on /home partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.d.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /home partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-120",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /home",
+            "Parameter/Rule": "Ensure nodev option set on /home partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.d.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /home partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-119",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /home",
+            "Parameter/Rule": "Ensure separate partition exists for /home",
+            "OS": "Linux",
+            "Annexure Reference": "1.d.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /home"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-118",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure noexec option set on /dev/shm partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /dev/shm partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-117",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure nosuid option set on /dev/shm partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /dev/shm partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-116",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure nodev option set on /dev/shm partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /dev/shm partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-115",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure/dev/shm is a separate partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure/dev/shm is a separate partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-114",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure noexec option set on /tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-113",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure nosuid option set on /tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-112",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure nodev option set on /tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-111",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure /tmp is a separate partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure /tmp is a separate partition"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-110",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure unused filesystems kernel modules are not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.x"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure unused filesystems kernel modules are not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-109",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure usb-storage kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.ix"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure usb-storage kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-108",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure udf kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.viii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure udf kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-107",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure squashfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.vii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure squashfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-106",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure overlayfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.vi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure overlayfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-105",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure jffs2 kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure jffs2 kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-104",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure hfsplus kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure hfsplus kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-103",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure hfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure hfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-102",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure freevxfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure freevxfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "3499710f",
+        "policy_name": {
+            "Feature ID": "F-LNX-101",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure cramfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure cramfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-136",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure noexec option set on /var/log/audit partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /var/log/audit partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-135",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure nosuid option set on /var/log/audit partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var/log/audit partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-134",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure nodev option set on /var/log/audit partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var/log/audit partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-133",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log/audit",
+            "Parameter/Rule": "Ensure separate partition exists for /var/log/audit",
+            "OS": "Linux",
+            "Annexure Reference": "1.h.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var/log/audit"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-132",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure noexec option set on /var/log partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /var/log partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-131",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure nosuid option set on /var/log partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var/log partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-130",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure nodev option set on /var/log partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var/log partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-129",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/log",
+            "Parameter/Rule": "Ensure separate partition exists for /var/log",
+            "OS": "Linux",
+            "Annexure Reference": "1.g.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var/log"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-128",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure noexec option set on /var/tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /var/tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-127",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure nosuid option set on /var/tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var/tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-126",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure nodev option set on /var/tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var/tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-125",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var/tmp",
+            "Parameter/Rule": "Ensure separate partition exists for /var/tmp",
+            "OS": "Linux",
+            "Annexure Reference": "1.f.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var/tmp"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-124",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var",
+            "Parameter/Rule": "Ensure nosuid option set on /var partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.e.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /var partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-123",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var",
+            "Parameter/Rule": "Ensure nodev option set on /var partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.e.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /var partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-122",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /var",
+            "Parameter/Rule": "Ensure separate partition exists for /var",
+            "OS": "Linux",
+            "Annexure Reference": "1.e.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /var"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-121",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /home",
+            "Parameter/Rule": "Ensure nosuid option set on /home partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.d.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /home partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-120",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /home",
+            "Parameter/Rule": "Ensure nodev option set on /home partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.d.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /home partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-119",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /home",
+            "Parameter/Rule": "Ensure separate partition exists for /home",
+            "OS": "Linux",
+            "Annexure Reference": "1.d.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure separate partition exists for /home"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-118",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure noexec option set on /dev/shm partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /dev/shm partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-117",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure nosuid option set on /dev/shm partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /dev/shm partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-116",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure nodev option set on /dev/shm partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /dev/shm partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-115",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /dev/shm",
+            "Parameter/Rule": "Ensure/dev/shm is a separate partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.c.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure/dev/shm is a separate partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-114",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure noexec option set on /tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure noexec option set on /tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-113",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure nosuid option set on /tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nosuid option set on /tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-112",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure nodev option set on /tmp partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure nodev option set on /tmp partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-111",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure /tmp",
+            "Parameter/Rule": "Ensure /tmp is a separate partition",
+            "OS": "Linux",
+            "Annexure Reference": "1.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure /tmp is a separate partition"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-110",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure unused filesystems kernel modules are not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.x"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure unused filesystems kernel modules are not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-109",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure usb-storage kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.ix"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure usb-storage kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-108",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure udf kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.viii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure udf kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-107",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure squashfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.vii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure squashfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-106",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure overlayfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.vi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure overlayfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-105",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure jffs2 kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure jffs2 kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-104",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure hfsplus kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure hfsplus kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-103",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure hfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure hfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-102",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure freevxfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure freevxfs kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "cc47915f",
+        "policy_name": {
+            "Feature ID": "F-LNX-101",
+            "Category": "Filesystem",
+            "Sub-Category": "Configure Filesystem Kernel Modules",
+            "Parameter/Rule": "Ensure cramfs kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "1.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure cramfs kernel module is not available"
+        ]
+    }
+]

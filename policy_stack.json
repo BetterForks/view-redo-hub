@@ -1,0 +1,884 @@
+[
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-418",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ipv6 router advertisements are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xvi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ipv6 router advertisements are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-417",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure tcp syn cookies is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tcp syn cookies is enabled"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-416",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure suspicious packets are logged",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure suspicious packets are logged"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-415",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure source routed packets are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xiii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure source routed packets are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-414",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure reverse path filtering is enabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure reverse path filtering is enabled"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-413",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure secure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.xi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure secure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-412",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure icmp redirects are not accepted",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure icmp redirects are not accepted"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-411",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure broadcast icmp requests are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure broadcast icmp requests are ignored"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-410",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure bogus icmp responses are ignored",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bogus icmp responses are ignored"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-409",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure packet redirect sending is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure packet redirect sending is disabled"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-408",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Parameters",
+            "Parameter/Rule": "Ensure ip forwarding is disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.c.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure ip forwarding is disabled"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-407",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure sctp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure sctp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-406",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure rds kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure rds kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-405",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure tipc kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure tipc kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-404",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Kernel Modules",
+            "Parameter/Rule": "Ensure dccp kernel module is not available",
+            "OS": "Linux",
+            "Annexure Reference": "4.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure dccp kernel module is not available"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-403",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure bluetooth services are not in use",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure bluetooth services are not in use"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-402",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure wireless interfaces are disabled",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure wireless interfaces are disabled"
+        ]
+    },
+    {
+        "commit_hash": "b7c22e0f",
+        "policy_name": {
+            "Feature ID": "F-LNX-401",
+            "Category": "Network",
+            "Sub-Category": "Configure Network Devices",
+            "Parameter/Rule": "Ensure IPv6 status is identified",
+            "OS": "Linux",
+            "Annexure Reference": "4.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure IPv6 status is identified"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-109",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-108",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-107",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout duration' is set to '15 or more minute(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout duration' is set to '15 or more minute(s)'"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-106",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Store passwords using reversible encryption' is set to 'Disabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.vi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Store passwords using reversible encryption' is set to 'Disabled'"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-105",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Password must meet complexity requirements' is set to 'Enabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Password must meet complexity requirements' is set to 'Enabled'"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-104",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password length' is set to '12 or more character(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password length' is set to '12 or more character(s)'"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-103",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password age' is set to '1 day'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password age' is set to '1 day'"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-102",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Maximum password age' is set to '90 days, but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Maximum password age' is set to '90 days, but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "a751b2ef",
+        "policy_name": {
+            "Feature ID": "F-WIN-101",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Enforce password history' is set to '24 or more password(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Enforce password history' is set to '24 or more password(s)'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-109",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-108",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-107",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout duration' is set to '15 or more minute(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout duration' is set to '15 or more minute(s)'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-106",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Store passwords using reversible encryption' is set to 'Disabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.vi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Store passwords using reversible encryption' is set to 'Disabled'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-105",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Password must meet complexity requirements' is set to 'Enabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Password must meet complexity requirements' is set to 'Enabled'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-104",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password length' is set to '12 or more character(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password length' is set to '12 or more character(s)'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-103",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password age' is set to '1 day'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password age' is set to '1 day'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-102",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Maximum password age' is set to '90 days, but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Maximum password age' is set to '90 days, but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "51c2004f",
+        "policy_name": {
+            "Feature ID": "F-WIN-101",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Enforce password history' is set to '24 or more password(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Enforce password history' is set to '24 or more password(s)'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-109",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-108",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-107",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout duration' is set to '15 or more minute(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout duration' is set to '15 or more minute(s)'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-106",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Store passwords using reversible encryption' is set to 'Disabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.vi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Store passwords using reversible encryption' is set to 'Disabled'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-105",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Password must meet complexity requirements' is set to 'Enabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Password must meet complexity requirements' is set to 'Enabled'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-104",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password length' is set to '12 or more character(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password length' is set to '12 or more character(s)'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-103",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password age' is set to '1 day'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password age' is set to '1 day'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-102",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Maximum password age' is set to '90 days, but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Maximum password age' is set to '90 days, but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "049d470f",
+        "policy_name": {
+            "Feature ID": "F-WIN-101",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Enforce password history' is set to '24 or more password(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Enforce password history' is set to '24 or more password(s)'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-109",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-108",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-107",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout duration' is set to '15 or more minute(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout duration' is set to '15 or more minute(s)'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-106",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Store passwords using reversible encryption' is set to 'Disabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.vi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Store passwords using reversible encryption' is set to 'Disabled'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-105",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Password must meet complexity requirements' is set to 'Enabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Password must meet complexity requirements' is set to 'Enabled'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-104",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password length' is set to '12 or more character(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password length' is set to '12 or more character(s)'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-103",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password age' is set to '1 day'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password age' is set to '1 day'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-102",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Maximum password age' is set to '90 days, but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Maximum password age' is set to '90 days, but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "5739b53f",
+        "policy_name": {
+            "Feature ID": "F-WIN-101",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Enforce password history' is set to '24 or more password(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Enforce password history' is set to '24 or more password(s)'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-109",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Allow Administrator account lockout' is set to 'Enabled' (Manual)"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-108",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s), but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-107",
+            "Category": "Account Policies",
+            "Sub-Category": "Account Lockout Policy",
+            "Parameter/Rule": "Ensure 'Account lockout duration' is set to '15 or more minute(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.b.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Account lockout duration' is set to '15 or more minute(s)'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-106",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Store passwords using reversible encryption' is set to 'Disabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.vi"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Store passwords using reversible encryption' is set to 'Disabled'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-105",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Password must meet complexity requirements' is set to 'Enabled'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.v"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Password must meet complexity requirements' is set to 'Enabled'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-104",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password length' is set to '12 or more character(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iv"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password length' is set to '12 or more character(s)'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-103",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Minimum password age' is set to '1 day'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.iii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Minimum password age' is set to '1 day'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-102",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Maximum password age' is set to '90 days, but not 0'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.ii"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Maximum password age' is set to '90 days, but not 0'"
+        ]
+    },
+    {
+        "commit_hash": "935d361f",
+        "policy_name": {
+            "Feature ID": "F-WIN-101",
+            "Category": "Account Policies",
+            "Sub-Category": "Password Policy",
+            "Parameter/Rule": "Ensure 'Enforce password history' is set to '24 or more password(s)'",
+            "OS": "Windows",
+            "Annexure Reference": "1.a.i"
+        },
+        "applied_policies": [
+            "Changed setting for Ensure 'Enforce password history' is set to '24 or more password(s)'"
+        ]
+    }
+]
