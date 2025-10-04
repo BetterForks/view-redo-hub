@@ -374,16 +374,58 @@ def generate_pdf_report(system_info, policies, non_compliant_findings):
     return filename
 
 
-def append_policy_tree_markdown(policy, commit_hash, changes):
-    """Append a new entry to the policy stack with commit details."""
+def load_policy_stack():
+    """Load the policy stack from file."""
     stack_file = "policy_stack.json"
-
-    # Load existing stack or initialize an empty one
     try:
         with open(stack_file, "r") as f:
-            stack = json.load(f)
+            return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        stack = []
+        return []
+
+def save_policy_stack(stack):
+    """Save the policy stack to file."""
+    stack_file = "policy_stack.json"
+    with open(stack_file, "w") as f:
+        json.dump(stack, f, indent=4)
+
+def find_commit_index(stack, commit_hash):
+    """Find the index of a commit in the stack. Returns -1 if not found."""
+    for i, entry in enumerate(stack):
+        if entry.get("commit_hash") == commit_hash:
+            return i
+    return -1
+
+def get_unique_commit_hashes(stack, limit=None):
+    """Get unique commit hashes from the stack."""
+    seen_hashes = set()
+    unique_hashes = []
+    for entry in stack:
+        hash_val = entry.get("commit_hash")
+        if hash_val and hash_val not in seen_hashes:
+            seen_hashes.add(hash_val)
+            unique_hashes.append(hash_val)
+            if limit and len(unique_hashes) >= limit:
+                break
+    return unique_hashes
+
+def display_commit_summary(stack, commit_hash):
+    """Display a summary of what will be affected by reverting to/from a commit."""
+    commits_with_hash = [entry for entry in stack if entry.get("commit_hash") == commit_hash]
+    
+    if len(commits_with_hash) == 1:
+        # Single policy
+        policy_name = commits_with_hash[0].get("policy_name")
+        if isinstance(policy_name, dict):
+            policy_name = policy_name.get("Parameter/Rule", "Unknown Policy")
+        return f"Policy: {policy_name}"
+    else:
+        # Baseline group
+        return f"Baseline Group ({len(commits_with_hash)} policies)"
+
+def append_policy_tree_markdown(policy, commit_hash, changes):
+    """Append a new entry to the policy stack with commit details."""
+    stack = load_policy_stack()
 
     # Create a new stack entry
     new_entry = {
@@ -396,28 +438,24 @@ def append_policy_tree_markdown(policy, commit_hash, changes):
     stack.insert(0, new_entry)  # Newest entry first
 
     # Save the updated stack
-    with open(stack_file, "w") as f:
-        json.dump(stack, f, indent=4)
+    save_policy_stack(stack)
 
 def print_full_commit_tree():
     """Print the full commit stack in a user-friendly format."""
-    stack_file = "policy_stack.json"
-
-    # Load the stack
-    try:
-        with open(stack_file, "r") as f:
-            stack = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
+    stack = load_policy_stack()
+    
+    if not stack:
         console.print("[bold red]No commit history found.[/bold red]")
         return
 
     # Display the stack
-    table = Table(title="Policy Commit History", show_lines=True)
+    table = Table(title="Policy Commit History (Newest to Oldest)", show_lines=True)
     table.add_column("Commit Hash", style="cyan", no_wrap=True)
     table.add_column("Policy Name", style="magenta")
     table.add_column("Applied Policies", style="green")
+    table.add_column("Status", style="yellow", no_wrap=True)
 
-    for entry in stack:
+    for i, entry in enumerate(stack):
         try:
             applied_policies = entry.get("applied_policies", [])
             if not isinstance(applied_policies, list):
@@ -428,13 +466,21 @@ def print_full_commit_tree():
             policy_name = entry.get("policy_name")
             if isinstance(policy_name, dict):
                 policy_name = policy_name.get("Parameter/Rule", "Unknown Policy")
+            
+            # Add status indicator
+            status = "CURRENT" if i == 0 else f"#{i+1}"
 
-            table.add_row(entry["commit_hash"], policy_name, applied_policies_str)
+            table.add_row(entry["commit_hash"], policy_name, applied_policies_str, status)
         except Exception as e:
             console.print(f"[bold red]Error processing entry: {entry}[/bold red]")
             console.print(f"[bold red]Exception: {e}[/bold red]")
 
     console.print(table)
+    
+    # Add summary info
+    unique_commits = len(get_unique_commit_hashes(stack))
+    total_policies = len(stack)
+    console.print(f"\n[bold dim]Summary: {unique_commits} unique commits, {total_policies} total policy entries[/bold dim]")
 def print_policy_tree_terminal(policy, commit_hash, changes):
     """
     Prints a group policy tree to the terminal.
@@ -625,6 +671,253 @@ def history():
     """Displays the policy commit history."""
     print_full_commit_tree()
 
+@cli.command()
+@click.option('--os-type', default='Linux', type=click.Choice(['Linux', 'Windows'], case_sensitive=False), help='Operating system type')
+def groups(os_type):
+    """Lists all available policy groups/categories."""
+    console.print(f"Loading policy groups for [bold cyan]{os_type}[/bold cyan]...")
+    
+    # Load feature map
+    categories = load_feature_map()
+    
+    if not categories:
+        console.print("[bold red]Error:[/bold red] Could not load policy groups.")
+        return
+    
+    # Create a summary table
+    table = Table(title=f"Available Policy Groups - {os_type}", show_header=True, header_style="bold magenta")
+    table.add_column("Category", style="cyan", width=25)
+    table.add_column("Linux Policies", style="green", justify="center", width=15)
+    table.add_column("Windows Policies", style="blue", justify="center", width=15)
+    table.add_column("Description", style="dim")
+    
+    # Category descriptions (you can enhance these)
+    descriptions = {
+        'Filesystem': 'File system permissions, mount options, and directory security',
+        'Access Management': 'User access controls, sudo configurations, and privilege management', 
+        'Services': 'System service configurations and daemon management',
+        'Network': 'Network security settings, firewall rules, and protocol configurations',
+        'Authentication (SSH & PAM)': 'SSH hardening and PAM authentication module settings',
+        'User Accounts': 'User account policies, password requirements, and session controls',
+        'Logging & Auditing': 'System logging configuration and audit trail settings',
+        'System Maintenance': 'System updates, maintenance tasks, and general hardening'
+    }
+    
+    total_linux = 0
+    total_windows = 0
+    
+    for category, policies in sorted(categories.items()):
+        linux_count = len(policies.get('Linux', []))
+        windows_count = len(policies.get('Windows', []))
+        description = descriptions.get(category, 'Security policies and configurations')
+        
+        total_linux += linux_count
+        total_windows += windows_count
+        
+        table.add_row(
+            category,
+            str(linux_count) if linux_count > 0 else "[dim]0[/dim]",
+            str(windows_count) if windows_count > 0 else "[dim]0[/dim]", 
+            description
+        )
+    
+    # Add totals row
+    table.add_row(
+        "[bold]TOTAL[/bold]",
+        f"[bold green]{total_linux}[/bold green]",
+        f"[bold blue]{total_windows}[/bold blue]",
+        "[bold]All available policies[/bold]"
+    )
+    
+    console.print(table)
+    
+    console.print(f"\n[bold yellow]Usage Examples:[/bold yellow]")
+    console.print(f"  guardian apply-baseline \"Filesystem\" --os-type {os_type}")
+    console.print(f"  guardian group-details \"Network\" --os-type {os_type}")
+    console.print(f"  guardian scan  # Check compliance for all policies")
+
+@cli.command(name='group-details')
+@click.argument('category')
+@click.option('--os-type', default='Linux', type=click.Choice(['Linux', 'Windows'], case_sensitive=False), help='Operating system type')
+@click.option('--limit', default=None, type=int, help='Limit number of policies to display')
+def group_details(category, os_type, limit):
+    """Shows detailed information about a specific policy group."""
+    console.print(f"Loading details for policy group [bold cyan]{category}[/bold cyan] ({os_type})...")
+    
+    # Load feature map
+    categories = load_feature_map()
+    
+    if not categories:
+        console.print("[bold red]Error:[/bold red] Could not load policy groups.")
+        return
+    
+    # Find matching category (case-insensitive)
+    matching_category = None
+    for cat_name in categories.keys():
+        if cat_name.lower() == category.lower():
+            matching_category = cat_name
+            break
+    
+    if not matching_category:
+        console.print(f"[bold red]Error:[/bold red] Category '{category}' not found.")
+        console.print(f"\n[bold yellow]Available categories:[/bold yellow]")
+        for cat in sorted(categories.keys()):
+            console.print(f"  - {cat}")
+        return
+    
+    # Get policies for the selected OS
+    policies = categories[matching_category].get(os_type, [])
+    
+    if not policies:
+        console.print(f"[bold yellow]Warning:[/bold yellow] No {os_type} policies found for category '{matching_category}'")
+        return
+    
+    # Apply limit if specified
+    if limit:
+        policies = policies[:limit]
+        suffix = f" (showing first {limit})" if len(categories[matching_category].get(os_type, [])) > limit else ""
+    else:
+        suffix = ""
+    
+    # Display detailed table
+    table = Table(
+        title=f"Policy Group: {matching_category} - {os_type}{suffix}", 
+        show_header=True, 
+        header_style="bold magenta",
+        show_lines=True
+    )
+    table.add_column("Feature ID", style="cyan", no_wrap=True, width=12)
+    table.add_column("Parameter/Rule", style="green", width=40)
+    table.add_column("Priority", style="yellow", justify="center", width=8)
+    table.add_column("Category", style="blue", width=15)
+    
+    for policy in policies:
+        table.add_row(
+            policy.get('Feature ID', 'N/A'),
+            policy.get('Parameter/Rule', 'N/A'),
+            policy.get('Priority', 'N/A'),
+            policy.get('Category', 'N/A')
+        )
+    
+    console.print(table)
+    
+    # Show summary
+    total_in_category = len(categories[matching_category].get(os_type, []))
+    console.print(f"\n[bold dim]Total policies in {matching_category} ({os_type}): {total_in_category}[/bold dim]")
+    
+    if limit and total_in_category > limit:
+        console.print(f"[bold dim]Use --limit {total_in_category} to see all policies[/bold dim]")
+    
+    console.print(f"\n[bold yellow]Apply this group:[/bold yellow]")
+    console.print(f"  guardian apply-baseline \"{matching_category}\" --os-type {os_type}")
+
+@cli.command(name='applied-groups')
+def applied_groups():
+    """Shows which policy groups have been applied to the system."""
+    stack = load_policy_stack()
+    
+    if not stack:
+        console.print("[bold yellow]No policy groups have been applied yet.[/bold yellow]")
+        console.print("\n[bold cyan]Available commands:[/bold cyan]")
+        console.print("  guardian groups                    # List all available groups")
+        console.print("  guardian apply-baseline <group>    # Apply a policy group")
+        return
+    
+    # Analyze applied policies to determine groups
+    applied_groups = {}
+    individual_policies = []
+    
+    for entry in stack:
+        commit_hash = entry.get("commit_hash")
+        policy_name = entry.get("policy_name")
+        
+        # Count how many policies share this commit hash (indicates group application)
+        same_commit_count = len([e for e in stack if e.get("commit_hash") == commit_hash])
+        
+        if same_commit_count > 1:
+            # This is likely a group application
+            if commit_hash not in applied_groups:
+                applied_groups[commit_hash] = {
+                    'count': same_commit_count,
+                    'sample_policy': policy_name,
+                    'entries': []
+                }
+            applied_groups[commit_hash]['entries'].append(entry)
+        else:
+            # Individual policy
+            individual_policies.append(entry)
+    
+    # Display applied groups
+    if applied_groups:
+        console.print("[bold green]Applied Policy Groups:[/bold green]")
+        
+        group_table = Table(show_header=True, header_style="bold magenta")
+        group_table.add_column("Commit Hash", style="cyan", no_wrap=True)
+        group_table.add_column("Policies", style="green", justify="center")
+        group_table.add_column("Group Type", style="yellow")
+        group_table.add_column("Sample Policy", style="dim")
+        
+        for commit_hash, group_info in applied_groups.items():
+            # Try to determine the group category from the policy names
+            policies_in_group = group_info['entries']
+            group_type = "Baseline Group"
+            
+            # Try to extract category from the first policy if it's a dict
+            sample_policy = group_info['sample_policy']
+            if isinstance(sample_policy, dict):
+                sample_text = sample_policy.get('Parameter/Rule', 'Unknown Policy')
+            else:
+                sample_text = str(sample_policy)
+            
+            group_table.add_row(
+                commit_hash,
+                str(group_info['count']),
+                group_type,
+                sample_text[:50] + "..." if len(sample_text) > 50 else sample_text
+            )
+        
+        console.print(group_table)
+    
+    # Display individual policies
+    if individual_policies:
+        console.print(f"\n[bold blue]Individual Applied Policies:[/bold blue]")
+        
+        individual_table = Table(show_header=True, header_style="bold magenta")
+        individual_table.add_column("Commit Hash", style="cyan", no_wrap=True)
+        individual_table.add_column("Policy", style="green")
+        
+        for entry in individual_policies[:10]:  # Show up to 10 individual policies
+            policy_name = entry.get("policy_name")
+            if isinstance(policy_name, dict):
+                policy_text = policy_name.get('Parameter/Rule', 'Unknown Policy')
+            else:
+                policy_text = str(policy_name)
+            
+            individual_table.add_row(
+                entry.get("commit_hash"),
+                policy_text[:60] + "..." if len(policy_text) > 60 else policy_text
+            )
+        
+        console.print(individual_table)
+        
+        if len(individual_policies) > 10:
+            console.print(f"[bold dim]... and {len(individual_policies) - 10} more individual policies[/bold dim]")
+    
+    # Summary
+    total_groups = len(applied_groups)
+    total_individual = len(individual_policies)
+    total_policy_entries = len(stack)
+    
+    console.print(f"\n[bold dim]Summary:[/bold dim]")
+    console.print(f"  Policy Groups Applied: {total_groups}")
+    console.print(f"  Individual Policies: {total_individual}")
+    console.print(f"  Total Policy Entries: {total_policy_entries}")
+    
+    console.print(f"\n[bold yellow]Management Commands:[/bold yellow]")
+    console.print(f"  guardian revert status           # Check current system state")
+    console.print(f"  guardian history                 # View full commit history")
+    console.print(f"  guardian revert to <commit>      # Revert to specific state")
+
 
 @cli.command()
 def scan():
@@ -679,50 +972,33 @@ def revert():
 @revert.command()
 @click.argument('commit_hash')
 def commit(commit_hash):
-    """Reverts a specific policy commit."""
-    stack_file = "policy_stack.json"
+    """Removes a specific policy commit from history (does not affect commits after it)."""
+    stack = load_policy_stack()
     
-    # Load the stack
-    try:
-        with open(stack_file, "r") as f:
-            stack = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
+    if not stack:
         console.print("[bold red]Error:[/bold red] No commit history found.")
         return
     
     # Find ALL commits with the same commit hash (for baseline policies)
-    commits_to_revert = []
-    for entry in stack:
-        if entry.get("commit_hash") == commit_hash:
-            commits_to_revert.append(entry)
+    commits_to_revert = [entry for entry in stack if entry.get("commit_hash") == commit_hash]
     
     if not commits_to_revert:
         console.print(f"[bold red]Error:[/bold red] Commit '{commit_hash}' not found in history.")
         console.print("\n[bold yellow]Available commits:[/bold yellow]")
-        # Show unique commit hashes
-        seen_hashes = set()
-        for entry in stack:
-            hash_val = entry.get("commit_hash")
-            if hash_val and hash_val not in seen_hashes:
-                seen_hashes.add(hash_val)
-                console.print(f"  - {hash_val}")
-                if len(seen_hashes) >= 5:
-                    break
+        unique_hashes = get_unique_commit_hashes(stack, limit=5)
+        for hash_val in unique_hashes:
+            console.print(f"  - {hash_val}")
         return
     
-    console.print(f"Reverting commit [bold yellow]{commit_hash}[/bold yellow]...")
+    console.print(f"[bold yellow]WARNING:[/bold yellow] This will remove commit [bold cyan]{commit_hash}[/bold cyan] from history.")
     console.print(f"Found [bold cyan]{len(commits_to_revert)}[/bold cyan] policy entries with this commit hash.\n")
     
     # Display what's being reverted
-    if len(commits_to_revert) == 1:
-        # Single policy
-        policy_name = commits_to_revert[0].get("policy_name")
-        if isinstance(policy_name, dict):
-            policy_name = policy_name.get("Parameter/Rule", "Unknown Policy")
-        console.print(f"[bold cyan]Reverting:[/bold cyan] {policy_name}")
-    else:
-        # Baseline group - show all policies being reverted
-        console.print(f"[bold cyan]Reverting Baseline Group ({len(commits_to_revert)} policies):[/bold cyan]")
+    summary = display_commit_summary(stack, commit_hash)
+    console.print(f"[bold cyan]Removing:[/bold cyan] {summary}")
+    
+    if len(commits_to_revert) > 1:
+        # Show details for baseline groups
         for i, commit_entry in enumerate(commits_to_revert[:10], 1):  # Show up to 10
             policy_name = commit_entry.get("policy_name")
             if isinstance(policy_name, dict):
@@ -733,7 +1009,7 @@ def commit(commit_hash):
     
     # Simulate revert process
     with Progress(console=console, transient=True) as progress:
-        task = progress.add_task("[yellow]Reverting...", total=100)
+        task = progress.add_task("[yellow]Removing commit...", total=100)
         for i in range(100):
             time.sleep(0.02)
             progress.update(task, advance=1)
@@ -742,11 +1018,114 @@ def commit(commit_hash):
     updated_stack = [entry for entry in stack if entry.get("commit_hash") != commit_hash]
     
     # Save the updated stack
-    with open(stack_file, "w") as f:
-        json.dump(updated_stack, f, indent=4)
+    save_policy_stack(updated_stack)
     
-    console.print(f"\n[bold green]Success![/bold green] Commit '{commit_hash}' has been reverted and removed from history.")
+    console.print(f"\n[bold green]Success![/bold green] Commit '{commit_hash}' has been removed from history.")
     console.print(f"[bold green]Removed {len(commits_to_revert)} policy entries.[/bold green]")
+
+@revert.command(name='to')
+@click.argument('commit_hash')
+@click.option('--force', '-f', is_flag=True, help='Skip confirmation prompt')
+def revert_to(commit_hash, force):
+    """Reverts system state to a specific commit by removing all commits after it."""
+    stack = load_policy_stack()
+    
+    if not stack:
+        console.print("[bold red]Error:[/bold red] No commit history found.")
+        return
+    
+    # Find the target commit index
+    target_index = find_commit_index(stack, commit_hash)
+    
+    if target_index == -1:
+        console.print(f"[bold red]Error:[/bold red] Commit '{commit_hash}' not found in history.")
+        console.print("\n[bold yellow]Available commits (newest to oldest):[/bold yellow]")
+        unique_hashes = get_unique_commit_hashes(stack, limit=5)
+        for hash_val in unique_hashes:
+            console.print(f"  - {hash_val}")
+        return
+    
+    # Calculate what will be removed
+    commits_to_remove = stack[:target_index]  # Everything before target (newer commits)
+    commits_to_keep = stack[target_index:]     # Target commit and everything after (older commits)
+    
+    if not commits_to_remove:
+        console.print(f"[bold yellow]Info:[/bold yellow] Commit '{commit_hash}' is already the newest state. Nothing to revert.")
+        return
+    
+    # Show what will be affected
+    console.print(f"[bold yellow]WARNING:[/bold yellow] This will revert system state to commit [bold cyan]{commit_hash}[/bold cyan]")
+    console.print(f"[bold red]This will remove {len(commits_to_remove)} newer commit(s) from history![/bold red]\n")
+    
+    # Group commits by hash for display
+    commits_by_hash = {}
+    for commit in commits_to_remove:
+        hash_val = commit.get("commit_hash")
+        if hash_val not in commits_by_hash:
+            commits_by_hash[hash_val] = []
+        commits_by_hash[hash_val].append(commit)
+    
+    console.print("[bold cyan]Commits that will be removed:[/bold cyan]")
+    for i, (hash_val, commits) in enumerate(commits_by_hash.items(), 1):
+        summary = display_commit_summary(commits, hash_val)
+        console.print(f"  {i}. {hash_val} - {summary}")
+    
+    console.print(f"\n[bold green]Target state:[/bold green] {commit_hash} - {display_commit_summary(stack, commit_hash)}")
+    
+    # Confirmation prompt
+    if not force:
+        console.print("\n[bold yellow]Are you sure you want to proceed? This action cannot be undone.[/bold yellow]")
+        confirmation = click.prompt("Type 'yes' to continue", type=str)
+        if confirmation.lower() != 'yes':
+            console.print("[bold blue]Operation cancelled.[/bold blue]")
+            return
+    
+    # Simulate revert process
+    with Progress(console=console, transient=True) as progress:
+        task = progress.add_task("[yellow]Reverting system state...", total=100)
+        for i in range(100):
+            time.sleep(0.03)
+            progress.update(task, advance=1)
+    
+    # Save the new stack (everything from target commit onwards)
+    save_policy_stack(commits_to_keep)
+    
+    console.print(f"\n[bold green]Success![/bold green] System state reverted to commit '{commit_hash}'.")
+    console.print(f"[bold green]Removed {len(commits_to_remove)} newer commit(s) from history.[/bold green]")
+    console.print(f"[bold blue]Current state now matches commit {commit_hash}.[/bold blue]")
+
+@revert.command()
+def status():
+    """Shows current system state and recent commit history."""
+    stack = load_policy_stack()
+    
+    if not stack:
+        console.print("[bold yellow]No commit history found. System is in initial state.[/bold yellow]")
+        return
+    
+    # Show current state (most recent commit)
+    current_commit = stack[0]
+    current_hash = current_commit.get("commit_hash")
+    
+    console.print(f"[bold green]Current System State[/bold green]")
+    console.print(f"Latest Commit: [bold cyan]{current_hash}[/bold cyan]")
+    console.print(f"State: {display_commit_summary(stack, current_hash)}\n")
+    
+    # Show recent commit history
+    console.print("[bold yellow]Recent Commit History (newest to oldest):[/bold yellow]")
+    unique_hashes = get_unique_commit_hashes(stack, limit=10)
+    
+    for i, hash_val in enumerate(unique_hashes, 1):
+        summary = display_commit_summary(stack, hash_val)
+        status_indicator = "← CURRENT" if i == 1 else ""
+        console.print(f"  {i}. [cyan]{hash_val}[/cyan] - {summary} [bold green]{status_indicator}[/bold green]")
+    
+    if len(unique_hashes) >= 10:
+        console.print("     ... (use 'guardian history' to see full history)")
+    
+    total_commits = len(set(entry.get("commit_hash") for entry in stack))
+    total_policies = len(stack)
+    console.print(f"\n[bold dim]Total: {total_commits} commits, {total_policies} policy entries[/bold dim]")
 
 @revert.group()
 def snapshot():
