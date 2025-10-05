@@ -1,12 +1,13 @@
 import { AppLayout } from "@/components/AppLayout";
 import { StartNewScanDialog } from "@/components/StartNewScanDialog";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronRight, Building2, Server, MapPin, Database, Globe, Shield, HardDrive, Cpu, Network, Lock, Target } from "lucide-react";
+import { ChevronDown, ChevronRight, Building2, Server, MapPin, Database, Globe, Shield, HardDrive, Cpu, Network, Lock, Target, Eye } from "lucide-react";
 
 export default function Visualize() {
   const svgRef = useRef<SVGSVGElement>(null);
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
+  const [selectedNode, setSelectedNode] = useState<any | null>(null); // For info panel
   const [expandedLocations, setExpandedLocations] = useState<Set<string>>(new Set());
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [currentView, setCurrentView] = useState<'location-systems' | 'system-details'>('location-systems');
@@ -52,9 +53,164 @@ export default function Visualize() {
     // This could redirect to scans page or show a toast notification
   };
 
+  // Helper function to render node information
+  const renderNodeInfo = (node: any) => {
+    if (!node) return null;
+
+    if (node.type === "system" && currentView === 'location-systems') {
+      const system = node.details;
+      return (
+        <div className="space-y-3">
+          <div className="border-b pb-2">
+            <h3 className="font-semibold text-lg text-blue-600">{node.name}</h3>
+            <p className="text-sm text-muted-foreground">System Overview</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            <div><span className="font-medium">Type:</span> {system.type}</div>
+            <div><span className="font-medium">Status:</span> <span className={`px-2 py-1 rounded text-xs ${
+              system.status === 'compliant' ? 'bg-green-100 text-green-800' :
+              system.status === 'warning' ? 'bg-yellow-100 text-yellow-800' :
+              'bg-red-100 text-red-800'
+            }`}>{system.status.toUpperCase()}</span></div>
+            <div><span className="font-medium">IP:</span> {system.ip}</div>
+            <div><span className="font-medium">Uptime:</span> {system.uptime}</div>
+            <div className="col-span-2"><span className="font-medium">OS:</span> {system.os}</div>
+            <div className="col-span-2"><span className="font-medium">CPU:</span> {system.cpu}</div>
+            <div><span className="font-medium">Memory:</span> {system.memory}</div>
+            <div><span className="font-medium">Storage:</span> {system.storage}</div>
+          </div>
+          <div className="border-t pt-2">
+            <div className="text-sm font-medium mb-2">Vulnerabilities</div>
+            <div className="grid grid-cols-4 gap-2 text-xs">
+              <div className="bg-red-100 text-red-800 p-2 rounded text-center">
+                <div className="font-bold">{system.vulnerabilities.critical}</div>
+                <div>Critical</div>
+              </div>
+              <div className="bg-orange-100 text-orange-800 p-2 rounded text-center">
+                <div className="font-bold">{system.vulnerabilities.high}</div>
+                <div>High</div>
+              </div>
+              <div className="bg-yellow-100 text-yellow-800 p-2 rounded text-center">
+                <div className="font-bold">{system.vulnerabilities.medium}</div>
+                <div>Medium</div>
+              </div>
+              <div className="bg-blue-100 text-blue-800 p-2 rounded text-center">
+                <div className="font-bold">{system.vulnerabilities.low}</div>
+                <div>Low</div>
+              </div>
+            </div>
+          </div>
+          <div className="text-xs text-muted-foreground italic bg-blue-50 p-2 rounded">
+            💡 Click to drill down into security details
+          </div>
+        </div>
+      );
+    } else if (node.type === "system") {
+      // System details view (from systemsData)
+      return (
+        <div className="space-y-3">
+          <div className="border-b pb-2">
+            <h3 className="font-semibold text-lg text-blue-600">{node.name}</h3>
+            <p className="text-sm text-muted-foreground">Security Configuration</p>
+          </div>
+          <div className="grid grid-cols-1 gap-2 text-sm">
+            <div><span className="font-medium">Role:</span> {node.role || 'N/A'}</div>
+            <div><span className="font-medium">IP Address:</span> {node.ip || 'N/A'}</div>
+            <div><span className="font-medium">Hardware:</span> {node.vendor || 'N/A'} {node.model || ''}</div>
+            <div><span className="font-medium">Serial:</span> <span className="font-mono text-xs">{node.serialNumber || 'N/A'}</span></div>
+          </div>
+          <div className="text-xs text-muted-foreground italic bg-purple-50 p-2 rounded">
+            💡 Click to expand/collapse security categories
+          </div>
+        </div>
+      );
+    } else if (node.type === "category") {
+      return (
+        <div className="space-y-3">
+          <div className="border-b pb-2">
+            <h3 className="font-semibold text-lg text-purple-600">{node.name}</h3>
+            <p className="text-sm text-muted-foreground">Security Category</p>
+          </div>
+          <div className="space-y-2 text-sm">
+            <div><span className="font-medium">Description:</span> {node.details?.description || 'N/A'}</div>
+            <div className="grid grid-cols-3 gap-2 mt-2">
+              <div className="bg-green-100 text-green-800 p-2 rounded text-center">
+                <div className="font-bold">{node.details?.passedChecks || 0}</div>
+                <div className="text-xs">Passed</div>
+              </div>
+              <div className="bg-red-100 text-red-800 p-2 rounded text-center">
+                <div className="font-bold">{node.details?.failedChecks || 0}</div>
+                <div className="text-xs">Failed</div>
+              </div>
+              <div className="bg-blue-100 text-blue-800 p-2 rounded text-center">
+                <div className="font-bold">{node.details?.totalChecks || 0}</div>
+                <div className="text-xs">Total</div>
+              </div>
+            </div>
+            <div><span className="font-medium">Last Audit:</span> {node.details?.lastAudit || 'N/A'}</div>
+          </div>
+          <div className="text-xs text-muted-foreground italic bg-purple-50 p-2 rounded">
+            💡 Click to expand/collapse subcategories
+          </div>
+        </div>
+      );
+    } else if (node.type === "subcategory") {
+      return (
+        <div className="space-y-3">
+          <div className="border-b pb-2">
+            <h3 className="font-semibold text-lg text-teal-600">{node.name}</h3>
+            <p className="text-sm text-muted-foreground">Security Sub-Category</p>
+          </div>
+          <div className="text-sm">
+            <div><span className="font-medium">Description:</span> {node.details?.description || 'N/A'}</div>
+          </div>
+          <div className="text-xs text-muted-foreground italic bg-teal-50 p-2 rounded">
+            💡 Click to expand/collapse security features
+          </div>
+        </div>
+      );
+    } else if (node.type === "feature") {
+      return (
+        <div className="space-y-3">
+          <div className="border-b pb-2">
+            <h3 className="font-semibold text-lg text-orange-600">{node.name}</h3>
+            <p className="text-sm text-muted-foreground">Security Feature</p>
+          </div>
+          <div className="space-y-2 text-sm">
+            <div className="bg-gray-100 p-2 rounded">
+              <span className="font-medium">ID:</span> <span className="font-mono text-xs">{node.id}</span>
+            </div>
+            <div><span className="font-medium">Status:</span> <span className={`px-2 py-1 rounded text-xs ${
+              node.status === 'compliant' ? 'bg-green-100 text-green-800' :
+              node.status === 'warning' ? 'bg-yellow-100 text-yellow-800' :
+              'bg-red-100 text-red-800'
+            }`}>{node.status.toUpperCase()}</span></div>
+            <div><span className="font-medium">Risk Level:</span> {node.details?.riskLevel || 'N/A'}</div>
+            <div><span className="font-medium">Check Type:</span> {node.details?.checkType || 'N/A'}</div>
+            <div><span className="font-medium">Expected:</span> <span className="font-mono text-xs">{node.details?.expectedValue || 'N/A'}</span></div>
+            <div><span className="font-medium">Actual:</span> <span className="font-mono text-xs">{node.details?.actualValue || 'N/A'}</span></div>
+            <div><span className="font-medium">Annexure:</span> {node.annexure || 'N/A'}</div>
+            <div className="border-t pt-2"><span className="font-medium">Description:</span> {node.description || 'N/A'}</div>
+            <div className="bg-blue-50 p-2 rounded"><span className="font-medium">Remediation:</span> {node.details?.remediation || 'N/A'}</div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-3">
+        <div className="border-b pb-2">
+          <h3 className="font-semibold text-lg">{node.name || 'Unknown Node'}</h3>
+          <p className="text-sm text-muted-foreground">Type: {node.type || 'Unknown'}</p>
+        </div>
+        <p className="text-sm text-muted-foreground">Click on a node to view detailed information.</p>
+      </div>
+    );
+  };
+
   useEffect(() => {
     // Add D3.js script if not already loaded
-    if (!window.d3) {
+    if (!(window as any).d3) {
       const script = document.createElement('script');
       script.src = 'https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js';
       script.onload = () => initVisualization();
@@ -62,12 +218,12 @@ export default function Visualize() {
     } else {
       initVisualization();
     }
-  }, [selectedLocation, selectedSystem, expandedNodes, currentView]);
+  }, [selectedLocation, selectedSystem, selectedNode, expandedNodes, currentView]);
 
   const initVisualization = () => {
-    if (!svgRef.current || !window.d3) return;
+    if (!svgRef.current || !(window as any).d3) return;
 
-    const d3 = window.d3;
+    const d3 = (window as any).d3;
     
     // Enhanced location-based infrastructure data with comprehensive mock data
     const locationsData = {
@@ -4025,7 +4181,10 @@ export default function Visualize() {
         .force("collision", d3.forceCollide().radius(d => {
           if (currentView === 'location-systems') return 40;
           return d.type === "system" ? 35 : d.type === "category" ? 25 : 20;
-        }));
+        }))
+        .velocityDecay(0.4)  // Slower animation - default is 0.4, lower = slower
+        .alphaDecay(0.01)    // Slower convergence - default is 0.028, lower = slower
+        .alpha(0.8);         // Lower starting energy for gentler movements
 
       // Create links
       const link = g.append("g")
@@ -4068,14 +4227,13 @@ export default function Visualize() {
           if (d.status === "critical") return "#e53e3e";
           return "#718096";
         })
-        .style("stroke-width", 2)
+        .style("stroke-width", d => d.id === selectedNode?.id ? 4 : 2)
+        .style("filter", d => d.id === selectedNode?.id ? "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))" : "none")
         .style("cursor", "pointer")
         .call(d3.drag()
           .on("start", dragstarted)
           .on("drag", dragged)
           .on("end", dragended))
-        .on("mouseover", showTooltip)
-        .on("mouseout", hideTooltip)
         .on("click", handleNodeClick);
 
       // Add labels
@@ -4116,7 +4274,7 @@ export default function Visualize() {
           .attr("y", d => d.y);
       });
 
-      window.currentGraph = { node, link, labels, simulation };
+      (window as any).currentGraph = { node, link, labels, simulation };
 
       setTimeout(() => {
         fitToScreen();
@@ -4146,6 +4304,9 @@ export default function Visualize() {
     }
 
     function handleNodeClick(event, d) {
+      // Always set selected node for info panel
+      setSelectedNode(d);
+      
       if (currentView === 'location-systems' && d.type === "system") {
         setSelectedSystem(d.id);
         setCurrentView('system-details');
@@ -4181,7 +4342,7 @@ export default function Visualize() {
     }
 
     function dragstarted(event, d) {
-      if (!event.active) window.currentGraph.simulation.alphaTarget(0.3).restart();
+      if (!event.active) (window as any).currentGraph.simulation.alphaTarget(0.1).restart(); // Reduced from 0.3 to 0.1
       d.fx = d.x;
       d.fy = d.y;
     }
@@ -4192,110 +4353,33 @@ export default function Visualize() {
     }
 
     function dragended(event, d) {
-      if (!event.active) window.currentGraph.simulation.alphaTarget(0);
+      if (!event.active) (window as any).currentGraph.simulation.alphaTarget(0);
       d.fx = null;
       d.fy = null;
     }
 
-    function showTooltip(event, d) {
-      let tooltip = d3.select("body").select(".tooltip");
-      if (tooltip.empty()) {
-        tooltip = d3.select("body").append("div")
-          .attr("class", "tooltip")
-          .style("position", "absolute")
-          .style("background", "rgba(0, 0, 0, 0.9)")
-          .style("color", "white")
-          .style("padding", "12px 16px")
-          .style("border-radius", "8px")
-          .style("font-size", "13px")
-          .style("pointer-events", "none")
-          .style("z-index", "2000")
-          .style("max-width", "350px")
-          .style("box-shadow", "0 10px 25px rgba(0, 0, 0, 0.3)")
-          .style("opacity", 0);
-      }
-      
-      let content = '';
-      
-      if (d.type === "system" && currentView === 'location-systems') {
-        const system = d.details;
-        content = `<h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: #60a5fa;">${d.name}</h4>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Type:</strong> ${system.type}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>IP:</strong> ${system.ip}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>OS:</strong> ${system.os}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>CPU:</strong> ${system.cpu}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Memory:</strong> ${system.memory}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Uptime:</strong> ${system.uptime}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Status:</strong> ${system.status.toUpperCase()}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Vulnerabilities:</strong> C:${system.vulnerabilities.critical} H:${system.vulnerabilities.high} M:${system.vulnerabilities.medium} L:${system.vulnerabilities.low}</p>
-                  <p style="margin: 4px 0; line-height: 1.4; font-style: italic;">Click to drill down into security details</p>`;
-      } else if (d.type === "system") {
-        const systemData = systemsData[d.id];
-        content = `<h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: #60a5fa;">${d.name}</h4>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Role:</strong> ${systemData.role}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>IP:</strong> ${systemData.ip}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Rack:</strong> ${systemData.rack}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Serial:</strong> ${systemData.serialNumber}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Vendor:</strong> ${systemData.vendor}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Model:</strong> ${systemData.model}</p>
-                  <p style="margin: 4px 0; line-height: 1.4; font-style: italic;">Click to expand/collapse security categories</p>`;
-      } else if (d.type === "category") {
-        content = `<h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: #60a5fa;">${d.name}</h4>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Description:</strong> ${d.details.description}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Total Checks:</strong> ${d.details.totalChecks || 'N/A'}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Passed:</strong> ${d.details.passedChecks || 'N/A'}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Failed:</strong> ${d.details.failedChecks || 'N/A'}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Last Audit:</strong> ${d.details.lastAudit || 'N/A'}</p>
-                  <p style="margin: 4px 0; line-height: 1.4; font-style: italic;">Click to expand/collapse subcategories</p>`;
-      } else if (d.type === "subcategory") {
-        content = `<h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: #60a5fa;">${d.name}</h4>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Description:</strong> ${d.details.description}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Type:</strong> Sub-Category</p>
-                  <p style="margin: 4px 0; line-height: 1.4; font-style: italic;">Click to expand/collapse features</p>`;
-      } else if (d.type === "feature") {
-        content = `<h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: #60a5fa;">${d.name}</h4>
-                  <p style="margin: 4px 0; line-height: 1.4; font-family: Monaco, Menlo, monospace; font-size: 11px; color: #94a3b8;"><strong>ID:</strong> ${d.id}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Status:</strong> ${d.status.toUpperCase()}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Risk Level:</strong> ${d.details.riskLevel}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Check Type:</strong> ${d.details.checkType}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Expected:</strong> ${d.details.expectedValue}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Actual:</strong> ${d.details.actualValue}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Annexure:</strong> ${d.annexure}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;">${d.description}</p>
-                  <p style="margin: 4px 0; line-height: 1.4;"><strong>Remediation:</strong> ${d.details.remediation}</p>`;
-      }
-      
-      tooltip
-        .style("opacity", 1)
-        .html(content)
-        .style("left", (event.pageX + 15) + "px")
-        .style("top", (event.pageY - 10) + "px");
-    }
-
-    function hideTooltip() {
-      d3.select("body").select(".tooltip").style("opacity", 0);
-    }
-
-    // Expose functions globally
-    window.zoomIn = () => {
+    // Expose functions globally for toolbar
+    (window as any).zoomIn = () => {
       svg.transition().duration(300).call(zoom.scaleBy, 1.5);
     };
 
-    window.zoomOut = () => {
+    (window as any).zoomOut = () => {
       svg.transition().duration(300).call(zoom.scaleBy, 1 / 1.5);
     };
 
-    window.fitToScreen = fitToScreen;
+    (window as any).fitToScreen = fitToScreen;
 
-    window.resetView = () => {
+    (window as any).resetView = () => {
       setSelectedLocation(null);
       setSelectedSystem(null);
+      setSelectedNode(null);
       setExpandedNodes(new Set());
       setCurrentView('location-systems');
     };
 
-    window.goBackToLocationSystems = () => {
+    (window as any).goBackToLocationSystems = () => {
       setSelectedSystem(null);
+      setSelectedNode(null);
       setExpandedNodes(new Set());
       setCurrentView('location-systems');
     };
@@ -4407,7 +4491,7 @@ export default function Visualize() {
                 </div>
                 {currentView === 'system-details' && (
                   <button 
-                    onClick={() => window.goBackToLocationSystems?.()}
+                    onClick={() => (window as any).goBackToLocationSystems?.()}
                     className="text-xs px-2 py-1 bg-primary text-primary-foreground rounded hover:bg-primary/90"
                   >
                     ← Systems
@@ -4573,14 +4657,14 @@ export default function Visualize() {
               )}
               <button 
                 className="px-4 py-2 bg-card border rounded-md text-sm font-medium hover:bg-muted transition-colors"
-                onClick={() => window.resetView?.()}
+                onClick={() => (window as any).resetView?.()}
               >
                 Reset View
               </button>
               {currentView === 'system-details' && (
                 <button 
                   className="px-4 py-2 bg-card border rounded-md text-sm font-medium hover:bg-muted transition-colors"
-                  onClick={() => window.goBackToLocationSystems?.()}
+                  onClick={() => (window as any).goBackToLocationSystems?.()}
                 >
                   ← Back to Systems
                 </button>
@@ -4589,21 +4673,21 @@ export default function Visualize() {
             <div className="flex gap-1 bg-card border rounded-md p-1">
               <button 
                 className="w-8 h-8 flex items-center justify-center hover:bg-muted rounded text-sm font-bold"
-                onClick={() => window.zoomIn?.()}
+                onClick={() => (window as any).zoomIn?.()}
                 title="Zoom In"
               >
                 +
               </button>
               <button 
                 className="w-8 h-8 flex items-center justify-center hover:bg-muted rounded text-sm font-bold"
-                onClick={() => window.zoomOut?.()}
+                onClick={() => (window as any).zoomOut?.()}
                 title="Zoom Out"
               >
                 −
               </button>
               <button 
                 className="w-8 h-8 flex items-center justify-center hover:bg-muted rounded text-sm font-bold"
-                onClick={() => window.fitToScreen?.()}
+                onClick={() => (window as any).fitToScreen?.()}
                 title="Fit to Screen"
               >
                 ⌂
@@ -4611,14 +4695,21 @@ export default function Visualize() {
             </div>
           </div>
 
-          {/* Breadcrumb */}
-          <div className="absolute top-4 right-4 bg-card border rounded-md px-4 py-2 text-sm text-muted-foreground">
-            {!selectedLocation 
-              ? 'Select Location to View Systems'
-              : currentView === 'location-systems' 
-                ? `${locations.find(l => l.id === selectedLocation)?.name} → Systems`
-                : `${selectedSystem} → Security Configuration`
-            }
+          {/* Instructions Panel */}
+          <div className="absolute top-4 right-4 bg-card border rounded-md px-4 py-2 text-sm">
+            <div className="text-muted-foreground">
+              {!selectedLocation 
+                ? '📍 Click on location, then select systems to view'
+                : currentView === 'location-systems' 
+                  ? `🏢 ${locations.find(l => l.id === selectedLocation)?.name} → Click systems for details`
+                  : `🔒 ${selectedSystem} → Click nodes for information`
+              }
+            </div>
+            {selectedNode && (
+              <div className="text-xs text-blue-600 mt-1">
+                ℹ️ Selected: {selectedNode.name}
+              </div>
+            )}
           </div>
 
           {/* Legend */}
@@ -4677,6 +4768,40 @@ export default function Visualize() {
                 <span className="text-xs">Critical</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Node Information Panel */}
+        <div className="w-80 bg-card border-l overflow-y-auto">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+                Node Information
+              </h3>
+              {selectedNode && (
+                <button 
+                  onClick={() => setSelectedNode(null)}
+                  className="text-xs px-2 py-1 bg-muted text-muted-foreground rounded hover:bg-muted/80"
+                  title="Clear Selection"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            
+            {selectedNode ? (
+              renderNodeInfo(selectedNode)
+            ) : (
+              <div className="text-center text-muted-foreground py-8">
+                <div className="mb-4">
+                  <Eye className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                </div>
+                <p className="text-sm">Click on any node to view detailed information</p>
+                <p className="text-xs mt-2 opacity-70">
+                  No more hovering needed - just click!
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
