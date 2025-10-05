@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { AppLayout } from "@/components/AppLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { GenerateReportDialog } from "@/components/GenerateReportDialog";
 import { FileText, Download, Calendar, Clock } from "lucide-react";
 
-const reports = [
+const initialReports = [
   { name: "Monthly Compliance Report", type: "Compliance", generated: "2025-09-30 08:00", size: "2.4 MB", format: "PDF", status: "Ready" },
   { name: "Asset Inventory Report", type: "Asset", generated: "2025-09-29 10:15", size: "3.1 MB", format: "PDF", status: "Ready" },
 ];
@@ -23,14 +25,60 @@ const reportTemplates = [
   { name: "Asset Security Posture", description: "Per-asset security status and compliance ratings", baseline: "CMDB Integration" },
 ];
 
+// Mock location data from visualization
+const mockLocations = {
+  "mumbai": {
+    name: "Mumbai Office",
+    region: "West India",
+    systems: [
+      { id: "mumbai-web-01", name: "MUM-WEB-01", type: "web-server", status: "warning" as const, ip: "192.168.1.10", os: "Ubuntu 20.04 LTS", owner: "Web Team", environment: "production" },
+      { id: "mumbai-db-01", name: "MUM-DB-01", type: "database", status: "critical" as const, ip: "192.168.1.20", os: "CentOS 8", owner: "Database Team", environment: "production" },
+      { id: "mumbai-app-01", name: "MUM-APP-01", type: "application", status: "warning" as const, ip: "192.168.1.30", os: "RHEL 8.5", owner: "DevOps Team", environment: "production" },
+      { id: "mumbai-proxy-01", name: "MUM-PROXY-01", type: "load-balancer", status: "critical" as const, ip: "192.168.1.40", os: "Ubuntu 22.04 LTS", owner: "Network Team", environment: "production" },
+      { id: "mumbai-ws-01", name: "MUM-WS-01", type: "workstation", status: "warning" as const, ip: "192.168.1.101", os: "Windows 11 Pro 22H2", owner: "Finance Team", environment: "production" },
+      { id: "mumbai-ws-02", name: "MUM-WS-02", type: "workstation", status: "critical" as const, ip: "192.168.1.102", os: "Windows 10 Pro 21H2", owner: "HR Team", environment: "production" },
+      { id: "mumbai-ws-03", name: "MUM-WS-03", type: "workstation", status: "compliant" as const, ip: "192.168.1.103", os: "Windows 11 Pro 23H2", owner: "IT Security Team", environment: "production" }
+    ]
+  },
+  "delhi": {
+    name: "Delhi Office", 
+    region: "North India",
+    systems: [
+      { id: "delhi-web-01", name: "DEL-WEB-01", type: "web-server", status: "warning" as const, ip: "192.168.2.10", os: "Ubuntu 22.04 LTS", owner: "Web Team", environment: "production" },
+      { id: "delhi-db-01", name: "DEL-DB-01", type: "database", status: "compliant" as const, ip: "192.168.2.20", os: "PostgreSQL 14", owner: "Database Team", environment: "production" },
+      { id: "delhi-app-01", name: "DEL-APP-01", type: "application", status: "warning" as const, ip: "192.168.2.30", os: "Ubuntu 20.04 LTS", owner: "DevOps Team", environment: "production" },
+      { id: "delhi-ws-01", name: "DEL-WS-01", type: "workstation", status: "compliant" as const, ip: "192.168.2.101", os: "Windows 11 Pro 23H2", owner: "Sales Team", environment: "production" },
+      { id: "delhi-ws-02", name: "DEL-WS-02", type: "workstation", status: "warning" as const, ip: "192.168.2.102", os: "Windows 10 Pro 22H2", owner: "Marketing Team", environment: "production" }
+    ]
+  }
+};
+
 export default function Reports() {
+  const [showReportDialog, setShowReportDialog] = useState(false);
+  const [reports, setReports] = useState(initialReports);
+
+  const handleGenerateReport = (reportConfig: any) => {
+    // Mock report generation
+    const newReport = {
+      name: reportConfig.name || `${reportConfig.reportType} Report`,
+      type: reportConfig.reportType.charAt(0).toUpperCase() + reportConfig.reportType.slice(1),
+      generated: new Date().toISOString().replace('T', ' ').slice(0, 19),
+      size: `${(Math.random() * 3 + 0.5).toFixed(1)} MB`,
+      format: reportConfig.format.toUpperCase(),
+      status: "Ready"
+    };
+
+    setReports(prev => [newReport, ...prev]);
+    console.log("Generating report with config:", reportConfig);
+  };
+
   return (
     <AppLayout title="Reports & Compliance" breadcrumbs={["Reports"]}>
       <div className="space-y-6">
         {/* Quick Actions */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Button>
+            <Button onClick={() => setShowReportDialog(true)}>
               <FileText className="h-4 w-4 mr-2" />
               Generate Report
             </Button>
@@ -141,6 +189,14 @@ export default function Reports() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Generate Report Dialog */}
+      <GenerateReportDialog
+        open={showReportDialog}
+        onOpenChange={setShowReportDialog}
+        locations={mockLocations}
+        onGenerateReport={handleGenerateReport}
+      />
     </AppLayout>
   );
 }
