@@ -7,6 +7,7 @@ export const assets = [
     status: "Compliant",
     guardian: "Active",
     lastScan: "2 mins ago",
+    location: "Mumbai Office",
     policies: [
       // External Policies
       { name: 'External Firewall Rule 1', layer: 'External', category: 'Firewall', subcategory: 'Ingress', status: 'successfully applied', oldConfig: 'port 22 = allow', newConfig: 'port 22 = deny' },
@@ -297,8 +298,225 @@ export const assets = [
     policyChanges: [
       { id: 'pc1', policyName: 'Service Policy', timestamp: '2024-10-26 10:00:00', authorized: true, oldPolicy: 'PermitRootLogin yes', newPolicy: 'PermitRootLogin no', changedBy: 'admin', changeType: 'modified' },
       { id: 'pc2', policyName: 'External Firewall Rule', timestamp: '2024-10-26 09:00:00', authorized: false, oldPolicy: 'port 80 = allow', newPolicy: 'port 80 = deny\nport 443 = allow', changedBy: 'system', changeType: 'added' },
-    ],
-    location: "Mumbai"
+    ]
   },
-  // ... other assets are kept the same for now
+  // Mumbai Office Systems
+  {
+    hostname: "MUM-DB-01",
+    ip: "192.168.1.20",
+    os: "CentOS 8",
+    type: "Database Server",
+    status: "Critical",
+    guardian: "Active",
+    lastScan: "5 mins ago",
+    location: "Mumbai Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "MUM-APP-01", 
+    ip: "192.168.1.30",
+    os: "RHEL 8.5",
+    type: "Application Server", 
+    status: "Warning",
+    guardian: "Active",
+    lastScan: "3 mins ago",
+    location: "Mumbai Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "MUM-PROXY-01",
+    ip: "192.168.1.40", 
+    os: "Ubuntu 22.04 LTS",
+    type: "Load Balancer",
+    status: "Critical",
+    guardian: "Active", 
+    lastScan: "1 min ago",
+    location: "Mumbai Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "MUM-WS-01",
+    ip: "192.168.1.101",
+    os: "Windows 11 Pro 22H2",
+    type: "Workstation",
+    status: "Warning",
+    guardian: "Active",
+    lastScan: "10 mins ago", 
+    location: "Mumbai Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "MUM-WS-02",
+    ip: "192.168.1.102",
+    os: "Windows 10 Pro 21H2", 
+    type: "Workstation",
+    status: "Critical",
+    guardian: "Active",
+    lastScan: "8 mins ago",
+    location: "Mumbai Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "MUM-WS-03",
+    ip: "192.168.1.103",
+    os: "Windows 11 Pro 23H2",
+    type: "Workstation", 
+    status: "Compliant",
+    guardian: "Active",
+    lastScan: "12 mins ago",
+    location: "Mumbai Office",
+    policies: [],
+    policyChanges: []
+  },
+  // Delhi Office Systems
+  {
+    hostname: "DEL-WEB-01",
+    ip: "192.168.2.10",
+    os: "Ubuntu 22.04 LTS",
+    type: "Web Server",
+    status: "Warning", 
+    guardian: "Active",
+    lastScan: "6 mins ago",
+    location: "Delhi Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "DEL-DB-01",
+    ip: "192.168.2.20",
+    os: "PostgreSQL 14",
+    type: "Database Server",
+    status: "Compliant",
+    guardian: "Active",
+    lastScan: "4 mins ago",
+    location: "Delhi Office", 
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "DEL-APP-01",
+    ip: "192.168.2.30",
+    os: "Ubuntu 20.04 LTS",
+    type: "Application Server",
+    status: "Warning",
+    guardian: "Active",
+    lastScan: "7 mins ago",
+    location: "Delhi Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "DEL-WS-01", 
+    ip: "192.168.2.101",
+    os: "Windows 11 Pro 23H2",
+    type: "Workstation",
+    status: "Compliant",
+    guardian: "Active",
+    lastScan: "15 mins ago",
+    location: "Delhi Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "DEL-WS-02",
+    ip: "192.168.2.102", 
+    os: "Windows 10 Pro 22H2",
+    type: "Workstation",
+    status: "Warning",
+    guardian: "Active",
+    lastScan: "11 mins ago",
+    location: "Delhi Office",
+    policies: [],
+    policyChanges: []
+  },
+  // Bangalore Office Systems
+  {
+    hostname: "BLR-WEB-01",
+    ip: "192.168.3.10",
+    os: "Ubuntu 20.04 LTS", 
+    type: "Web Server",
+    status: "Warning",
+    guardian: "Active",
+    lastScan: "9 mins ago",
+    location: "Bangalore Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "BLR-DB-01",
+    ip: "192.168.3.20",
+    os: "PostgreSQL on Ubuntu 18.04",
+    type: "Database Server",
+    status: "Critical",
+    guardian: "Active",
+    lastScan: "13 mins ago",
+    location: "Bangalore Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "BLR-CACHE-01",
+    ip: "192.168.3.50",
+    os: "Redis on Alpine Linux",
+    type: "Cache Server",
+    status: "Warning", 
+    guardian: "Active",
+    lastScan: "14 mins ago",
+    location: "Bangalore Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "BLR-WS-01",
+    ip: "192.168.3.101",
+    os: "Windows 11 Pro 23H2",
+    type: "Workstation",
+    status: "Compliant",
+    guardian: "Active",
+    lastScan: "16 mins ago",
+    location: "Bangalore Office", 
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "BLR-WS-02",
+    ip: "192.168.3.102",
+    os: "Windows 10 Pro 21H2",
+    type: "Workstation", 
+    status: "Warning",
+    guardian: "Active",
+    lastScan: "18 mins ago",
+    location: "Bangalore Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "BLR-WS-03",
+    ip: "192.168.3.103",
+    os: "Windows 10 Pro 19H2",
+    type: "Workstation",
+    status: "Critical", 
+    guardian: "Active",
+    lastScan: "20 mins ago",
+    location: "Bangalore Office",
+    policies: [],
+    policyChanges: []
+  },
+  {
+    hostname: "BLR-WS-04",
+    ip: "192.168.3.104", 
+    os: "Windows 11 Pro 22H2",
+    type: "Workstation",
+    status: "Warning",
+    guardian: "Active",
+    lastScan: "22 mins ago",
+    location: "Bangalore Office",
+    policies: [],
+    policyChanges: []
+  }
 ];

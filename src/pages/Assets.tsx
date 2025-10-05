@@ -10,10 +10,11 @@ import { Search, Server, Monitor, Database, Globe, Shield } from "lucide-react";
 import { assets } from "../data/assets";
 
 const assetTypes = [
-  { name: "Web Servers", count: 24, icon: Globe, compliant: 22 },
-  { name: "Database Servers", count: 12, icon: Database, compliant: 10 },
-  { name: "Application Servers", count: 31, icon: Server, compliant: 31 },
-  { name: "Workstations", count: 156, icon: Monitor, compliant: 148 },
+  { name: "Web Servers", count: 3, icon: Globe, compliant: 2 },
+  { name: "Database Servers", count: 3, icon: Database, compliant: 2 },
+  { name: "Application Servers", count: 2, icon: Server, compliant: 2 },
+  { name: "Workstations", count: 9, icon: Monitor, compliant: 6 },
+  { name: "Cache/Load Balancers", count: 2, icon: Server, compliant: 1 }
 ];
 
 export default function Assets() {

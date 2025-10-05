@@ -75,12 +75,24 @@ const policyGroups = [
 
 // Mock data for systems/assets
 const systems = [
-  { id: "SYS-001", hostname: "DC-PROD-01", ip: "192.168.1.10", platform: "windows", department: "IT", status: "online", lastSeen: "2024-10-05 09:30" },
-  { id: "SYS-002", hostname: "WEB-SERVER-01", ip: "192.168.1.20", platform: "linux", department: "Development", status: "online", lastSeen: "2024-10-05 09:28" },
-  { id: "SYS-003", hostname: "DB-PROD-01", ip: "192.168.1.30", platform: "linux", department: "Database", status: "online", lastSeen: "2024-10-05 09:25" },
-  { id: "SYS-004", hostname: "WORKSTATION-101", ip: "192.168.2.101", platform: "windows", department: "HR", status: "online", lastSeen: "2024-10-05 09:15" },
-  { id: "SYS-005", hostname: "WORKSTATION-102", ip: "192.168.2.102", platform: "windows", department: "Finance", status: "offline", lastSeen: "2024-10-04 17:30" },
-  { id: "SYS-006", hostname: "API-SERVER-01", ip: "192.168.1.40", platform: "linux", department: "Development", status: "online", lastSeen: "2024-10-05 09:32" }
+  { id: "SYS-001", hostname: "prod-web-01", ip: "10.0.1.15", platform: "linux", department: "Web Team", status: "online", lastSeen: "2024-10-05 09:30" },
+  { id: "SYS-002", hostname: "MUM-DB-01", ip: "192.168.1.20", platform: "linux", department: "Database Team", status: "online", lastSeen: "2024-10-05 09:28" },
+  { id: "SYS-003", hostname: "MUM-APP-01", ip: "192.168.1.30", platform: "linux", department: "DevOps Team", status: "online", lastSeen: "2024-10-05 09:25" },
+  { id: "SYS-004", hostname: "MUM-PROXY-01", ip: "192.168.1.40", platform: "linux", department: "Network Team", status: "online", lastSeen: "2024-10-05 09:15" },
+  { id: "SYS-005", hostname: "MUM-WS-01", ip: "192.168.1.101", platform: "windows", department: "Finance Team", status: "online", lastSeen: "2024-10-05 09:10" },
+  { id: "SYS-006", hostname: "MUM-WS-02", ip: "192.168.1.102", platform: "windows", department: "HR Team", status: "offline", lastSeen: "2024-10-04 17:30" },
+  { id: "SYS-007", hostname: "MUM-WS-03", ip: "192.168.1.103", platform: "windows", department: "IT Security Team", status: "online", lastSeen: "2024-10-05 09:32" },
+  { id: "SYS-008", hostname: "DEL-WEB-01", ip: "192.168.2.10", platform: "linux", department: "Web Team", status: "online", lastSeen: "2024-10-05 09:20" },
+  { id: "SYS-009", hostname: "DEL-DB-01", ip: "192.168.2.20", platform: "linux", department: "Database Team", status: "online", lastSeen: "2024-10-05 09:18" },
+  { id: "SYS-010", hostname: "DEL-APP-01", ip: "192.168.2.30", platform: "linux", department: "DevOps Team", status: "online", lastSeen: "2024-10-05 09:16" },
+  { id: "SYS-011", hostname: "DEL-WS-01", ip: "192.168.2.101", platform: "windows", department: "Sales Team", status: "online", lastSeen: "2024-10-05 09:14" },
+  { id: "SYS-012", hostname: "DEL-WS-02", ip: "192.168.2.102", platform: "windows", department: "Marketing Team", status: "online", lastSeen: "2024-10-05 09:12" },
+  { id: "SYS-013", hostname: "BLR-WEB-01", ip: "192.168.3.10", platform: "linux", department: "Web Team", status: "online", lastSeen: "2024-10-05 09:10" },
+  { id: "SYS-014", hostname: "BLR-DB-01", ip: "192.168.3.20", platform: "linux", department: "Database Team", status: "online", lastSeen: "2024-10-05 09:08" },
+  { id: "SYS-015", hostname: "BLR-CACHE-01", ip: "192.168.3.50", platform: "linux", department: "Platform Team", status: "online", lastSeen: "2024-10-05 09:06" },
+  { id: "SYS-016", hostname: "BLR-WS-01", ip: "192.168.3.101", platform: "windows", department: "IT Team", status: "online", lastSeen: "2024-10-05 09:04" },
+  { id: "SYS-017", hostname: "BLR-WS-02", ip: "192.168.3.102", platform: "windows", department: "Development Team", status: "online", lastSeen: "2024-10-05 09:02" },
+  { id: "SYS-018", hostname: "BLR-WS-03", ip: "192.168.3.103", platform: "windows", department: "Support Team", status: "online", lastSeen: "2024-10-05 09:00" }
 ];
 
 // Mock data for deployment history
@@ -88,7 +100,7 @@ const deploymentHistory = [
   {
     id: "DEP-001",
     policyGroup: "Baseline Windows Policy",
-    targetSystems: ["DC-PROD-01", "WORKSTATION-101", "WORKSTATION-102"],
+    targetSystems: ["MUM-WS-01", "MUM-WS-02", "DEL-WS-01"],
     status: "completed",
     startTime: "2024-10-01 14:30",
     endTime: "2024-10-01 15:45",
@@ -99,18 +111,18 @@ const deploymentHistory = [
   {
     id: "DEP-002", 
     policyGroup: "Baseline Linux Policy",
-    targetSystems: ["WEB-SERVER-01", "DB-PROD-01"],
+    targetSystems: ["prod-web-01", "MUM-DB-01", "DEL-DB-01"],
     status: "in-progress",
     startTime: "2024-10-05 09:00",
     endTime: null,
-    success: 1,
+    success: 2,
     failed: 0,
     initiatedBy: "admin@company.com"
   },
   {
     id: "DEP-003",
     policyGroup: "SOX Compliance Framework", 
-    targetSystems: ["DC-PROD-01", "DB-PROD-01"],
+    targetSystems: ["BLR-DB-01", "MUM-DB-01"],
     status: "failed",
     startTime: "2024-10-03 16:00",
     endTime: "2024-10-03 16:30",
@@ -227,7 +239,7 @@ export default function Compliance() {
                 <Shield className="h-8 w-8 text-blue-600" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-muted-foreground">Total Policy Groups</p>
-                  <p className="text-2xl font-bold">{policyGroups.length}</p>
+                  <p className="text-2xl font-bold">4</p>
                 </div>
               </div>
             </CardContent>
@@ -238,7 +250,7 @@ export default function Compliance() {
                 <Monitor className="h-8 w-8 text-green-600" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-muted-foreground">Managed Systems</p>
-                  <p className="text-2xl font-bold">{systems.length}</p>
+                  <p className="text-2xl font-bold">18</p>
                 </div>
               </div>
             </CardContent>

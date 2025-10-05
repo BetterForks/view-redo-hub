@@ -14,10 +14,10 @@ const vulnerabilities = [
 ];
 
 const topAssets = [
-  { hostname: "prod-db-01", vulnerabilities: 15, critical: 3, high: 7, medium: 5 },
-  { hostname: "prod-web-02", vulnerabilities: 12, critical: 2, high: 5, medium: 5 },
-  { hostname: "legacy-app-01", vulnerabilities: 21, critical: 5, high: 10, medium: 6 },
-  { hostname: "dev-api-03", vulnerabilities: 8, critical: 1, high: 3, medium: 4 },
+  { hostname: "BLR-DB-01", vulnerabilities: 15, critical: 3, high: 7, medium: 5 },
+  { hostname: "MUM-WS-02", vulnerabilities: 12, critical: 2, high: 5, medium: 5 },
+  { hostname: "BLR-WS-03", vulnerabilities: 21, critical: 5, high: 10, medium: 6 },
+  { hostname: "MUM-PROXY-01", vulnerabilities: 8, critical: 1, high: 3, medium: 4 },
 ];
 
 export default function Vulnerabilities() {
