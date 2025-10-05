@@ -82,7 +82,6 @@ export default function Reports() {
               <FileText className="h-4 w-4 mr-2" />
               Generate Report
             </Button>
-            <Button variant="outline">Schedule Report</Button>
           </div>
           <div className="text-sm text-muted-foreground">
             Last generated: 2 minutes ago
