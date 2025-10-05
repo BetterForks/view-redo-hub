@@ -40,7 +40,7 @@ export function AppLayout({ children, title, breadcrumbs = [] }: AppLayoutProps)
                   <span className="font-semibold text-foreground">Guardian</span>
                 </div>
                 
-                <span className="text-muted-foreground ml-2">Vulnerability Management</span>
+                <span className="text-muted-foreground ml-2">Compliance Management</span>
                 
                 {breadcrumbs.map((crumb, index) => (
                   <div key={index} className="flex items-center gap-2">
@@ -77,15 +77,6 @@ export function AppLayout({ children, title, breadcrumbs = [] }: AppLayoutProps)
                   className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
                 >
                   4
-                </Badge>
-              </Button>
-              
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
-                <Badge 
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-critical"
-                >
-                  1
                 </Badge>
               </Button>
               

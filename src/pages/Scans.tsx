@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { AppLayout } from "@/components/AppLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { StartNewScanDialog } from "@/components/StartNewScanDialog";
 import { Play, RefreshCw, Calendar, Clock } from "lucide-react";
 
-const scanHistory = [
+const initialScanHistory = [
   { id: "SCN-001", target: "Production Servers", status: "Completed", findings: 47, critical: 5, high: 12, medium: 18, low: 12, timestamp: "2025-09-30 14:23:15", duration: "12m 34s" },
   { id: "SCN-002", target: "Development Environment", status: "Completed", findings: 23, critical: 1, high: 7, medium: 10, low: 5, timestamp: "2025-09-30 10:15:42", duration: "8m 17s" },
   { id: "SCN-003", target: "Database Servers", status: "In Progress", findings: 0, critical: 0, high: 0, medium: 0, low: 0, timestamp: "2025-09-30 15:00:00", duration: "Running" },
@@ -18,14 +20,84 @@ const scheduledScans = [
   { name: "Monthly Deep Scan", schedule: "1st of every month at 00:00 AM", lastRun: "2025-09-01 00:00", nextRun: "2025-10-01 00:00", enabled: true },
 ];
 
+// Mock location data from visualization
+const mockLocations = {
+  "mumbai": {
+    name: "Mumbai Office",
+    region: "West India",
+    systems: [
+      { id: "mumbai-web-01", name: "MUM-WEB-01", type: "web-server", status: "warning" as const, ip: "192.168.1.10", os: "Ubuntu 20.04 LTS", owner: "Web Team", environment: "production" },
+      { id: "mumbai-db-01", name: "MUM-DB-01", type: "database", status: "critical" as const, ip: "192.168.1.20", os: "CentOS 8", owner: "Database Team", environment: "production" },
+      { id: "mumbai-app-01", name: "MUM-APP-01", type: "application", status: "warning" as const, ip: "192.168.1.30", os: "RHEL 8.5", owner: "DevOps Team", environment: "production" },
+      { id: "mumbai-proxy-01", name: "MUM-PROXY-01", type: "load-balancer", status: "critical" as const, ip: "192.168.1.40", os: "Ubuntu 22.04 LTS", owner: "Network Team", environment: "production" },
+      { id: "mumbai-ws-01", name: "MUM-WS-01", type: "workstation", status: "warning" as const, ip: "192.168.1.101", os: "Windows 11 Pro 22H2", owner: "Finance Team", environment: "production" },
+      { id: "mumbai-ws-02", name: "MUM-WS-02", type: "workstation", status: "critical" as const, ip: "192.168.1.102", os: "Windows 10 Pro 21H2", owner: "HR Team", environment: "production" },
+      { id: "mumbai-ws-03", name: "MUM-WS-03", type: "workstation", status: "compliant" as const, ip: "192.168.1.103", os: "Windows 11 Pro 23H2", owner: "IT Security Team", environment: "production" }
+    ]
+  },
+  "delhi": {
+    name: "Delhi Office", 
+    region: "North India",
+    systems: [
+      { id: "delhi-web-01", name: "DEL-WEB-01", type: "web-server", status: "warning" as const, ip: "192.168.2.10", os: "Ubuntu 22.04 LTS", owner: "Web Team", environment: "production" },
+      { id: "delhi-db-01", name: "DEL-DB-01", type: "database", status: "compliant" as const, ip: "192.168.2.20", os: "PostgreSQL 14", owner: "Database Team", environment: "production" },
+      { id: "delhi-app-01", name: "DEL-APP-01", type: "application", status: "warning" as const, ip: "192.168.2.30", os: "Ubuntu 20.04 LTS", owner: "DevOps Team", environment: "production" },
+      { id: "delhi-ws-01", name: "DEL-WS-01", type: "workstation", status: "compliant" as const, ip: "192.168.2.101", os: "Windows 11 Pro 23H2", owner: "Sales Team", environment: "production" },
+      { id: "delhi-ws-02", name: "DEL-WS-02", type: "workstation", status: "warning" as const, ip: "192.168.2.102", os: "Windows 10 Pro 22H2", owner: "Marketing Team", environment: "production" }
+    ]
+  }
+};
+
 export default function Scans() {
+  const [showScanDialog, setShowScanDialog] = useState(false);
+  const [scanHistory, setScanHistory] = useState(initialScanHistory);
+
+  const handleStartScan = (scanConfig: any) => {
+    // Mock scan creation
+    const newScan = {
+      id: `SCN-${String(Date.now()).slice(-3)}`,
+      target: scanConfig.selectedLocations.length > 0 
+        ? `${scanConfig.selectedLocations.map((loc: string) => mockLocations[loc as keyof typeof mockLocations]?.name).join(", ")}`
+        : `${scanConfig.selectedSystems.length} Selected Systems`,
+      status: "In Progress",
+      findings: 0,
+      critical: 0,
+      high: 0,
+      medium: 0,
+      low: 0,
+      timestamp: new Date().toISOString().replace('T', ' ').slice(0, 19),
+      duration: "Starting..."
+    };
+
+    setScanHistory(prev => [newScan, ...prev]);
+
+    // Simulate scan completion after 5 seconds
+    setTimeout(() => {
+      setScanHistory(prev => prev.map(scan => 
+        scan.id === newScan.id 
+          ? { 
+              ...scan, 
+              status: "Completed", 
+              findings: Math.floor(Math.random() * 50) + 10,
+              critical: Math.floor(Math.random() * 5),
+              high: Math.floor(Math.random() * 10) + 2,
+              medium: Math.floor(Math.random() * 15) + 5,
+              low: Math.floor(Math.random() * 20) + 3,
+              duration: `${Math.floor(Math.random() * 15) + 5}m ${Math.floor(Math.random() * 60)}s`
+            }
+          : scan
+      ));
+    }, 5000);
+
+    console.log("Starting scan with config:", scanConfig);
+  };
   return (
     <AppLayout title="Security Scans" breadcrumbs={["Aegis Guardian", "Scans"]}>
       <div className="space-y-6">
         {/* Quick Actions */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Button>
+            <Button onClick={() => setShowScanDialog(true)}>
               <Play className="h-4 w-4 mr-2" />
               Start New Scan
             </Button>
@@ -193,6 +265,14 @@ export default function Scans() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Start New Scan Dialog */}
+      <StartNewScanDialog
+        open={showScanDialog}
+        onOpenChange={setShowScanDialog}
+        locations={mockLocations}
+        onStartScan={handleStartScan}
+      />
     </AppLayout>
   );
 }

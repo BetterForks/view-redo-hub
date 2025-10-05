@@ -1,15 +1,11 @@
 import { NavLink } from "react-router-dom";
 import {
-  LayoutDashboard,
   Target,
-  Shield,
   Headphones,
   Network,
   BarChart3,
-  FileText,
   FileCheck,
   ArrowRight,
-  Wrench,
   Settings,
   Layers3,
 } from "lucide-react";
@@ -24,17 +20,13 @@ import {
 } from "@/components/ui/sidebar";
 
 const menuItems = [
-  { title: "Dashboards", icon: LayoutDashboard, url: "/overview" },
   { title: "Scans", icon: Target, url: "/scans" },
-  { title: "Findings", icon: Shield, url: "/" },
   { title: "Assets", icon: Headphones, url: "/assets" },
   { title: "Visualize", icon: Layers3, url: "/visualize" },
   { title: "Policies", icon: Network, url: "/policies" },
   { title: "Reports", icon: BarChart3, url: "/reports" },
-  { title: "Templates", icon: FileText, url: "/templates" },
   { title: "Compliance", icon: FileCheck, url: "/compliance" },
   { title: "Export", icon: ArrowRight, url: "/export" },
-  { title: "Tools", icon: Wrench, url: "/tools" },
   { title: "Settings", icon: Settings, url: "/settings" },
 ];
 

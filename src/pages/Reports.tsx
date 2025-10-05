@@ -21,7 +21,7 @@ const scheduledReports = [
 
 const reportTemplates = [
   { name: "CIS Benchmark Compliance", description: "Full compliance report against CIS benchmarks", baseline: "CIS Windows Server 2022 / Ubuntu 22.04" },
-  { name: "Vulnerability Management", description: "Comprehensive vulnerability assessment and remediation status", baseline: "CVE Database" },
+  { name: "Compliance Management", description: "Comprehensive compliance assessment and remediation status", baseline: "Compliance Database" },
   { name: "Policy Audit Report", description: "Detailed audit of all enforced security policies", baseline: "Aegis Guardian Policies" },
   { name: "Asset Security Posture", description: "Per-asset security status and compliance ratings", baseline: "CMDB Integration" },
 ];

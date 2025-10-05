@@ -1,6 +1,7 @@
 import { AppLayout } from "@/components/AppLayout";
+import { StartNewScanDialog } from "@/components/StartNewScanDialog";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronRight, Building2, Server, MapPin, Database, Globe, Shield, HardDrive, Cpu, Network, Lock } from "lucide-react";
+import { ChevronDown, ChevronRight, Building2, Server, MapPin, Database, Globe, Shield, HardDrive, Cpu, Network, Lock, Target } from "lucide-react";
 
 export default function Visualize() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -10,12 +11,46 @@ export default function Visualize() {
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [currentView, setCurrentView] = useState<'location-systems' | 'system-details'>('location-systems');
   const [isInfrastructureCollapsed, setIsInfrastructureCollapsed] = useState(true); // Start collapsed for more space
+  const [showScanDialog, setShowScanDialog] = useState(false);
   const [metrics, setMetrics] = useState({
     compliant: 67,
     warning: 12,
     critical: 8,
     total: 87
   });
+
+  // Mock location data for scan dialog
+  const mockLocationsForScan = {
+    "mumbai": {
+      name: "Mumbai Office",
+      region: "West India",
+      systems: [
+        { id: "mumbai-web-01", name: "MUM-WEB-01", type: "web-server", status: "warning" as const, ip: "192.168.1.10", os: "Ubuntu 20.04 LTS", owner: "Web Team", environment: "production" },
+        { id: "mumbai-db-01", name: "MUM-DB-01", type: "database", status: "critical" as const, ip: "192.168.1.20", os: "CentOS 8", owner: "Database Team", environment: "production" },
+        { id: "mumbai-app-01", name: "MUM-APP-01", type: "application", status: "warning" as const, ip: "192.168.1.30", os: "RHEL 8.5", owner: "DevOps Team", environment: "production" },
+        { id: "mumbai-proxy-01", name: "MUM-PROXY-01", type: "load-balancer", status: "critical" as const, ip: "192.168.1.40", os: "Ubuntu 22.04 LTS", owner: "Network Team", environment: "production" },
+        { id: "mumbai-ws-01", name: "MUM-WS-01", type: "workstation", status: "warning" as const, ip: "192.168.1.101", os: "Windows 11 Pro 22H2", owner: "Finance Team", environment: "production" },
+        { id: "mumbai-ws-02", name: "MUM-WS-02", type: "workstation", status: "critical" as const, ip: "192.168.1.102", os: "Windows 10 Pro 21H2", owner: "HR Team", environment: "production" },
+        { id: "mumbai-ws-03", name: "MUM-WS-03", type: "workstation", status: "compliant" as const, ip: "192.168.1.103", os: "Windows 11 Pro 23H2", owner: "IT Security Team", environment: "production" }
+      ]
+    },
+    "delhi": {
+      name: "Delhi Office", 
+      region: "North India",
+      systems: [
+        { id: "delhi-web-01", name: "DEL-WEB-01", type: "web-server", status: "warning" as const, ip: "192.168.2.10", os: "Ubuntu 22.04 LTS", owner: "Web Team", environment: "production" },
+        { id: "delhi-db-01", name: "DEL-DB-01", type: "database", status: "compliant" as const, ip: "192.168.2.20", os: "PostgreSQL 14", owner: "Database Team", environment: "production" },
+        { id: "delhi-app-01", name: "DEL-APP-01", type: "application", status: "warning" as const, ip: "192.168.2.30", os: "Ubuntu 20.04 LTS", owner: "DevOps Team", environment: "production" },
+        { id: "delhi-ws-01", name: "DEL-WS-01", type: "workstation", status: "compliant" as const, ip: "192.168.2.101", os: "Windows 11 Pro 23H2", owner: "Sales Team", environment: "production" },
+        { id: "delhi-ws-02", name: "DEL-WS-02", type: "workstation", status: "warning" as const, ip: "192.168.2.102", os: "Windows 10 Pro 22H2", owner: "Marketing Team", environment: "production" }
+      ]
+    }
+  };
+
+  const handleStartScan = (scanConfig: any) => {
+    console.log("Starting scan from visualization with config:", scanConfig);
+    // This could redirect to scans page or show a toast notification
+  };
 
   useEffect(() => {
     // Add D3.js script if not already loaded
@@ -4645,6 +4680,26 @@ export default function Visualize() {
           </div>
         </div>
       </div>
+
+      {/* Floating Action Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button
+          onClick={() => setShowScanDialog(true)}
+          className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors"
+          title="Start New Scan"
+        >
+          <Target className="h-5 w-5" />
+          <span className="hidden sm:inline">Start Scan</span>
+        </button>
+      </div>
+
+      {/* Start New Scan Dialog */}
+      <StartNewScanDialog
+        open={showScanDialog}
+        onOpenChange={setShowScanDialog}
+        locations={mockLocationsForScan}
+        onStartScan={handleStartScan}
+      />
     </AppLayout>
   );
 }
