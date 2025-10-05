@@ -51,15 +51,6 @@ class HeaderFooterCanvas(canvas.Canvas):
         self.setFont('Helvetica', 9)
         self.drawString(0.75*inch, A4[1] - 0.5*inch, "Guardian Compliance Report")
         
-        # Logo placeholder (if you have aegis.png in the same directory)
-        logo_path = "aegis.png"
-        if os.path.exists(logo_path):
-            try:
-                self.drawImage(logo_path, A4[0] - 0.75*inch, A4[1] - 0.5*inch, 
-                             width=0.6*inch, height=0.6*inch, preserveAspectRatio=True)
-            except:
-                pass
-        
         # Footer
         self.setFont('Helvetica', 8)
         self.drawCentredString(A4[0] / 2, 0.5*inch, f"{page_num}")
@@ -187,19 +178,14 @@ def generate_pdf_report(system_info, policies, non_compliant_findings):
         fontName='Helvetica-Oblique'
     )
     
-    # --- Logo in the top right corner ---
-    # Use absolute path to ensure aegis.png is found regardless of working directory
+    # --- Logo at center top of document ---
     logo_path = os.path.join(os.path.dirname(__file__), "aegis.png")
     if os.path.exists(logo_path):
-        elements.append(
-            Image(
-                logo_path,
-                width=0.6*inch,
-                height=0.6*inch
-            )
-        )
-    elements.append(Spacer(1, 0.01*inch))
-
+        logo = Image(logo_path, width=0.8*inch, height=0.8*inch)
+        logo.hAlign = 'CENTER'
+        elements.append(logo)
+        elements.append(Spacer(1, 0.15*inch))
+    
     # --- Main Title and Subtitle ---
     elements.append(Paragraph(
         "<b>Guardian Automated Hardening Report</b>",
