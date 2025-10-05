@@ -9,59 +9,59 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Shield, ChevronDown, ChevronRight, FolderPlus } from "lucide-react";
 import { useState } from "react";
 
-// Baseline Windows Policy (containing all 231 policies)
+// Baseline Windows Policy (containing all 115 policies)
 const baselineWindowsPolicy = {
   id: "BWP-001",
   name: "Baseline Windows Policy", 
-  totalPolicies: 231,
-  compliant: 218,
-  warnings: 9,
-  nonCompliant: 4,
+  totalPolicies: 115,
+  compliant: 108,
+  warnings: 5,
+  nonCompliant: 2,
   categories: [
-    { name: "Account Policies", policies: 45, compliant: 43, warnings: 2, nonCompliant: 0 },
-    { name: "Local Policies", policies: 38, compliant: 36, warnings: 1, nonCompliant: 1 },
-    { name: "Security Options", policies: 67, compliant: 62, warnings: 3, nonCompliant: 2 },
-    { name: "System Services", policies: 42, compliant: 40, warnings: 2, nonCompliant: 0 },
-    { name: "Registry Settings", policies: 28, compliant: 26, warnings: 1, nonCompliant: 1 },
-    { name: "File System", policies: 11, compliant: 11, warnings: 0, nonCompliant: 0 }
+    { name: "Account Policies", policies: 24, compliant: 23, warnings: 1, nonCompliant: 0 },
+    { name: "Local Policies", policies: 18, compliant: 17, warnings: 1, nonCompliant: 0 },
+    { name: "Security Options", policies: 32, compliant: 30, warnings: 1, nonCompliant: 1 },
+    { name: "System Services", policies: 22, compliant: 21, warnings: 1, nonCompliant: 0 },
+    { name: "Registry Settings", policies: 12, compliant: 11, warnings: 1, nonCompliant: 0 },
+    { name: "File System", policies: 7, compliant: 6, warnings: 0, nonCompliant: 1 }
   ],
   samplePolicies: [
-    { id: "WIN-001", name: "Enforce Password Complexity", category: "Account Policies", status: "Enforced", compliant: 387, total: 387 },
-    { id: "WIN-002", name: "Disable Guest Account", category: "Account Policies", status: "Enforced", compliant: 387, total: 387 },
-    { id: "WIN-003", name: "Configure Audit Policy", category: "Local Policies", status: "Enforced", compliant: 385, total: 387 },
-    { id: "WIN-004", name: "Windows Firewall Enabled", category: "Security Options", status: "Enforced", compliant: 387, total: 387 },
-    { id: "WIN-005", name: "Restrict Anonymous Access", category: "Security Options", status: "Warning", compliant: 380, total: 387 },
-    { id: "WIN-006", name: "Disable Unnecessary Services", category: "System Services", status: "Enforced", compliant: 385, total: 387 },
-    { id: "WIN-007", name: "Registry Access Control", category: "Registry Settings", status: "Warning", compliant: 380, total: 387 },
-    { id: "WIN-008", name: "File Permissions", category: "File System", status: "Enforced", compliant: 387, total: 387 }
+    { id: "WIN-001", name: "Enforce Password Complexity", category: "Account Policies", status: "Enforced", compliant: 18, total: 18 },
+    { id: "WIN-002", name: "Disable Guest Account", category: "Account Policies", status: "Enforced", compliant: 18, total: 18 },
+    { id: "WIN-003", name: "Configure Audit Policy", category: "Local Policies", status: "Enforced", compliant: 17, total: 18 },
+    { id: "WIN-004", name: "Windows Firewall Enabled", category: "Security Options", status: "Enforced", compliant: 18, total: 18 },
+    { id: "WIN-005", name: "Restrict Anonymous Access", category: "Security Options", status: "Warning", compliant: 16, total: 18 },
+    { id: "WIN-006", name: "Disable Unnecessary Services", category: "System Services", status: "Enforced", compliant: 17, total: 18 },
+    { id: "WIN-007", name: "Registry Access Control", category: "Registry Settings", status: "Warning", compliant: 16, total: 18 },
+    { id: "WIN-008", name: "File Permissions", category: "File System", status: "Enforced", compliant: 18, total: 18 }
   ]
 };
 
-// Baseline Linux Policy (containing all 156 policies)  
+// Baseline Linux Policy (containing all 261 policies)  
 const baselineLinuxPolicy = {
   id: "BLP-001",
   name: "Baseline Linux Policy",
-  totalPolicies: 156,
-  compliant: 150,
-  warnings: 6,
-  nonCompliant: 0,
+  totalPolicies: 261,
+  compliant: 248,
+  warnings: 10,
+  nonCompliant: 3,
   categories: [
-    { name: "Network Security", policies: 28, compliant: 27, warnings: 1, nonCompliant: 0 },
-    { name: "Access Control", policies: 31, compliant: 30, warnings: 1, nonCompliant: 0 },
-    { name: "Mandatory Access Control", policies: 19, compliant: 17, warnings: 2, nonCompliant: 0 },
-    { name: "Logging & Monitoring", policies: 24, compliant: 22, warnings: 2, nonCompliant: 0 },
-    { name: "File System Security", policies: 32, compliant: 32, warnings: 0, nonCompliant: 0 },
-    { name: "System Maintenance", policies: 22, compliant: 22, warnings: 0, nonCompliant: 0 }
+    { name: "Network Security", policies: 48, compliant: 46, warnings: 2, nonCompliant: 0 },
+    { name: "Access Control", policies: 52, compliant: 50, warnings: 1, nonCompliant: 1 },
+    { name: "Mandatory Access Control", policies: 35, compliant: 33, warnings: 2, nonCompliant: 0 },
+    { name: "Logging & Monitoring", policies: 41, compliant: 38, warnings: 2, nonCompliant: 1 },
+    { name: "File System Security", policies: 54, compliant: 51, warnings: 2, nonCompliant: 1 },
+    { name: "System Maintenance", policies: 31, compliant: 30, warnings: 1, nonCompliant: 0 }
   ],
   samplePolicies: [
-    { id: "LNX-001", name: "SSH Protocol 2 Only", category: "Network Security", status: "Enforced", compliant: 156, total: 156 },
-    { id: "LNX-002", name: "Disable Root Login", category: "Access Control", status: "Enforced", compliant: 156, total: 156 },
-    { id: "LNX-003", name: "Enable SELinux/AppArmor", category: "Mandatory Access Control", status: "Enforced", compliant: 154, total: 156 },
-    { id: "LNX-004", name: "Password Expiration Policy", category: "Access Control", status: "Enforced", compliant: 156, total: 156 },
-    { id: "LNX-005", name: "Configure Auditd", category: "Logging & Monitoring", status: "Warning", compliant: 150, total: 156 },
-    { id: "LNX-006", name: "File Permission Hardening", category: "File System Security", status: "Enforced", compliant: 156, total: 156 },
-    { id: "LNX-007", name: "Kernel Parameter Tuning", category: "System Maintenance", status: "Warning", compliant: 154, total: 156 },
-    { id: "LNX-008", name: "Network Parameter Security", category: "Network Security", status: "Enforced", compliant: 156, total: 156 }
+    { id: "LNX-001", name: "SSH Protocol 2 Only", category: "Network Security", status: "Enforced", compliant: 18, total: 18 },
+    { id: "LNX-002", name: "Disable Root Login", category: "Access Control", status: "Enforced", compliant: 18, total: 18 },
+    { id: "LNX-003", name: "Enable SELinux/AppArmor", category: "Mandatory Access Control", status: "Enforced", compliant: 17, total: 18 },
+    { id: "LNX-004", name: "Password Expiration Policy", category: "Access Control", status: "Enforced", compliant: 18, total: 18 },
+    { id: "LNX-005", name: "Configure Auditd", category: "Logging & Monitoring", status: "Warning", compliant: 16, total: 18 },
+    { id: "LNX-006", name: "File Permission Hardening", category: "File System Security", status: "Enforced", compliant: 18, total: 18 },
+    { id: "LNX-007", name: "Kernel Parameter Tuning", category: "System Maintenance", status: "Warning", compliant: 17, total: 18 },
+    { id: "LNX-008", name: "Network Parameter Security", category: "Network Security", status: "Enforced", compliant: 18, total: 18 }
   ]
 };
 

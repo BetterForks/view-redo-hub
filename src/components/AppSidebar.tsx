@@ -17,6 +17,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarHeader,
 } from "@/components/ui/sidebar";
 
 const menuItems = [
@@ -32,6 +33,19 @@ const menuItems = [
 export function AppSidebar() {
   return (
     <Sidebar className="border-r">
+      <SidebarHeader className="border-b border-sidebar-border">
+        <div className="flex items-center gap-3 px-3 py-4">
+          <img 
+            src="/aegis.png" 
+            alt="Aegis Logo" 
+            className="h-8 w-8 object-contain"
+          />
+          <div className="flex flex-col">
+            <span className="text-lg font-bold text-sidebar-foreground">Guardian</span>
+            <span className="text-xs text-sidebar-foreground/60">Security Platform</span>
+          </div>
+        </div>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
