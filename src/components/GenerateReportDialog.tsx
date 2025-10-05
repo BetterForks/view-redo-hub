@@ -172,7 +172,7 @@ export function GenerateReportDialog({ open, onOpenChange, locations = {}, onGen
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+      <DialogContent className="max-w-5xl max-h-[95vh] overflow-hidden">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5" />
@@ -191,7 +191,7 @@ export function GenerateReportDialog({ open, onOpenChange, locations = {}, onGen
           </TabsList>
 
           <TabsContent value="targets" className="space-y-4">
-            <div className="grid grid-cols-2 gap-4 h-[400px]">
+            <div className="grid grid-cols-2 gap-4 h-[450px]">
               {/* Locations Panel */}
               <Card>
                 <CardHeader>

@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { GenerateReportDialog } from "@/components/GenerateReportDialog";
-import { FileText, Download, Calendar, Clock } from "lucide-react";
+import { FileText, Download, Calendar, Clock, Shield } from "lucide-react";
 
 const initialReports = [
-  { name: "Monthly Compliance Report", type: "Compliance", generated: "2025-09-30 08:00", size: "2.4 MB", format: "PDF", status: "Ready" },
-  { name: "Asset Inventory Report", type: "Asset", generated: "2025-09-29 10:15", size: "3.1 MB", format: "PDF", status: "Ready" },
+  { name: "Monthly Compliance Report", type: "Compliance", generated: "2025-09-30 08:00", size: "2.4 MB", format: "PDF", status: "Ready", isGuardianReport: false },
+  { name: "Asset Inventory Report", type: "Asset", generated: "2025-09-29 10:15", size: "3.1 MB", format: "PDF", status: "Ready", isGuardianReport: false },
 ];
 
 const scheduledReports = [
@@ -58,18 +58,58 @@ export default function Reports() {
   const [reports, setReports] = useState(initialReports);
 
   const handleGenerateReport = (reportConfig: any) => {
-    // Mock report generation
-    const newReport = {
-      name: reportConfig.name || `${reportConfig.reportType} Report`,
-      type: reportConfig.reportType.charAt(0).toUpperCase() + reportConfig.reportType.slice(1),
-      generated: new Date().toISOString().replace('T', ' ').slice(0, 19),
-      size: `${(Math.random() * 3 + 0.5).toFixed(1)} MB`,
-      format: reportConfig.format.toUpperCase(),
-      status: "Ready"
-    };
+    // Check if MUM-WEB-01 is included in the selected systems
+    const includesMumWeb01 = reportConfig.selectedSystems?.includes('mumbai-web-01');
+    
+    let newReport;
+    
+    if (includesMumWeb01) {
+      // Special handling for MUM-WEB-01 - provide the actual Guardian report
+      newReport = {
+        name: `Guardian Report - MUM-WEB-01 - ${new Date().toISOString().slice(0, 10).replace(/-/g, '')}`,
+        type: "Compliance",
+        generated: new Date().toISOString().replace('T', ' ').slice(0, 19),
+        size: "2.1 MB",
+        format: "PDF",
+        status: "Ready",
+        filePath: "/Guardian-Report-MUM-WEB-01-20251005.pdf", // Path to the actual PDF
+        isGuardianReport: true
+      };
+    } else {
+      // Mock report generation for other systems
+      newReport = {
+        name: reportConfig.name || `${reportConfig.reportType} Report`,
+        type: reportConfig.reportType.charAt(0).toUpperCase() + reportConfig.reportType.slice(1),
+        generated: new Date().toISOString().replace('T', ' ').slice(0, 19),
+        size: `${(Math.random() * 3 + 0.5).toFixed(1)} MB`,
+        format: reportConfig.format.toUpperCase(),
+        status: "Ready"
+      };
+    }
 
     setReports(prev => [newReport, ...prev]);
-    console.log("Generating report with config:", reportConfig);
+    
+    if (includesMumWeb01) {
+      console.log("Generated Guardian Report for MUM-WEB-01 with actual PDF file");
+    } else {
+      console.log("Generating report with config:", reportConfig);
+    }
+  };
+
+  const handleDownloadReport = (report: any) => {
+    if (report.isGuardianReport && report.filePath) {
+      // For the Guardian report, create a download link to the actual PDF
+      const link = document.createElement('a');
+      link.href = report.filePath;
+      link.download = `${report.name}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // For mock reports, just show a mock download action
+      console.log(`Downloading mock report: ${report.name}`);
+      alert(`Downloading ${report.name} (Mock download)`);
+    }
   };
 
   return (
@@ -135,7 +175,17 @@ export default function Reports() {
               <TableBody>
                 {reports.map((report, idx) => (
                   <TableRow key={idx}>
-                    <TableCell className="font-medium">{report.name}</TableCell>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        {report.name}
+                        {report.isGuardianReport && (
+                          <Badge variant="default" className="bg-blue-100 text-blue-800 border-blue-200">
+                            <Shield className="h-3 w-3 mr-1" />
+                            Guardian
+                          </Badge>
+                        )}
+                      </div>
+                    </TableCell>
                     <TableCell>
                       <Badge variant="outline">{report.type}</Badge>
                     </TableCell>
@@ -150,7 +200,11 @@ export default function Reports() {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => handleDownloadReport(report)}
+                      >
                         <Download className="h-4 w-4 mr-2" />
                         Download
                       </Button>
