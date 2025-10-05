@@ -27,7 +27,7 @@ const scanHealthData = [
 
 export default function Overview() {
   return (
-    <AppLayout title="Vulnerability Management Overview (Explore)" breadcrumbs={["Vulnerability Management Overview"]}>
+    <AppLayout title="Vulnerability Management Overview (Explore)" breadcrumbs={["Overview"]}>
       <div className="space-y-6">
         {/* Header Actions */}
         <div className="flex items-center justify-between">

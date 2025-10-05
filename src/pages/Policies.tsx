@@ -118,7 +118,7 @@ export default function Policies() {
   };
 
   return (
-    <AppLayout title="Security Policies" breadcrumbs={["Aegis Guardian", "Policies"]}>
+    <AppLayout title="Security Policies" breadcrumbs={["Policies"]}>
       <div className="space-y-6">
         {/* Search and Actions */}
         <div className="flex items-center justify-between">

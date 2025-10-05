@@ -209,12 +209,11 @@ export default function Compliance() {
   const departments = [...new Set(systems.map(sys => sys.department))];
 
   return (
-    <AppLayout title="Compliance Management" breadcrumbs={["Aegis Guardian", "Compliance"]}>
+    <AppLayout title="Compliance Management" breadcrumbs={["Compliance"]}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Compliance Management</h1>
             <p className="text-muted-foreground">
               Apply and manage policy group deployments across your infrastructure
             </p>

@@ -19,7 +19,7 @@ const assetTypes = [
 
 export default function Assets() {
   return (
-    <AppLayout title="Asset Management" breadcrumbs={["Aegis Guardian", "Assets"]}>
+    <AppLayout title="Asset Management" breadcrumbs={["Assets"]}>
       <div className="space-y-6">
         {/* Search and Actions */}
         <div className="flex items-center justify-between">

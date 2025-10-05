@@ -4390,7 +4390,7 @@ export default function Visualize() {
   };
 
   return (
-    <AppLayout title="Guardian CMDB Security Dashboard" breadcrumbs={["CMDB", "Infrastructure Topology"]}>
+    <AppLayout title="Guardian CMDB Security Dashboard" breadcrumbs={["Visualize"]}>
       <div className="flex h-[calc(100vh-12rem)]">
         {/* Collapsible Sidebar */}
         {!isInfrastructureCollapsed && (

@@ -26,7 +26,6 @@ const menuItems = [
   { title: "Policies", icon: Network, url: "/policies" },
   { title: "Reports", icon: BarChart3, url: "/reports" },
   { title: "Compliance", icon: FileCheck, url: "/compliance" },
-  { title: "Export", icon: ArrowRight, url: "/export" },
   { title: "Settings", icon: Settings, url: "/settings" },
 ];
 

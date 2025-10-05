@@ -22,7 +22,7 @@ const topAssets = [
 
 export default function Vulnerabilities() {
   return (
-    <AppLayout title="Compliance Management" breadcrumbs={["Aegis Guardian", "Vulnerabilities"]}>
+    <AppLayout title="Compliance Management" breadcrumbs={["Vulnerabilities"]}>
       <div className="space-y-6">
         {/* Stats Overview */}
         <div className="grid gap-4 md:grid-cols-4">

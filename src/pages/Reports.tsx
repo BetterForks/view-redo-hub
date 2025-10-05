@@ -28,7 +28,7 @@ const reportTemplates = [
 
 export default function Reports() {
   return (
-    <AppLayout title="Reports & Compliance" breadcrumbs={["Aegis Guardian", "Reports"]}>
+    <AppLayout title="Reports & Compliance" breadcrumbs={["Reports"]}>
       <div className="space-y-6">
         {/* Quick Actions */}
         <div className="flex items-center justify-between">

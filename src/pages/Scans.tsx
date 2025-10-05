@@ -92,7 +92,7 @@ export default function Scans() {
     console.log("Starting scan with config:", scanConfig);
   };
   return (
-    <AppLayout title="Security Scans" breadcrumbs={["Aegis Guardian", "Scans"]}>
+    <AppLayout title="Security Scans" breadcrumbs={["Scans"]}>
       <div className="space-y-6">
         {/* Quick Actions */}
         <div className="flex items-center justify-between">

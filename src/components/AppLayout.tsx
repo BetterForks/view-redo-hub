@@ -33,18 +33,9 @@ export function AppLayout({ children, title, breadcrumbs = [] }: AppLayoutProps)
               </Button>
               
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                    <span className="text-primary-foreground font-bold text-sm">G</span>
-                  </div>
-                  <span className="font-semibold text-foreground">Guardian</span>
-                </div>
-                
-                <span className="text-muted-foreground ml-2">Compliance Management</span>
-                
                 {breadcrumbs.map((crumb, index) => (
                   <div key={index} className="flex items-center gap-2">
-                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                    {index > 0 && <ChevronRight className="h-4 w-4 text-muted-foreground" />}
                     <span className="text-foreground">{crumb}</span>
                   </div>
                 ))}

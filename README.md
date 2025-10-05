@@ -1,33 +1,30 @@
-# Welcome to your Lovable project
+# Aegis Guardian - Compliance Management Platform
 
-## Project info
+## Project Overview
 
-**URL**: https://lovable.dev/projects/48721ec4-2c6e-423b-90c5-4b31216bd787
+Aegis Guardian is a comprehensive compliance management and security monitoring platform built with React, TypeScript, and modern web technologies.
+
+## Features
+
+- **Policy Management**: Create, organize, and deploy compliance policies across your infrastructure
+- **Asset Management**: Comprehensive inventory and monitoring of organizational assets  
+- **Compliance Tracking**: Real-time compliance status monitoring across all managed systems
+- **Security Scanning**: Automated vulnerability and compliance scanning
+- **Visualization**: Interactive network topology and system relationship views
+- **Reporting**: Generate detailed compliance and security reports
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
+**Local Development**
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/48721ec4-2c6e-423b-90c5-4b31216bd787) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Clone this repository and follow these steps:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Step 1: Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Step 2: Navigate to the project directory
+cd view-redo-hub
 
 # Step 3: Install the necessary dependencies.
 npm i
@@ -50,24 +47,46 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+## Technology Stack
 
-This project is built with:
+This project is built with modern web technologies:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Frontend**: React 18 with TypeScript
+- **Build Tool**: Vite for fast development and optimized builds
+- **UI Framework**: Tailwind CSS for styling
+- **Component Library**: shadcn/ui for consistent UI components
+- **Routing**: React Router for navigation
+- **State Management**: React hooks and context
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/48721ec4-2c6e-423b-90c5-4b31216bd787) and click on Share -> Publish.
+### Build for Production
 
-## Can I connect a custom domain to my Lovable project?
+```sh
+npm run build
+```
 
-Yes, you can!
+### Preview Production Build
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```sh
+npm run preview
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project can be deployed to any static hosting platform that supports React applications, such as:
+- Netlify
+- Vercel
+- GitHub Pages
+- AWS S3 + CloudFront
+- Azure Static Web Apps
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is proprietary software for enterprise compliance management.

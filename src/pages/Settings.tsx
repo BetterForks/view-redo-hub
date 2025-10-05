@@ -10,7 +10,7 @@ import { Settings as SettingsIcon, Shield, Bell, Database, GitBranch, Users } fr
 
 export default function Settings() {
   return (
-    <AppLayout title="Settings" breadcrumbs={["Aegis Guardian", "Settings"]}>
+    <AppLayout title="Settings" breadcrumbs={["Settings"]}>
       <div className="space-y-6">
         <Tabs defaultValue="general">
           <TabsList>

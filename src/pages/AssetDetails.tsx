@@ -58,7 +58,7 @@ export default function AssetDetails() {
 
   if (!asset) {
     return (
-      <AppLayout title="Asset Not Found" breadcrumbs={["Aegis Guardian", "Assets", "Not Found"]}>
+      <AppLayout title="Asset Not Found" breadcrumbs={["Assets", "Not Found"]}>
         <div className="text-center">Asset not found.</div>
       </AppLayout>
     );
@@ -74,7 +74,7 @@ export default function AssetDetails() {
   }, {} as Record<string, any[]>);
 
   return (
-    <AppLayout title={`Asset: ${asset.hostname}`} breadcrumbs={["Aegis Guardian", "Assets", asset.hostname]}>
+    <AppLayout title={`Asset: ${asset.hostname}`} breadcrumbs={["Assets", asset.hostname]}>
       <div className="space-y-6">
         <Card>
           <CardHeader>
