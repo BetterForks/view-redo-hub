@@ -1,16 +1,80 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppLayout } from "@/components/AppLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { GenerateReportDialog } from "@/components/GenerateReportDialog";
-import { FileText, Download, Calendar, Clock, Shield } from "lucide-react";
+import { FileText, Download, Calendar, Clock, Shield, Loader2 } from "lucide-react";
 
 const initialReports = [
   { name: "Monthly Compliance Report", type: "Compliance", generated: "2025-09-30 08:00", size: "2.4 MB", format: "PDF", status: "Ready", isGuardianReport: false },
   { name: "Asset Inventory Report", type: "Asset", generated: "2025-09-29 10:15", size: "3.1 MB", format: "PDF", status: "Ready", isGuardianReport: false },
 ];
+
+// Local storage utilities
+const STORAGE_KEY = 'guardian-reports';
+const GENERATION_STATE_KEY = 'guardian-generation-state';
+
+const saveReportsToStorage = (reports: any[]) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
+  } catch (error) {
+    console.error('Failed to save reports to localStorage:', error);
+  }
+};
+
+const loadReportsFromStorage = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsedReports = JSON.parse(stored);
+      // Ensure we have the initial reports if none are stored
+      return parsedReports.length > 0 ? parsedReports : initialReports;
+    }
+  } catch (error) {
+    console.error('Failed to load reports from localStorage:', error);
+  }
+  return initialReports;
+};
+
+const saveGenerationState = (isGenerating: boolean, message: string = '') => {
+  try {
+    localStorage.setItem(GENERATION_STATE_KEY, JSON.stringify({ 
+      isGenerating, 
+      message,
+      timestamp: Date.now()
+    }));
+  } catch (error) {
+    console.error('Failed to save generation state:', error);
+  }
+};
+
+const loadGenerationState = () => {
+  try {
+    const stored = localStorage.getItem(GENERATION_STATE_KEY);
+    if (stored) {
+      const state = JSON.parse(stored);
+      // Clear generation state if it's older than 30 seconds (in case user left during generation)
+      if (Date.now() - state.timestamp > 30000) {
+        localStorage.removeItem(GENERATION_STATE_KEY);
+        return { isGenerating: false, message: '' };
+      }
+      return state;
+    }
+  } catch (error) {
+    console.error('Failed to load generation state:', error);
+  }
+  return { isGenerating: false, message: '' };
+};
+
+const clearGenerationState = () => {
+  try {
+    localStorage.removeItem(GENERATION_STATE_KEY);
+  } catch (error) {
+    console.error('Failed to clear generation state:', error);
+  }
+};
 
 const scheduledReports = [
   { name: "Daily Security Posture", schedule: "Daily at 06:00 AM", recipients: "security-team@company.com", enabled: true },
@@ -56,14 +120,58 @@ const mockLocations = {
 export default function Reports() {
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [reports, setReports] = useState(initialReports);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatingMessage, setGeneratingMessage] = useState("");
 
-  const handleGenerateReport = (reportConfig: any) => {
+  // Load reports from localStorage on component mount
+  useEffect(() => {
+    const savedReports = loadReportsFromStorage();
+    setReports(savedReports);
+    
+    // Load generation state
+    const generationState = loadGenerationState();
+    setIsGenerating(generationState.isGenerating);
+    setGeneratingMessage(generationState.message);
+  }, []);
+
+  // Save reports to localStorage whenever reports change
+  useEffect(() => {
+    saveReportsToStorage(reports);
+  }, [reports]);
+
+  // Save generation state whenever it changes
+  useEffect(() => {
+    saveGenerationState(isGenerating, generatingMessage);
+  }, [isGenerating, generatingMessage]);
+
+  const handleGenerateReport = async (reportConfig: any) => {
     // Check if MUM-WEB-01 is included in the selected systems
     const includesMumWeb01 = reportConfig.selectedSystems?.includes('mumbai-web-01');
     
     let newReport;
     
     if (includesMumWeb01) {
+      // Set loading state for Guardian report generation
+      setIsGenerating(true);
+      setGeneratingMessage("Analyzing MUM-WEB-01 security configuration...");
+      
+      // Simulate realistic report generation with progress updates
+      const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+      
+      await delay(3000);
+      setGeneratingMessage("Scanning system vulnerabilities and compliance status...");
+      
+      await delay(4000);
+      setGeneratingMessage("Cross-referencing security policies and baseline configurations...");
+      
+      await delay(3000);
+      setGeneratingMessage("Compiling comprehensive security assessment...");
+      
+      await delay(4000);
+      setGeneratingMessage("Generating Guardian compliance report...");
+      
+      await delay(2000);
+      
       // Special handling for MUM-WEB-01 - provide the actual Guardian report
       newReport = {
         name: `Guardian Report - MUM-WEB-01 - ${new Date().toISOString().slice(0, 10).replace(/-/g, '')}`,
@@ -75,8 +183,13 @@ export default function Reports() {
         filePath: "/Guardian-Report-MUM-WEB-01-20251005.pdf", // Path to the actual PDF
         isGuardianReport: true
       };
+      
+      setIsGenerating(false);
+      setGeneratingMessage("");
+      clearGenerationState();
+      console.log("Generated Guardian Report for MUM-WEB-01 with actual PDF file");
     } else {
-      // Mock report generation for other systems
+      // Mock report generation for other systems (instant)
       newReport = {
         name: reportConfig.name || `${reportConfig.reportType} Report`,
         type: reportConfig.reportType.charAt(0).toUpperCase() + reportConfig.reportType.slice(1),
@@ -85,14 +198,16 @@ export default function Reports() {
         format: reportConfig.format.toUpperCase(),
         status: "Ready"
       };
+      console.log("Generating report with config:", reportConfig);
     }
 
     setReports(prev => [newReport, ...prev]);
-    
-    if (includesMumWeb01) {
-      console.log("Generated Guardian Report for MUM-WEB-01 with actual PDF file");
-    } else {
-      console.log("Generating report with config:", reportConfig);
+  };
+
+  const handleClearReports = () => {
+    if (confirm('Are you sure you want to clear all reports? This action cannot be undone.')) {
+      setReports(initialReports);
+      localStorage.removeItem(STORAGE_KEY);
     }
   };
 
@@ -118,15 +233,60 @@ export default function Reports() {
         {/* Quick Actions */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Button onClick={() => setShowReportDialog(true)}>
-              <FileText className="h-4 w-4 mr-2" />
-              Generate Report
+            <Button onClick={() => setShowReportDialog(true)} disabled={isGenerating}>
+              {isGenerating ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <FileText className="h-4 w-4 mr-2" />
+                  Generate Report
+                </>
+              )}
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleClearReports}
+              disabled={isGenerating}
+            >
+              Clear All
             </Button>
           </div>
           <div className="text-sm text-muted-foreground">
-            Last generated: 2 minutes ago
+            {isGenerating ? (
+              <div className="flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                {generatingMessage}
+              </div>
+            ) : (
+              "Last generated: 2 minutes ago"
+            )}
           </div>
         </div>
+
+        {/* Loading Banner for Guardian Report Generation */}
+        {isGenerating && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-blue-100 rounded-full">
+                <Shield className="h-6 w-6 text-blue-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-blue-900 mb-1">Generating Guardian Security Report</h3>
+                <div className="flex items-center gap-2 text-blue-700">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>{generatingMessage}</span>
+                </div>
+                <div className="mt-2 text-sm text-blue-600">
+                  This process may take 15-20 seconds for comprehensive analysis...
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Stats Overview */}
         <div className="grid gap-4 md:grid-cols-2">
