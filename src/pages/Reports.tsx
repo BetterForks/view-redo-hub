@@ -7,10 +7,7 @@ import { FileText, Download, Calendar, Clock } from "lucide-react";
 
 const reports = [
   { name: "Monthly Compliance Report", type: "Compliance", generated: "2025-09-30 08:00", size: "2.4 MB", format: "PDF", status: "Ready" },
-  { name: "Vulnerability Assessment Q3", type: "Vulnerability", generated: "2025-09-25 14:30", size: "1.8 MB", format: "PDF", status: "Ready" },
-  { name: "Policy Enforcement Summary", type: "Policy", generated: "2025-09-30 06:00", size: "892 KB", format: "PDF", status: "Ready" },
   { name: "Asset Inventory Report", type: "Asset", generated: "2025-09-29 10:15", size: "3.1 MB", format: "PDF", status: "Ready" },
-  { name: "Scan Results - Production", type: "Scan", generated: "2025-09-30 14:23", size: "1.2 MB", format: "PDF", status: "Ready" },
 ];
 
 const scheduledReports = [
@@ -45,25 +42,15 @@ export default function Reports() {
         </div>
 
         {/* Stats Overview */}
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Reports Generated</CardTitle>
               <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">247</div>
+              <div className="text-2xl font-bold">12</div>
               <p className="text-xs text-muted-foreground">This month</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Scheduled Reports</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">3</div>
-              <p className="text-xs text-muted-foreground">Active schedules</p>
             </CardContent>
           </Card>
           <Card>
@@ -73,16 +60,6 @@ export default function Reports() {
             <CardContent>
               <div className="text-2xl font-bold">4</div>
               <p className="text-xs text-muted-foreground">Available templates</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg Generation Time</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">23s</div>
-              <p className="text-xs text-muted-foreground">For PDF reports</p>
             </CardContent>
           </Card>
         </div>
@@ -138,49 +115,6 @@ export default function Reports() {
           </CardContent>
         </Card>
 
-        {/* Scheduled Reports */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Scheduled Reports</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Report Name</TableHead>
-                  <TableHead>Schedule</TableHead>
-                  <TableHead>Recipients</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {scheduledReports.map((report, idx) => (
-                  <TableRow key={idx}>
-                    <TableCell className="font-medium">{report.name}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
-                        {report.schedule}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground max-w-xs truncate">
-                      {report.recipients}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="secondary" className="bg-info/20 text-info">
-                        {report.enabled ? "Enabled" : "Disabled"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button variant="ghost" size="sm">Edit</Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
 
         {/* Report Templates */}
         <Card>

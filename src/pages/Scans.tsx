@@ -114,7 +114,7 @@ export default function Scans() {
         </div>
 
         {/* Stats Overview */}
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Scans Today</CardTitle>
@@ -142,16 +142,7 @@ export default function Scans() {
               <p className="text-xs text-muted-foreground">Requires immediate action</p>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg Scan Time</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">11m 40s</div>
-              <p className="text-xs text-muted-foreground">-2m from last week</p>
-            </CardContent>
-          </Card>
-        </div>
+  </div>
 
         {/* Scan History */}
         <Card>
@@ -169,7 +160,6 @@ export default function Scans() {
                   <TableHead className="text-center">High</TableHead>
                   <TableHead className="text-center">Medium</TableHead>
                   <TableHead className="text-center">Low</TableHead>
-                  <TableHead>Duration</TableHead>
                   <TableHead>Timestamp</TableHead>
                 </TableRow>
               </TableHeader>
@@ -211,7 +201,6 @@ export default function Scans() {
                         <span className="text-muted-foreground">0</span>
                       )}
                     </TableCell>
-                    <TableCell>{scan.duration}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">{scan.timestamp}</TableCell>
                   </TableRow>
                 ))}
