@@ -10,7 +10,6 @@ import { Play, RefreshCw, Calendar, Clock } from "lucide-react";
 const initialScanHistory = [
   { id: "SCN-001", target: "Production Servers", status: "Completed", findings: 47, critical: 5, high: 12, medium: 18, low: 12, timestamp: "2025-09-30 14:23:15", duration: "12m 34s" },
   { id: "SCN-002", target: "Development Environment", status: "Completed", findings: 23, critical: 1, high: 7, medium: 10, low: 5, timestamp: "2025-09-30 10:15:42", duration: "8m 17s" },
-  { id: "SCN-003", target: "Database Servers", status: "In Progress", findings: 0, critical: 0, high: 0, medium: 0, low: 0, timestamp: "2025-09-30 15:00:00", duration: "Running" },
   { id: "SCN-004", target: "Web Servers", status: "Completed", findings: 31, critical: 3, high: 9, medium: 12, low: 7, timestamp: "2025-09-30 08:45:22", duration: "15m 09s" },
 ];
 
