@@ -57,13 +57,15 @@ export default function Visualize() {
   const renderNodeInfo = (node: any) => {
     if (!node) return null;
 
-    if (node.type === "system" && currentView === 'location-systems') {
+    if (node.type === "system") {
       const system = node.details;
       return (
         <div className="space-y-3">
           <div className="border-b pb-2">
             <h3 className="font-semibold text-lg text-blue-600">{node.name}</h3>
-            <p className="text-sm text-muted-foreground">System Overview</p>
+            <p className="text-sm text-muted-foreground">
+              {currentView === 'location-systems' ? 'System Overview' : 'Security Configuration'}
+            </p>
           </div>
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div><span className="font-medium">Type:</span> {system.type}</div>
@@ -73,54 +75,45 @@ export default function Visualize() {
               'bg-red-100 text-red-800'
             }`}>{system.status.toUpperCase()}</span></div>
             <div><span className="font-medium">IP:</span> {system.ip}</div>
-            <div><span className="font-medium">Uptime:</span> {system.uptime}</div>
-            <div className="col-span-2"><span className="font-medium">OS:</span> {system.os}</div>
-            <div className="col-span-2"><span className="font-medium">CPU:</span> {system.cpu}</div>
-            <div><span className="font-medium">Memory:</span> {system.memory}</div>
-            <div><span className="font-medium">Storage:</span> {system.storage}</div>
+            <div><span className="font-medium">OS:</span> {system.os}</div>
+            {system.uptime && <div><span className="font-medium">Uptime:</span> {system.uptime}</div>}
+            {system.cpu && <div className="col-span-2"><span className="font-medium">CPU:</span> {system.cpu}</div>}
+            {system.memory && <div><span className="font-medium">Memory:</span> {system.memory}</div>}
+            {system.storage && <div><span className="font-medium">Storage:</span> {system.storage}</div>}
+            {system.owner && <div className="col-span-2"><span className="font-medium">Owner:</span> {system.owner}</div>}
+            {system.environment && <div><span className="font-medium">Environment:</span> {system.environment}</div>}
+            {node.role && <div><span className="font-medium">Role:</span> {node.role}</div>}
+            {node.vendor && <div><span className="font-medium">Hardware:</span> {node.vendor} {node.model || ''}</div>}
+            {node.serialNumber && <div className="col-span-2"><span className="font-medium">Serial:</span> <span className="font-mono text-xs">{node.serialNumber}</span></div>}
           </div>
-          <div className="border-t pt-2">
-            <div className="text-sm font-medium mb-2">Vulnerabilities</div>
-            <div className="grid grid-cols-4 gap-2 text-xs">
-              <div className="bg-red-100 text-red-800 p-2 rounded text-center">
-                <div className="font-bold">{system.vulnerabilities.critical}</div>
-                <div>Critical</div>
-              </div>
-              <div className="bg-orange-100 text-orange-800 p-2 rounded text-center">
-                <div className="font-bold">{system.vulnerabilities.high}</div>
-                <div>High</div>
-              </div>
-              <div className="bg-yellow-100 text-yellow-800 p-2 rounded text-center">
-                <div className="font-bold">{system.vulnerabilities.medium}</div>
-                <div>Medium</div>
-              </div>
-              <div className="bg-blue-100 text-blue-800 p-2 rounded text-center">
-                <div className="font-bold">{system.vulnerabilities.low}</div>
-                <div>Low</div>
+          {system.vulnerabilities && (
+            <div className="border-t pt-2">
+              <div className="text-sm font-medium mb-2">Vulnerabilities</div>
+              <div className="grid grid-cols-4 gap-2 text-xs">
+                <div className="bg-red-100 text-red-800 p-2 rounded text-center">
+                  <div className="font-bold">{system.vulnerabilities.critical}</div>
+                  <div>Critical</div>
+                </div>
+                <div className="bg-orange-100 text-orange-800 p-2 rounded text-center">
+                  <div className="font-bold">{system.vulnerabilities.high}</div>
+                  <div>High</div>
+                </div>
+                <div className="bg-yellow-100 text-yellow-800 p-2 rounded text-center">
+                  <div className="font-bold">{system.vulnerabilities.medium}</div>
+                  <div>Medium</div>
+                </div>
+                <div className="bg-blue-100 text-blue-800 p-2 rounded text-center">
+                  <div className="font-bold">{system.vulnerabilities.low}</div>
+                  <div>Low</div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="text-xs text-muted-foreground italic bg-blue-50 p-2 rounded">
-            💡 Click to drill down into security details
-          </div>
-        </div>
-      );
-    } else if (node.type === "system") {
-      // System details view (from systemsData)
-      return (
-        <div className="space-y-3">
-          <div className="border-b pb-2">
-            <h3 className="font-semibold text-lg text-blue-600">{node.name}</h3>
-            <p className="text-sm text-muted-foreground">Security Configuration</p>
-          </div>
-          <div className="grid grid-cols-1 gap-2 text-sm">
-            <div><span className="font-medium">Role:</span> {node.role || 'N/A'}</div>
-            <div><span className="font-medium">IP Address:</span> {node.ip || 'N/A'}</div>
-            <div><span className="font-medium">Hardware:</span> {node.vendor || 'N/A'} {node.model || ''}</div>
-            <div><span className="font-medium">Serial:</span> <span className="font-mono text-xs">{node.serialNumber || 'N/A'}</span></div>
-          </div>
-          <div className="text-xs text-muted-foreground italic bg-purple-50 p-2 rounded">
-            💡 Click to expand/collapse security categories
+            {currentView === 'location-systems' 
+              ? '💡 Click to drill down into security details'
+              : '💡 Click to expand/collapse security categories'
+            }
           </div>
         </div>
       );
