@@ -218,7 +218,7 @@ export default function Visualize() {
     } else {
       initVisualization();
     }
-  }, [selectedLocation, selectedSystem, selectedNode, expandedNodes, currentView]);
+  }, [selectedLocation, selectedSystem, expandedNodes, currentView]);
 
   const initVisualization = () => {
     if (!svgRef.current || !(window as any).d3) return;
@@ -4304,7 +4304,7 @@ export default function Visualize() {
     }
 
     function handleNodeClick(event, d) {
-      // Always set selected node for info panel
+      // Always update selected node for info panel (won't trigger re-render of graph)
       setSelectedNode(d);
       
       if (currentView === 'location-systems' && d.type === "system") {
@@ -4312,14 +4312,20 @@ export default function Visualize() {
         setCurrentView('system-details');
         setExpandedNodes(new Set([d.id]));
       } else if (currentView === 'system-details') {
-        // In system view, expand/collapse nodes
-        const newExpanded = new Set(expandedNodes);
-        if (newExpanded.has(d.id)) {
-          newExpanded.delete(d.id);
-        } else {
-          newExpanded.add(d.id);
+        // Check if this node has any children (is not a leaf node)
+        const hasChildren = systemsData[selectedSystem]?.links.some(link => link.source === d.id);
+        
+        // Only allow expand/collapse for nodes that have children
+        if (hasChildren) {
+          const newExpanded = new Set(expandedNodes);
+          if (newExpanded.has(d.id)) {
+            newExpanded.delete(d.id);
+          } else {
+            newExpanded.add(d.id);
+          }
+          setExpandedNodes(newExpanded);
         }
-        setExpandedNodes(newExpanded);
+        // If it's a leaf node, only selectedNode is updated (no graph re-render)
       }
     }
 
