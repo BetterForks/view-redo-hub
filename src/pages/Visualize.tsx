@@ -5,10 +5,10 @@ import { ChevronDown, ChevronRight, Building2, Server, MapPin, Database, Globe, 
 
 export default function Visualize() {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<string | null>("mumbai"); // Default to Mumbai
   const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<any | null>(null); // For info panel
-  const [expandedLocations, setExpandedLocations] = useState<Set<string>>(new Set());
+  const [expandedLocations, setExpandedLocations] = useState<Set<string>>(new Set(["mumbai"])); // Default expand Mumbai
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [currentView, setCurrentView] = useState<'location-systems' | 'system-details'>('location-systems');
   const [isInfrastructureCollapsed, setIsInfrastructureCollapsed] = useState(true); // Start collapsed for more space
