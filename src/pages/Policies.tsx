@@ -13,10 +13,10 @@ import { useState } from "react";
 const baselineWindowsPolicy = {
   id: "BWP-001",
   name: "Baseline Windows Policy", 
-  totalPolicies: 115,
-  compliant: 108,
-  warnings: 5,
-  nonCompliant: 2,
+  totalPolicies: 116,
+  compliant: 103,
+  warnings: 7,
+  nonCompliant: 6,
   categories: [
     { name: "Account Policies", policies: 24, compliant: 23, warnings: 1, nonCompliant: 0 },
     { name: "Local Policies", policies: 18, compliant: 17, warnings: 1, nonCompliant: 0 },
