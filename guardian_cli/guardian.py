@@ -81,24 +81,7 @@ def generate_pdf_report(system_info, actual_metrics, non_compliant_findings):
         'Logging & Auditing': {'total': 12, 'compliant': 12, 'non_compliant': 0}
     }
     
-    # Create sample compliant items for display
-    compliant_samples = [
-        {
-            'Feature ID': 'F-LNX-101',
-            'Parameter/Rule': 'cramfs module disabled',
-            'Details': 'cramfs kernel module properly disabled for security'
-        },
-        {
-            'Feature ID': 'F-LNX-502',
-            'Parameter/Rule': 'time services configured',
-            'Details': 'NTP synchronization properly configured and active'
-        },
-        {
-            'Feature ID': 'F-LNX-801',
-            'Parameter/Rule': 'system logging enabled',
-            'Details': 'systemd journal configured with proper retention settings'
-        }
-    ]
+    # Removed compliant samples - only showing non-compliant items in report
     
     # Create filename
     filename_date = now.strftime("%Y%m%d")
@@ -300,50 +283,6 @@ def generate_pdf_report(system_info, actual_metrics, non_compliant_findings):
             elements.append(Spacer(1, 0.08*inch))
 
     elements.append(Spacer(1, 0.12*inch))
-
-    # --- Compliant Items ---
-    if compliant_samples:
-        elements.append(Paragraph(
-            "<b>Compliant Items (Verified)</b>",
-            ParagraphStyle('c_head', fontSize=10, fontName='Helvetica-Bold', spaceAfter=6, spaceBefore=4)
-        ))
-        for finding in compliant_samples:
-            param_text = Paragraph(
-                f"<b>{finding['Feature ID']}:</b> {finding['Parameter/Rule']}",
-                ParagraphStyle('param', fontSize=9, fontName='Helvetica')
-            )
-            status_text = Paragraph(
-                "<b>PASSED</b>",
-                ParagraphStyle('status', fontSize=9, fontName='Helvetica-Bold', textColor=colors.green, alignment=TA_CENTER)
-            )
-            detail = finding.get('Details') or f"Parameter '{finding['Parameter/Rule']}' is compliant."
-            detail_text = Paragraph(
-                f"<i>Details: {detail}</i>",
-                ParagraphStyle('detail', fontSize=8, fontName='Helvetica-Oblique', textColor=colors.HexColor('#155724'))
-            )
-            c_data = [
-                [Paragraph("<b>Parameter / Rule</b>", ParagraphStyle('header', fontSize=9, fontName='Helvetica-Bold')),
-                 Paragraph("<b>Status</b>", ParagraphStyle('header', fontSize=9, fontName='Helvetica-Bold', alignment=TA_CENTER))],
-                [param_text, status_text],
-                [detail_text, ''],
-            ]
-            c_table = RLTable(c_data, colWidths=[4.7*inch, 1.2*inch])
-            c_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#d4edda')),
-                ('ALIGN', (0, 0), (-1, 0), 'LEFT'),
-                ('ALIGN', (1, 1), (1, 1), 'CENTER'),
-                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, -1), 9),
-                ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-                ('TOPPADDING', (0, 0), (-1, -1), 5),
-                ('GRID', (0, 0), (-1, 1), 0.5, colors.black),
-                ('SPAN', (0, 2), (-1, 2)),
-                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                ('LEFTPADDING', (0, 0), (-1, -1), 6),
-                ('RIGHTPADDING', (0, 0), (-1, -1), 6),
-            ]))
-            elements.append(KeepTogether(c_table))
-            elements.append(Spacer(1, 0.08*inch))
 
     # Build PDF with custom canvas
     doc.build(elements, canvasmaker=HeaderFooterCanvas)
